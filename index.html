@@ -22,6 +22,7 @@ font-family: 'Noto Sans KR', sans-serif;
 background-color: #030708;
 color: #ffffff;
 -webkit-tap-highlight-color: transparent;
+overflow-x: hidden;
 }
 /* Dot Grid Background pattern */
 .bg-dots-pattern {
@@ -29,13 +30,28 @@ background-color: #04080a;
 background-image: radial-gradient(rgba(0, 255, 157, 0.15) 1px, transparent 0);
 background-size: 28px 28px;
 }
-/* Pure Horizontal RGB Shift for Text */
+/* Pure Horizontal RGB Shift & Glitch for Text */
 @keyframes rgb-horizontal-shift {
-0% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; }
-50% { text-shadow: -4px 0 0 #ff0055, 4px 0 0 #00ff9d; }
-100% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; }
+0% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; transform: translate(0, 0); }
+20% { text-shadow: -3px 0 0 #ff0055, 3px 0 0 #00ff9d; transform: translate(-2px, 1px); }
+40% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; transform: translate(2px, -1px); }
+60% { text-shadow: -2px 0 0 #ff0055, 2px 0 0 #00ff9d; transform: translate(0, 0); }
+80% { text-shadow: 3px 0 0 #ff0055, -3px 0 0 #00ff9d; transform: translate(1px, 1px); }
+100% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; transform: translate(0, 0); }
 }
-.rgb-glitch-text { animation: rgb-horizontal-shift 0.15s infinite ease-in-out; }
+.rgb-glitch-text { animation: rgb-horizontal-shift 0.18s infinite ease-in-out; }
+/* Glitch Effect for Intro Quest Box */
+@keyframes glitch-box-flicker {
+0% { clip-path: inset(0 0 0 0); transform: translate(0); }
+5% { clip-path: inset(10% 0 85% 0); transform: translate(-3px, 2px); }
+10% { clip-path: inset(0 0 0 0); transform: translate(0); }
+15% { clip-path: inset(70% 0 5% 0); transform: translate(3px, -1px); }
+20% { clip-path: inset(0 0 0 0); transform: translate(0); }
+100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+}
+.glitch-box {
+animation: glitch-box-flicker 2.5s infinite;
+}
 /* Arcade Frame Styles for Intro */
 .arcade-outer-frame {
 border: 3px solid #00f0ff;
@@ -46,6 +62,44 @@ box-shadow: 0 0 25px rgba(0, 240, 255, 0.6), inset 0 0 15px rgba(0, 240, 255, 0.
 border: 2px solid #00a8ff;
 border-radius: 16px;
 box-shadow: 0 0 15px rgba(0, 168, 255, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+/* Zoom-In Portal Transition for Arcade Screen */
+@keyframes zoom-portal-out {
+0% {
+transform: scale(1);
+opacity: 1;
+filter: brightness(1) blur(0px);
+}
+50% {
+transform: scale(3.5);
+opacity: 0.8;
+filter: brightness(2.5) blur(3px) drop-shadow(0 0 50px #00ff9d);
+}
+100% {
+transform: scale(12);
+opacity: 0;
+filter: brightness(5) blur(10px);
+}
+}
+.zoom-portal-anim {
+animation: zoom-portal-out 0.8s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
+transform-origin: center center;
+}
+/* Left to Right Fade-In Wipe Transition for Main Content */
+@keyframes wipe-in-left-to-right {
+0% {
+clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+opacity: 0;
+transform: translateX(-20px);
+}
+100% {
+clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+opacity: 1;
+transform: translateX(0);
+}
+}
+.wipe-in-anim {
+animation: wipe-in-left-to-right 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 /* Card Borders & Styling */
 .mint-card-border {
@@ -71,32 +125,6 @@ transform: scale(1.08);
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #04080a; }
 ::-webkit-scrollbar-thumb { background: #00ff9d; border-radius: 4px; }
-/* TV Turn-On Expansion Keyframe Animation */
-@keyframes tv-expand-turnon {
-0% {
-transform: scale(0.001) rotate(-3deg);
-opacity: 0;
-filter: brightness(5) contrast(2) blur(8px) drop-shadow(0 0 50px #00f0ff);
-}
-20% {
-opacity: 1;
-filter: brightness(3.5) contrast(1.8) blur(4px) drop-shadow(0 0 40px #ff0055);
-}
-75% {
-transform: scale(0.95) rotate(0.5deg);
-opacity: 0.95;
-filter: brightness(1.8) contrast(1.2) blur(1px);
-}
-100% {
-transform: scale(1) rotate(0deg);
-opacity: 1;
-filter: brightness(1) contrast(1) blur(0px) drop-shadow(0 0 25px rgba(0,240,255,0.6));
-}
-}
-.tv-expand-anim {
-animation: tv-expand-turnon 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-transform-origin: center center;
-}
 /* Fullscreen Fit for Mobile SVH */
 .full-mobile-screen {
 height: 100vh;
@@ -124,15 +152,15 @@ transform: translateY(-2px);
 </div>
 </div>
 <!-- ==================== PAGE 1: INTRO ARCADE SCREEN ==================== -->
-<section id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#020405] p-3 md:p-4 transition-opacity duration-700 overflow-hidden full-mobile-screen">
+<section id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#020405] p-3 md:p-4 transition-opacity duration-500 overflow-hidden full-mobile-screen">
 <!-- Canvas 1: Starry Plus Background -->
 <canvas id="starry-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
 <!-- Canvas 2: Static Noise Layer -->
 <canvas id="tv-noise-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-30 transition-opacity duration-1000"></canvas>
 <!-- CRT Scanline Overlay -->
 <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none z-20 opacity-70"></div>
-<!-- Arcade Cabinet Outer Box (Compact Scaled for Mobile/SE3) -->
-<div id="arcade-cabinet" class="relative w-full max-w-md max-h-[92svh] bg-[#050b0e] arcade-outer-frame p-3.5 md:p-5 flex flex-col items-center justify-between z-30 opacity-0 transform scale-0 tv-expand-anim my-auto overflow-y-auto">
+<!-- Arcade Cabinet Outer Box -->
+<div id="arcade-cabinet" class="relative w-full max-w-md max-h-[92svh] bg-[#050b0e] arcade-outer-frame p-3.5 md:p-5 flex flex-col items-center justify-between z-30 my-auto overflow-y-auto transition-transform duration-700">
 <!-- Cabinet Top Header -->
 <div class="w-full flex items-center justify-between border-b border-cyan-500/40 pb-2 mb-2 px-1">
 <div class="flex items-center gap-1.5">
@@ -150,14 +178,17 @@ transform: translateY(-2px);
 <span>SCORE <span class="text-white">000000</span></span>
 <span>CREDIT <span class="text-emerald-400">01</span></span>
 </div>
+<!-- Glitch Quest Box Container -->
+<div class="glitch-box w-full flex flex-col items-center">
 <!-- Crown & Quest Badge -->
-<div class="inline-flex items-center gap-1.5 border border-cyan-500/60 bg-cyan-950/40 px-2.5 py-0.5 sm:py-1 rounded-full mb-3 sm:mb-5">
+<div class="inline-flex items-center gap-1.5 border border-cyan-500/60 bg-cyan-950/40 px-2.5 py-0.5 sm:py-1 rounded-full mb-3 sm:mb-5 shadow-[0_0_12px_rgba(0,240,255,0.3)]">
 <i class="fa-solid fa-crown text-yellow-400 text-[10px] sm:text-xs"></i>
 <span class="font-arcade text-[10px] sm:text-xs text-yellow-400 tracking-wider">[ NEW QUEST ]</span>
 </div>
 <!-- Glitch Text Display -->
 <div class="my-2 sm:my-3 py-1 px-3 w-full flex justify-center items-center">
-<span class="font-arcade text-2xl sm:text-4xl text-cyan-400 tracking-widest rgb-glitch-text font-black">QUEST?</span>
+<span class="font-arcade text-2xl sm:text-4xl text-cyan-400 tracking-widest rgb-glitch-text font-black">????</span>
+</div>
 </div>
 <p class="text-[11px] sm:text-[12px] text-slate-300 font-medium my-3 sm:my-5 leading-relaxed px-1">
 수락하면 다음 페이지에서 미션을 확인하실 수 있어요
@@ -205,7 +236,7 @@ transform: translateY(-2px);
 </div>
 </div>
 <!-- ==================== PAGE 2: MAIN PAGE ==================== -->
-<div id="main-content" class="min-h-screen flex flex-col bg-dots-pattern">
+<div id="main-content" class="min-h-screen flex flex-col bg-dots-pattern opacity-0 hidden">
 <!-- NAV BAR WITH HAMBURGER MENU -->
 <header class="sticky top-0 z-40 bg-[#04080a]/90 backdrop-blur-md border-b border-emerald-500/20 px-4 md:px-6 py-3.5">
 <div class="max-w-6xl mx-auto flex items-center justify-between">
@@ -635,15 +666,12 @@ SPECIAL QUEST
 const GOOGLE_SCRIPT_URL = "";
 // Arcade Screen Switching Function
 function switchArcadeTab(tabId) {
-// Hide all screens
 document.querySelectorAll('.arcade-screen-tab').forEach(screen => {
 screen.classList.add('hidden');
 });
-// Deactivate all buttons
 document.querySelectorAll('.arcade-tab-btn').forEach(btn => {
 btn.classList.remove('active');
 });
-// Show target screen & activate button
 const targetScreen = document.getElementById('tab-screen-' + tabId);
 const targetBtn = document.getElementById('tab-btn-' + tabId);
 if (targetScreen) targetScreen.classList.remove('hidden');
@@ -798,14 +826,26 @@ updateStampUI();
 }
 function enableScroll() { document.body.classList.remove('overflow-hidden'); }
 function disableScroll() { document.body.classList.add('overflow-hidden'); }
+// ACCEPT QUEST: Portal Zoom + Left-to-Right Wipe Transition
 function acceptQuest() {
 closeDeclineModal();
+const cabinet = document.getElementById('arcade-cabinet');
 const introScreen = document.getElementById('intro-screen');
+const mainContent = document.getElementById('main-content');
+// Step 1: Add Zoom Portal Animation to Cabinet
+cabinet.classList.add('zoom-portal-anim');
+// Step 2: Fade Out Intro & Wipe In Main Page
+setTimeout(() => {
 introScreen.style.opacity = '0';
+// Show Main Content and Apply Left-to-Right Wipe Animation
+mainContent.classList.remove('hidden');
+mainContent.classList.add('wipe-in-anim');
+mainContent.style.opacity = '1';
 setTimeout(() => {
 introScreen.style.display = 'none';
 enableScroll();
-}, 700);
+}, 500);
+}, 650);
 }
 function openDeclineModal() { document.getElementById('decline-modal').classList.remove('hidden'); }
 function closeDeclineModal() { document.getElementById('decline-modal').classList.add('hidden'); }
