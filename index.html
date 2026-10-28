@@ -11,6 +11,19 @@
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DPCH 2026 FESTIVAL : SPECIAL QUEST</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- FontAwesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
 <style>
 /* Custom Fonts */
@@ -40,38 +53,72 @@ background-size: 28px 28px;
 100% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; transform: translate(0, 0); }
 }
 .rgb-glitch-text { animation: rgb-horizontal-shift 0.18s infinite ease-in-out; }
-/* Glitch Effect for Intro Quest Box */
-@keyframes glitch-box-flicker {
-0% { clip-path: inset(0 0 0 0); transform: translate(0); }
-5% { clip-path: inset(10% 0 85% 0); transform: translate(-3px, 2px); }
-10% { clip-path: inset(0 0 0 0); transform: translate(0); }
-15% { clip-path: inset(70% 0 5% 0); transform: translate(3px, -1px); }
-20% { clip-path: inset(0 0 0 0); transform: translate(0); }
-100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+/* CRT Flicker & Static Screen Pop-up Animation inside Monitor */
+@keyframes crt-screen-popup {
+0% { opacity: 0; transform: scale(0.6) translateY(20px); filter: contrast(300%) brightness(2.5) blur(4px); }
+20% { opacity: 0.9; transform: scale(1.05) translateY(-5px); filter: contrast(180%) brightness(1.4); }
+40% { opacity: 0.4; transform: scale(0.98); }
+60% { opacity: 1; transform: scale(1.02); filter: contrast(120%) brightness(1.2); }
+80% { opacity: 0.85; transform: scale(0.99); }
+100% { opacity: 1; transform: scale(1) translateY(0); filter: contrast(100%) brightness(1); }
 }
-.glitch-box {
-animation: glitch-box-flicker 2.5s infinite;
+.arcade-popup-anim {
+animation: crt-screen-popup 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
-/* 3D Pixel Arcade Cabinet Outer Frame Styling */
-.arcade-cabinet-3d {
-background: linear-gradient(180deg, #121040 0%, #0d1233 40%, #08091a 100%);
-border: 6px solid #2563eb;
-border-radius: 28px;
-box-shadow: 0 0 45px rgba(37, 99, 235, 0.6), inset 0 0 25px rgba(59, 130, 246, 0.4);
+/* 3D RETRO ARCADE CABINET BODY DESIGN (3D Perspective Side Panels) */
+.arcade-machine-container {
+perspective: 1000px;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+max-width: 420px;
+margin: 0 auto;
+}
+.arcade-cabinet-3d-body {
+background: linear-gradient(180deg, #4a1314 0%, #2e0b0c 40%, #170506 100%);
+border: 5px solid #851e20;
+border-radius: 28px 28px 20px 20px;
+box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(133, 30, 32, 0.4), inset 0 2px 10px rgba(255, 150, 150, 0.2);
 position: relative;
+width: 100%;
+overflow: hidden;
 }
-.arcade-screen-bezel {
-background: #020408;
-border: 8px solid #1e293b;
-border-radius: 20px;
-box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.95), 0 0 20px rgba(37, 99, 235, 0.3);
+/* Arcade Cabinet Marquee Header */
+.cabinet-marquee {
+background: linear-gradient(180deg, #180521 0%, #0d0114 100%);
+border: 3px solid #ff2a8d;
+border-radius: 16px;
+box-shadow: 0 0 20px rgba(255, 42, 141, 0.6), inset 0 0 10px rgba(255, 42, 141, 0.4);
+}
+/* Curved CRT Arcade Monitor Frame with Glass Glare Effect */
+.crt-monitor-bezel {
+background: #060913;
+border: 10px solid #131a2b;
+border-radius: 24px;
+box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.95), 0 0 25px rgba(37, 99, 235, 0.3);
 position: relative;
+overflow: hidden;
+transform: perspective(600px) rotateX(2deg);
+}
+.crt-glass-glare {
+position: absolute;
+top: 0; left: 0; right: 0; bottom: 0;
+background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 40.1%);
+pointer-events: none;
+z-index: 25;
+}
+/* Control Deck Panel */
+.arcade-control-panel {
+background: linear-gradient(180deg, #1c0a0c 0%, #0a0304 100%);
+border-top: 4px solid #6b1416;
+box-shadow: inset 0 5px 15px rgba(0,0,0,0.9);
 }
 /* Screw / Bolt Accents */
 .cabinet-screw {
-width: 8px;
-height: 8px;
-background: #475569;
+width: 7px;
+height: 7px;
+background: #64748b;
 border-radius: 50%;
 box-shadow: inset 1px 1px 2px #94a3b8, inset -1px -1px 2px #0f172a;
 }
@@ -83,30 +130,30 @@ align-items: center;
 justify-content: center;
 }
 .joystick-base {
-width: 52px;
-height: 24px;
+width: 48px;
+height: 20px;
 background: radial-gradient(circle, #475569 0%, #0f172a 100%);
 border: 2px solid #64748b;
 border-radius: 50%;
 box-shadow: inset 0 4px 8px rgba(0,0,0,0.9), 0 5px 10px rgba(0,0,0,0.7);
 }
 .joystick-stick {
-width: 10px;
-height: 32px;
+width: 9px;
+height: 28px;
 background: linear-gradient(90deg, #94a3b8 0%, #f1f5f9 50%, #64748b 100%);
-border-radius: 5px;
+border-radius: 4px;
 }
 .joystick-knob {
-width: 34px;
-height: 34px;
+width: 30px;
+height: 30px;
 background: radial-gradient(circle at 35% 35%, #ff4d4d 0%, #cc0000 70%, #800000 100%);
 border-radius: 50%;
-box-shadow: 0 0 16px rgba(255, 0, 0, 0.9), inset -3px -3px 8px rgba(0,0,0,0.7);
+box-shadow: 0 0 14px rgba(255, 0, 0, 0.9), inset -3px -3px 8px rgba(0,0,0,0.7);
 }
 /* Arcade Push Buttons */
 .arcade-btn-3d {
-width: 26px;
-height: 26px;
+width: 24px;
+height: 24px;
 border-radius: 50%;
 transition: transform 0.1s ease;
 border: 2px solid rgba(255,255,255,0.3);
@@ -115,43 +162,36 @@ border: 2px solid rgba(255,255,255,0.3);
 .arcade-btn-yellow { background: radial-gradient(circle at 35% 35%, #ffea00 0%, #ffb703 70%); box-shadow: 0 0 10px #ffb703, inset 0 -3px 4px rgba(0,0,0,0.5); }
 .arcade-btn-blue { background: radial-gradient(circle at 35% 35%, #4cc9f0 0%, #4361ee 70%); box-shadow: 0 0 10px #4361ee, inset 0 -3px 4px rgba(0,0,0,0.5); }
 .arcade-btn-green { background: radial-gradient(circle at 35% 35%, #52b788 0%, #2dc653 70%); box-shadow: 0 0 10px #2dc653, inset 0 -3px 4px rgba(0,0,0,0.5); }
-/* Zoom-In Portal Transition for Arcade Screen */
-@keyframes zoom-portal-out {
+/* ZOOM INTO MONITOR PORTAL TRANSITION (Cabinet remains, Monitor Sucks In) */
+@keyframes zoom-into-monitor {
 0% {
-transform: scale(1);
+transform: perspective(600px) rotateX(2deg) scale(1);
 opacity: 1;
 filter: brightness(1) blur(0px);
 }
 50% {
-transform: scale(3.5);
-opacity: 0.8;
-filter: brightness(2.5) blur(3px) drop-shadow(0 0 50px #00ff9d);
+transform: perspective(600px) rotateX(0deg) scale(3.5);
+opacity: 0.9;
+filter: brightness(2.5) blur(2px) drop-shadow(0 0 80px #00ff9d);
 }
 100% {
-transform: scale(12);
+transform: perspective(600px) rotateX(0deg) scale(12);
 opacity: 0;
-filter: brightness(5) blur(10px);
+filter: brightness(6) blur(10px);
 }
 }
-.zoom-portal-anim {
-animation: zoom-portal-out 0.8s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
+.monitor-suck-anim {
+animation: zoom-into-monitor 0.85s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
 transform-origin: center center;
+z-index: 100;
 }
-/* Left to Right Fade-In Wipe Transition for Main Content */
-@keyframes wipe-in-left-to-right {
-0% {
-clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-opacity: 0;
-transform: translateX(-20px);
+/* Fade-In Transition for Main Content */
+@keyframes fade-in-smooth {
+0% { opacity: 0; transform: scale(0.96); }
+100% { opacity: 1; transform: scale(1); }
 }
-100% {
-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-opacity: 1;
-transform: translateX(0);
-}
-}
-.wipe-in-anim {
-animation: wipe-in-left-to-right 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.fade-in-anim {
+animation: fade-in-smooth 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 /* Card Borders & Styling */
 .mint-card-border {
@@ -177,7 +217,6 @@ transform: scale(1.08);
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #04080a; }
 ::-webkit-scrollbar-thumb { background: #00ff9d; border-radius: 4px; }
-/* Fullscreen Fit for Mobile SVH */
 .full-mobile-screen {
 height: 100vh;
 height: 100svh;
@@ -204,83 +243,86 @@ transform: translateY(-2px);
 </div>
 </div>
 <!-- ==================== PAGE 1: INTRO ARCADE SCREEN ==================== -->
-<section id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#020405] p-3 md:p-4 transition-opacity duration-500 overflow-hidden full-mobile-screen">
-<!-- Canvas 1: Starry Plus Background -->
+<section id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#020405] p-3 sm:p-4 transition-opacity duration-500 overflow-hidden full-mobile-screen">
+<!-- Canvas 1: Starry Background Particles -->
 <canvas id="starry-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
-<!-- Canvas 2: Static Noise Layer -->
-<canvas id="tv-noise-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-30 transition-opacity duration-1000"></canvas>
-<!-- CRT Scanline Overlay -->
-<div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none z-20 opacity-70"></div>
-<!-- ARCADE CABINET FULL FRAME CONTAINER -->
-<div id="arcade-cabinet" class="relative w-full max-w-sm sm:max-w-md arcade-cabinet-3d p-4 sm:p-5 flex flex-col justify-between z-30 my-auto shadow-[0_0_60px_rgba(37,99,235,0.5)] transition-transform duration-700">
-<!-- 1. Cabinet Marquee Header -->
-<div class="w-full bg-[#0d0926] border-2 border-pink-500 rounded-xl p-2.5 mb-3 text-center shadow-[0_0_20px_rgba(236,72,153,0.5)] flex items-center justify-between">
-<span class="text-yellow-400 text-sm animate-pulse">👾</span>
+<!-- Canvas 2: Static TV Noise Layer inside background -->
+<canvas id="tv-noise-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-20 transition-opacity duration-1000"></canvas>
+<!-- Scanline Effect Overlay -->
+<div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none z-20 opacity-60"></div>
+<!-- RETRO ARCADE MACHINE CONTAINER (PERFECTLY CENTERED) -->
+<div class="arcade-machine-container z-30 my-auto">
+<div id="arcade-cabinet" class="arcade-cabinet-3d-body p-3.5 sm:p-4 flex flex-col justify-between">
+<!-- 1. Cabinet Header / Marquee Sign -->
+<div class="cabinet-marquee p-2 mb-3 text-center flex items-center justify-between">
+<span class="text-yellow-400 text-xs animate-pulse">👾</span>
 <span class="font-arcade text-xs sm:text-sm text-yellow-400 tracking-wider">FESTIVAL 2026</span>
-<span class="font-arcade text-[8px] sm:text-[10px] text-cyan-300 tracking-tight animate-pulse">◄ INSERT COIN ►</span>
+<span class="font-arcade text-[8px] sm:text-[9px] text-pink-400 tracking-tight animate-pulse">◄ INSERT COIN ►</span>
 </div>
-<!-- 2. CRT Arcade Screen Frame -->
-<div class="w-full arcade-screen-bezel p-3 sm:p-4 text-center flex flex-col items-center relative overflow-hidden">
-<!-- Top Screws -->
-<div class="w-full flex justify-between items-center mb-2 px-1">
+<!-- 2. CRT Arcade Monitor Screen (Inner Display Box) -->
+<div id="crt-monitor" class="crt-monitor-bezel p-3 sm:p-4 text-center flex flex-col items-center">
+<div class="crt-glass-glare"></div>
+<!-- Monitor Top Screws -->
+<div class="w-full flex justify-between items-center mb-1.5 px-0.5 z-30">
 <div class="cabinet-screw"></div>
 <div class="cabinet-screw"></div>
 </div>
-<!-- Top Status Row -->
-<div class="w-full flex justify-between items-center text-[8px] sm:text-[10px] font-arcade text-slate-400 border-b border-slate-800 pb-1.5 mb-3">
+<!-- Monitor Screen Top Status -->
+<div class="w-full flex justify-between items-center text-[8px] sm:text-[9px] font-arcade text-slate-400 border-b border-slate-800 pb-1.5 mb-3 z-30">
 <span>SCORE <span class="text-white">000000</span></span>
 <span>CREDIT <span class="text-emerald-400">01</span></span>
 </div>
-<!-- Glitch Quest Box Container -->
-<div class="glitch-box w-full flex flex-col items-center">
-<!-- Crown Badge -->
-<div class="inline-flex items-center gap-1.5 border border-cyan-400 bg-cyan-950/80 px-3 py-1 rounded-full mb-3 shadow-[0_0_12px_rgba(0,240,255,0.6)]">
-<i class="fa-solid fa-crown text-yellow-400 text-[10px] sm:text-xs"></i>
-<span class="font-arcade text-[10px] sm:text-xs text-yellow-400 tracking-wider">[ NEW QUEST ]</span>
+<!-- POPUP QUEST WINDOW INSIDE MONITOR SCREEN -->
+<div class="arcade-popup-anim z-30 w-full bg-[#08111e]/90 border-2 border-cyan-400/80 rounded-2xl p-3 shadow-[0_0_20px_rgba(0,240,255,0.4)] flex flex-col items-center my-auto">
+<!-- Crown Badge Header -->
+<div class="inline-flex items-center gap-1.5 border border-cyan-400 bg-cyan-950/90 px-3 py-1 rounded-full mb-2 shadow-[0_0_10px_rgba(0,240,255,0.6)]">
+<i class="fa-solid fa-crown text-yellow-400 text-[10px]"></i>
+<span class="font-arcade text-[9px] sm:text-[10px] text-yellow-400 tracking-wider">[ NEW QUEST ]</span>
 </div>
-<!-- Glitch Text Display -->
-<div class="my-2 py-1 px-3 w-full flex justify-center items-center">
-<span class="font-arcade text-2xl sm:text-4xl text-cyan-400 tracking-widest rgb-glitch-text font-black">????</span>
+<!-- Glitch Quest Title Display -->
+<div class="my-1.5 py-0.5 px-2 w-full flex justify-center items-center">
+<span class="font-arcade text-2xl sm:text-3xl text-cyan-400 tracking-widest rgb-glitch-text font-black">????</span>
 </div>
-</div>
-<p class="text-[10px] sm:text-[12px] text-slate-300 font-medium my-3 leading-relaxed px-1">
+<p class="text-[10px] sm:text-[11px] text-slate-200 font-medium my-2 leading-relaxed px-1">
 수락하면 다음 페이지에서 미션을 확인하실 수 있어요
 </p>
 <!-- Screen Action Buttons -->
-<div class="grid grid-cols-2 gap-2.5 w-full mt-1">
-<button id="btn-accept-intro" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 active:scale-95 text-slate-950 font-arcade text-[10px] py-2.5 px-2 rounded-xl border-2 border-lime-300 shadow-[0_0_18px_rgba(132,204,22,0.7)] transition-all flex items-center justify-center gap-1">
+<div class="grid grid-cols-2 gap-2 w-full mt-1">
+<button id="btn-accept-intro" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 active:scale-95 text-slate-950 font-arcade text-[9px] py-2.5 px-1.5 rounded-xl border-2 border-lime-300 shadow-[0_0_15px_rgba(132,204,22,0.7)] transition-all flex items-center justify-center gap-1">
 ✓ ACCEPT
 </button>
-<button id="btn-decline-intro" onclick="openDeclineModal()" class="bg-[#9333ea] hover:brightness-110 active:scale-95 text-white font-arcade text-[10px] py-2.5 px-2 rounded-xl border-2 border-purple-400 shadow-[0_0_18px_rgba(147,51,234,0.7)] transition-all flex items-center justify-center gap-1">
+<button id="btn-decline-intro" onclick="openDeclineModal()" class="bg-[#9333ea] hover:brightness-110 active:scale-95 text-white font-arcade text-[9px] py-2.5 px-1.5 rounded-xl border-2 border-purple-400 shadow-[0_0_15px_rgba(147,51,234,0.7)] transition-all flex items-center justify-center gap-1">
 ✕ DECLINE
 </button>
 </div>
-<!-- Bottom Screws -->
-<div class="w-full flex justify-between items-center mt-3 px-1">
+</div>
+<!-- Monitor Bottom Screws -->
+<div class="w-full flex justify-between items-center mt-2 px-0.5 z-30">
 <div class="cabinet-screw"></div>
 <div class="cabinet-screw"></div>
 </div>
 </div>
-<!-- 3. Arcade Control Deck (3D Render Joystick & Push Buttons) -->
-<div class="w-full bg-[#0a1128] border-2 border-blue-500 rounded-xl p-3 mt-3 flex items-center justify-between shadow-[inset_0_3px_12px_rgba(0,0,0,0.9)]">
+<!-- 3. Arcade Control Deck Panel -->
+<div class="w-full arcade-control-panel rounded-xl p-2.5 mt-2.5 flex items-center justify-between">
 <!-- Joystick Graphics -->
-<div class="joystick-container pl-2">
+<div class="joystick-container pl-1">
 <div class="joystick-knob"></div>
 <div class="joystick-stick -mt-1"></div>
 <div class="joystick-base -mt-2"></div>
 </div>
-<!-- Action Push Buttons -->
-<div class="flex flex-col items-end gap-1.5 pr-1">
-<div class="flex gap-2.5">
+<!-- Push Buttons -->
+<div class="flex flex-col items-end gap-1 pr-1">
+<div class="flex gap-2">
 <div class="arcade-btn-3d arcade-btn-red"></div>
 <div class="arcade-btn-3d arcade-btn-yellow"></div>
 </div>
-<div class="flex gap-2.5 pr-1">
+<div class="flex gap-2 pr-0.5">
 <div class="arcade-btn-3d arcade-btn-blue"></div>
 <div class="arcade-btn-3d arcade-btn-green"></div>
 </div>
 </div>
-<span class="font-arcade text-[9px] text-yellow-400 tracking-widest font-bold pr-1">1P START</span>
+<span class="font-arcade text-[8px] text-yellow-400 tracking-wider font-bold pr-1">1P START</span>
+</div>
 </div>
 </div>
 </section>
@@ -731,7 +773,6 @@ SPECIAL QUEST
 </div>
 <!-- ==================== JAVASCRIPT LOGIC ==================== -->
 <script>
-// 📌 구글 앱스 스크립트 배포 후 발급받은 웹 앱 URL을 아래 큰따옴표 안에 복사해 넣으세요!
 const GOOGLE_SCRIPT_URL = "";
 // Arcade Screen Switching Function
 function switchArcadeTab(tabId) {
@@ -831,7 +872,7 @@ particles.forEach(p => { p.update(); p.draw(); });
 requestAnimationFrame(animateParticles);
 }
 animateParticles();
-// 2. High-Density TV Static Canvas Animation
+// 2. Static Noise Canvas Layer
 const noiseCanvas = document.getElementById('tv-noise-canvas');
 const nCtx = noiseCanvas.getContext('2d');
 function resizeNoiseCanvas() {
@@ -856,9 +897,6 @@ nCtx.putImageData(imgData, 0, 0);
 requestAnimationFrame(renderNoise);
 }
 renderNoise();
-setTimeout(() => {
-if (noiseCanvas) noiseCanvas.style.opacity = '0.08';
-}, 2500);
 // Stamps State with LocalStorage Persistence
 let collectedStamps = [false, false, false, false, false];
 function loadSavedStamps() {
@@ -895,25 +933,24 @@ updateStampUI();
 }
 function enableScroll() { document.body.classList.remove('overflow-hidden'); }
 function disableScroll() { document.body.classList.add('overflow-hidden'); }
-// ACCEPT QUEST: Portal Zoom + Left-to-Right Wipe Transition
+// ACCEPT QUEST: Monitor Screen Sucks In + 2nd Page Fade In
 function acceptQuest() {
 closeDeclineModal();
-const cabinet = document.getElementById('arcade-cabinet');
+const monitor = document.getElementById('crt-monitor');
 const introScreen = document.getElementById('intro-screen');
 const mainContent = document.getElementById('main-content');
-// Step 1: Add Zoom Portal Animation to Cabinet
-cabinet.classList.add('zoom-portal-anim');
-// Step 2: Fade Out Intro & Wipe In Main Page
+// Step 1: Trigger Portal Zoom Sucking Animation ONLY on CRT Monitor Screen
+monitor.classList.add('monitor-suck-anim');
+// Step 2: Transition into 2nd Page Fade-In
 setTimeout(() => {
 introScreen.style.opacity = '0';
-// Show Main Content and Apply Left-to-Right Wipe Animation
 mainContent.classList.remove('hidden');
-mainContent.classList.add('wipe-in-anim');
+mainContent.classList.add('fade-in-anim');
 mainContent.style.opacity = '1';
 setTimeout(() => {
 introScreen.style.display = 'none';
 enableScroll();
-}, 500);
+}, 400);
 }, 650);
 }
 function openDeclineModal() { document.getElementById('decline-modal').classList.remove('hidden'); }
@@ -923,7 +960,7 @@ document.getElementById('notice-modal').classList.remove('hidden');
 disableScroll();
 }
 function closeNoticeModal() {
-document.getElementById('notice-modal').classList.hidden = true;
+document.getElementById('notice-modal').classList.add('hidden');
 const introScreen = document.getElementById('intro-screen');
 if (introScreen.style.display === 'none') { enableScroll(); }
 }
