@@ -52,46 +52,69 @@ background-size: 28px 28px;
 .glitch-box {
 animation: glitch-box-flicker 2.5s infinite;
 }
-/* Arcade Cabinet Outer Body Frame */
-.arcade-cabinet-body {
-background: linear-gradient(180deg, #0d1b2a 0%, #050b14 60%, #020508 100%);
-border: 4px solid #00f0ff;
+/* 3D Pixel Arcade Cabinet Outer Frame Styling */
+.arcade-cabinet-3d {
+background: linear-gradient(180deg, #121040 0%, #0d1233 40%, #08091a 100%);
+border: 6px solid #2563eb;
 border-radius: 28px;
-box-shadow: 0 0 35px rgba(0, 240, 255, 0.5), inset 0 0 25px rgba(0, 240, 255, 0.2);
+box-shadow: 0 0 45px rgba(37, 99, 235, 0.6), inset 0 0 25px rgba(59, 130, 246, 0.4);
+position: relative;
+}
+.arcade-screen-bezel {
+background: #020408;
+border: 8px solid #1e293b;
+border-radius: 20px;
+box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.95), 0 0 20px rgba(37, 99, 235, 0.3);
+position: relative;
+}
+/* Screw / Bolt Accents */
+.cabinet-screw {
+width: 8px;
+height: 8px;
+background: #475569;
+border-radius: 50%;
+box-shadow: inset 1px 1px 2px #94a3b8, inset -1px -1px 2px #0f172a;
 }
 /* Joystick 3D Render Style */
+.joystick-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
 .joystick-base {
-width: 44px;
-height: 22px;
-background: radial-gradient(circle, #334155 0%, #0f172a 100%);
-border: 2px solid #475569;
+width: 52px;
+height: 24px;
+background: radial-gradient(circle, #475569 0%, #0f172a 100%);
+border: 2px solid #64748b;
 border-radius: 50%;
-box-shadow: inset 0 3px 6px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.6);
+box-shadow: inset 0 4px 8px rgba(0,0,0,0.9), 0 5px 10px rgba(0,0,0,0.7);
 }
 .joystick-stick {
-width: 8px;
-height: 28px;
-background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #64748b 100%);
-border-radius: 4px;
+width: 10px;
+height: 32px;
+background: linear-gradient(90deg, #94a3b8 0%, #f1f5f9 50%, #64748b 100%);
+border-radius: 5px;
 }
 .joystick-knob {
-width: 28px;
-height: 28px;
+width: 34px;
+height: 34px;
 background: radial-gradient(circle at 35% 35%, #ff4d4d 0%, #cc0000 70%, #800000 100%);
 border-radius: 50%;
-box-shadow: 0 0 12px rgba(255, 0, 0, 0.8), inset -2px -2px 6px rgba(0,0,0,0.6);
+box-shadow: 0 0 16px rgba(255, 0, 0, 0.9), inset -3px -3px 8px rgba(0,0,0,0.7);
 }
 /* Arcade Push Buttons */
 .arcade-btn-3d {
-width: 22px;
-height: 22px;
+width: 26px;
+height: 26px;
 border-radius: 50%;
 transition: transform 0.1s ease;
+border: 2px solid rgba(255,255,255,0.3);
 }
-.arcade-btn-red { background: radial-gradient(circle at 35% 35%, #ff6b6b 0%, #d90429 70%); box-shadow: 0 0 8px #d90429; }
-.arcade-btn-yellow { background: radial-gradient(circle at 35% 35%, #ffea00 0%, #ffb703 70%); box-shadow: 0 0 8px #ffb703; }
-.arcade-btn-blue { background: radial-gradient(circle at 35% 35%, #4cc9f0 0%, #4361ee 70%); box-shadow: 0 0 8px #4361ee; }
-.arcade-btn-green { background: radial-gradient(circle at 35% 35%, #52b788 0%, #2dc653 70%); box-shadow: 0 0 8px #2dc653; }
+.arcade-btn-red { background: radial-gradient(circle at 35% 35%, #ff6b6b 0%, #d90429 70%); box-shadow: 0 0 10px #d90429, inset 0 -3px 4px rgba(0,0,0,0.5); }
+.arcade-btn-yellow { background: radial-gradient(circle at 35% 35%, #ffea00 0%, #ffb703 70%); box-shadow: 0 0 10px #ffb703, inset 0 -3px 4px rgba(0,0,0,0.5); }
+.arcade-btn-blue { background: radial-gradient(circle at 35% 35%, #4cc9f0 0%, #4361ee 70%); box-shadow: 0 0 10px #4361ee, inset 0 -3px 4px rgba(0,0,0,0.5); }
+.arcade-btn-green { background: radial-gradient(circle at 35% 35%, #52b788 0%, #2dc653 70%); box-shadow: 0 0 10px #2dc653, inset 0 -3px 4px rgba(0,0,0,0.5); }
 /* Zoom-In Portal Transition for Arcade Screen */
 @keyframes zoom-portal-out {
 0% {
@@ -189,15 +212,20 @@ transform: translateY(-2px);
 <!-- CRT Scanline Overlay -->
 <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none z-20 opacity-70"></div>
 <!-- ARCADE CABINET FULL FRAME CONTAINER -->
-<div id="arcade-cabinet" class="relative w-full max-w-sm sm:max-w-md arcade-cabinet-body p-3.5 sm:p-5 flex flex-col justify-between z-30 my-auto shadow-[0_0_50px_rgba(0,240,255,0.4)] transition-transform duration-700">
+<div id="arcade-cabinet" class="relative w-full max-w-sm sm:max-w-md arcade-cabinet-3d p-4 sm:p-5 flex flex-col justify-between z-30 my-auto shadow-[0_0_60px_rgba(37,99,235,0.5)] transition-transform duration-700">
 <!-- 1. Cabinet Marquee Header -->
-<div class="w-full bg-[#050e18] border-2 border-cyan-400/80 rounded-xl p-2 mb-3 text-center shadow-[0_0_15px_rgba(0,240,255,0.3)] flex items-center justify-between">
-<span class="text-yellow-400 text-xs sm:text-sm animate-pulse">👾</span>
-<span class="font-arcade text-[10px] sm:text-xs text-yellow-400 tracking-wider">FESTIVAL 2026</span>
-<span class="font-arcade text-[8px] sm:text-[10px] text-cyan-300 tracking-tight">◄ INSERT COIN ►</span>
+<div class="w-full bg-[#0d0926] border-2 border-pink-500 rounded-xl p-2.5 mb-3 text-center shadow-[0_0_20px_rgba(236,72,153,0.5)] flex items-center justify-between">
+<span class="text-yellow-400 text-sm animate-pulse">👾</span>
+<span class="font-arcade text-xs sm:text-sm text-yellow-400 tracking-wider">FESTIVAL 2026</span>
+<span class="font-arcade text-[8px] sm:text-[10px] text-cyan-300 tracking-tight animate-pulse">◄ INSERT COIN ►</span>
 </div>
 <!-- 2. CRT Arcade Screen Frame -->
-<div class="w-full bg-black border-4 border-cyan-500/80 rounded-2xl p-3 sm:p-4 text-center flex flex-col items-center relative overflow-hidden shadow-[inset_0_0_20px_rgba(0,0,0,0.9)]">
+<div class="w-full arcade-screen-bezel p-3 sm:p-4 text-center flex flex-col items-center relative overflow-hidden">
+<!-- Top Screws -->
+<div class="w-full flex justify-between items-center mb-2 px-1">
+<div class="cabinet-screw"></div>
+<div class="cabinet-screw"></div>
+</div>
 <!-- Top Status Row -->
 <div class="w-full flex justify-between items-center text-[8px] sm:text-[10px] font-arcade text-slate-400 border-b border-slate-800 pb-1.5 mb-3">
 <span>SCORE <span class="text-white">000000</span></span>
@@ -206,7 +234,7 @@ transform: translateY(-2px);
 <!-- Glitch Quest Box Container -->
 <div class="glitch-box w-full flex flex-col items-center">
 <!-- Crown Badge -->
-<div class="inline-flex items-center gap-1.5 border border-cyan-400 bg-cyan-950/60 px-3 py-1 rounded-full mb-3 shadow-[0_0_12px_rgba(0,240,255,0.4)]">
+<div class="inline-flex items-center gap-1.5 border border-cyan-400 bg-cyan-950/80 px-3 py-1 rounded-full mb-3 shadow-[0_0_12px_rgba(0,240,255,0.6)]">
 <i class="fa-solid fa-crown text-yellow-400 text-[10px] sm:text-xs"></i>
 <span class="font-arcade text-[10px] sm:text-xs text-yellow-400 tracking-wider">[ NEW QUEST ]</span>
 </div>
@@ -219,35 +247,40 @@ transform: translateY(-2px);
 수락하면 다음 페이지에서 미션을 확인하실 수 있어요
 </p>
 <!-- Screen Action Buttons -->
-<div class="grid grid-cols-2 gap-2 w-full mt-1">
-<button id="btn-accept-intro" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 active:scale-95 text-slate-950 font-arcade text-[10px] py-2.5 px-2 rounded-xl border-2 border-lime-300 shadow-[0_0_15px_rgba(132,204,22,0.6)] transition-all flex items-center justify-center gap-1">
+<div class="grid grid-cols-2 gap-2.5 w-full mt-1">
+<button id="btn-accept-intro" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 active:scale-95 text-slate-950 font-arcade text-[10px] py-2.5 px-2 rounded-xl border-2 border-lime-300 shadow-[0_0_18px_rgba(132,204,22,0.7)] transition-all flex items-center justify-center gap-1">
 ✓ ACCEPT
 </button>
-<button id="btn-decline-intro" onclick="openDeclineModal()" class="bg-[#9333ea] hover:brightness-110 active:scale-95 text-white font-arcade text-[10px] py-2.5 px-2 rounded-xl border-2 border-purple-400 shadow-[0_0_15px_rgba(147,51,234,0.6)] transition-all flex items-center justify-center gap-1">
+<button id="btn-decline-intro" onclick="openDeclineModal()" class="bg-[#9333ea] hover:brightness-110 active:scale-95 text-white font-arcade text-[10px] py-2.5 px-2 rounded-xl border-2 border-purple-400 shadow-[0_0_18px_rgba(147,51,234,0.7)] transition-all flex items-center justify-center gap-1">
 ✕ DECLINE
 </button>
 </div>
+<!-- Bottom Screws -->
+<div class="w-full flex justify-between items-center mt-3 px-1">
+<div class="cabinet-screw"></div>
+<div class="cabinet-screw"></div>
 </div>
-<!-- 3. Arcade Control Deck (Joystick & Colored Buttons) -->
-<div class="w-full bg-[#081320] border-2 border-cyan-500/50 rounded-xl p-2.5 mt-3 flex items-center justify-between shadow-[inset_0_2px_10px_rgba(0,0,0,0.8)]">
+</div>
+<!-- 3. Arcade Control Deck (3D Render Joystick & Push Buttons) -->
+<div class="w-full bg-[#0a1128] border-2 border-blue-500 rounded-xl p-3 mt-3 flex items-center justify-between shadow-[inset_0_3px_12px_rgba(0,0,0,0.9)]">
 <!-- Joystick Graphics -->
-<div class="flex flex-col items-center justify-center pl-2">
+<div class="joystick-container pl-2">
 <div class="joystick-knob"></div>
 <div class="joystick-stick -mt-1"></div>
 <div class="joystick-base -mt-2"></div>
 </div>
 <!-- Action Push Buttons -->
-<div class="flex flex-col items-end gap-1 pr-1">
-<div class="flex gap-2">
+<div class="flex flex-col items-end gap-1.5 pr-1">
+<div class="flex gap-2.5">
 <div class="arcade-btn-3d arcade-btn-red"></div>
 <div class="arcade-btn-3d arcade-btn-yellow"></div>
 </div>
-<div class="flex gap-2 pr-1">
+<div class="flex gap-2.5 pr-1">
 <div class="arcade-btn-3d arcade-btn-blue"></div>
 <div class="arcade-btn-3d arcade-btn-green"></div>
 </div>
 </div>
-<span class="font-arcade text-[8px] text-cyan-400 tracking-widest pr-1">1P START</span>
+<span class="font-arcade text-[9px] text-yellow-400 tracking-widest font-bold pr-1">1P START</span>
 </div>
 </div>
 </section>
