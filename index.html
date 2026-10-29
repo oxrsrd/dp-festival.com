@@ -932,7 +932,7 @@ box.innerHTML = '<h4 class="text-xs font-bold text-emerald-400 flex items-center
 container.appendChild(box);
 }
 }
-  // Handle Registration Form Submit
+// Handle Registration Form Submit
 async function handleFormSubmit(e) {
   e.preventDefault();
   const selectedTime = document.getElementById('selected-time').value;
@@ -1001,63 +1001,33 @@ async function handleFormSubmit(e) {
   document.getElementById('ticket-modal').classList.remove('hidden');
   disableScroll();
 }
+
+// Handle Ticket Lookup Submit
 async function handleLookupSubmit(e) {
-e.preventDefault();
-const name = document.getElementById('lookup-name').value.trim();
-const password = document.getElementById('lookup-password').value.trim();
-try {
-const localTicket = localStorage.getItem('dpch_user_ticket');
-if (localTicket) {
-const data = JSON.parse(localTicket);
-if (data.name === name && data.password === password) {
-closeLookupModal();
-document.getElementById('ticket-id').innerText = data.ticketId;
-document.getElementById('ticket-name').innerText = data.name;
-document.getElementById('ticket-time').innerText = data.time;
-document.getElementById('ticket-companions').innerText = data.companionCount + '명';
-document.getElementById('ticket-modal').classList.remove('hidden');
-disableScroll();
-return;
+  e.preventDefault();
+  const name = document.getElementById('lookup-name').value.trim();
+  const password = document.getElementById('lookup-password').value.trim();
+  
+  try {
+    const localTicket = localStorage.getItem('dpch_user_ticket');
+    if (localTicket) {
+      const data = JSON.parse(localTicket);
+      if (data.name === name && data.password === password) {
+        closeLookupModal();
+        document.getElementById('ticket-id').innerText = data.ticketId;
+        document.getElementById('ticket-name').innerText = data.name;
+        document.getElementById('ticket-time').innerText = data.time;
+        document.getElementById('ticket-companions').innerText = (data.companionCount || 0) + '명';
+        document.getElementById('ticket-modal').classList.remove('hidden');
+        disableScroll();
+        return;
+      }
+    }
+  } catch (err) {}
+
+  showToast('입력하신 정보와 일치하는 티켓이 이 기기에 없습니다.', true);
 }
-}
-} catch (err) {}
-if (!GOOGLE_SCRIPT_URL) {
-showToast('일치하는 티켓 정보를 찾을 수 없습니다.', true);
-return;
-}
-const lookupBtn = document.getElementById('lookup-submit-btn');
-lookupBtn.disabled = true;
-lookupBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 티켓 검색 중...';
-try {
-const response = await fetch(GOOGLE_SCRIPT_URL, {
-method: 'POST',
-headers: { 'Content-Type': 'text/plain' },
-body: JSON.stringify({
-action: 'lookup',
-name: name,
-password: password
-})
-});
-const result = await response.json();
-if (result.result === 'found' && result.data) {
-closeLookupModal();
-document.getElementById('ticket-id').innerText = result.data.ticketId;
-document.getElementById('ticket-name').innerText = result.data.name;
-document.getElementById('ticket-time').innerText = result.data.time;
-document.getElementById('ticket-companions').innerText = result.data.companionCount + '명';
-document.getElementById('ticket-modal').classList.remove('hidden');
-disableScroll();
-} else {
-showToast('일치하는 티켓 정보가 없습니다.', true);
-}
-} catch (err) {
-console.error(err);
-showToast('티켓 조회 중 오류가 발생했습니다.', true);
-} finally {
-lookupBtn.disabled = false;
-lookupBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> 내 티켓 조회하기';
-}
-}
+
 function closeTicketModal() {
 document.getElementById('ticket-modal').classList.add('hidden');
 enableScroll();
