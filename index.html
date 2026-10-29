@@ -32,12 +32,12 @@ background-size: 28px 28px;
 }
 /*
 Arcade Cabinet Container Responsive Frame
-Matches the new transparent PNG aspect ratio and ensures absolute centering & scaling across all mobile/tablet/desktop viewports.
+Calibrated precisely to your uploaded original arcade cabinet image proportions
 */
 .arcade-frame-wrapper {
 position: relative;
-width: min(88vw, 400px);
-aspect-ratio: 1000 / 1238;
+width: min(85vw, 420px);
+aspect-ratio: 440 / 564;
 background-image: url('IMG_0652-removebg-preview.png');
 background-size: contain;
 background-repeat: no-repeat;
@@ -47,21 +47,21 @@ align-items: center;
 justify-content: center;
 margin: auto;
 }
-/* Precise Monitor Viewport perfectly mapped inside the monitor screen of IMG_0652-removebg-preview.png */
+/* Precise Monitor Viewport mapped exactly inside the black monitor screen of your source image */
 .crt-monitor-viewport {
 position: absolute;
 width: 53.5%;
-height: 38.5%;
-top: 25.8%;
+height: 33.5%;
+top: 39.2%;
 left: 23.2%;
 background: #020408;
-border-radius: 6px;
+border-radius: 4px;
 overflow: hidden;
 box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.95);
 display: flex;
 flex-direction: column;
 justify-content: space-between;
-padding: 3.5%;
+padding: 3% 4%;
 box-sizing: border-box;
 }
 /* Scanline Glass Effect */
@@ -118,7 +118,7 @@ opacity: 0.85;
 <section id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#020305] p-2 transition-opacity duration-500 overflow-hidden full-mobile-screen">
 <canvas id="starry-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
 <div id="arcade-cabinet" class="arcade-frame-wrapper z-30 my-auto">
-<!-- Monitor Inner Screen Viewport matching IMG_0652-removebg-preview.png screen -->
+<!-- Monitor Inner Screen Viewport -->
 <div class="crt-monitor-viewport z-20">
 <div class="crt-scanlines"></div>
 <!-- Static CRT Noise Canvas -->
@@ -126,27 +126,27 @@ opacity: 0.85;
 <!-- Monitor Content UI -->
 <div id="crt-ui-content" class="w-full h-full flex flex-col justify-between items-center relative z-20 opacity-0 transition-opacity duration-1000">
 <!-- Top Score Line -->
-<div class="w-full flex justify-between items-center text-[0.45rem] xs:text-[0.55rem] sm:text-[0.65rem] font-arcade text-slate-400 border-b border-slate-800/80 pb-0.5">
+<div class="w-full flex justify-between items-center text-[0.45rem] sm:text-[0.55rem] font-arcade text-slate-400 border-b border-slate-800/80 pb-0.5">
 <span>SCORE <span class="text-white">0000</span></span>
 <span>CREDIT <span class="text-emerald-400">01</span></span>
 </div>
 <!-- Quest Info Box -->
 <div class="my-auto flex flex-col items-center text-center px-0.5">
-<div class="inline-flex items-center gap-0.5 border border-cyan-400 bg-cyan-950/80 px-1 py-0.2 rounded-full mb-0.5">
+<div class="inline-flex items-center gap-0.5 border border-cyan-400 bg-cyan-950/80 px-1.5 py-0.5 rounded-full mb-1">
 <i class="fa-solid fa-crown text-yellow-400 text-[0.45rem]"></i>
 <span class="font-arcade text-[0.45rem] sm:text-[0.55rem] text-yellow-400">[ NEW QUEST ]</span>
 </div>
-<span class="font-arcade text-xs xs:text-sm sm:text-base text-cyan-400 tracking-widest rgb-glitch-text font-black my-0.5">????</span>
-<p class="text-[0.45rem] xs:text-[0.55rem] sm:text-[0.65rem] text-slate-300 font-medium leading-tight">
+<span class="font-arcade text-xs sm:text-sm text-cyan-400 tracking-widest rgb-glitch-text font-black my-0.5">????</span>
+<p class="text-[0.45rem] sm:text-[0.55rem] text-slate-300 font-medium leading-tight">
 수락하면 다음 페이지에서 미션을 확인하실 수 있어요
 </p>
 </div>
 <!-- Action Accept / Decline Buttons -->
-<div class="grid grid-cols-2 gap-1 w-full pt-0.5">
-<button id="btn-accept-intro" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 active:scale-95 text-slate-950 font-arcade text-[0.45rem] xs:text-[0.55rem] sm:text-[0.6rem] py-1 px-0.5 rounded border border-lime-300 shadow-[0_0_8px_rgba(132,204,22,0.6)] transition-all flex items-center justify-center gap-0.5">
+<div class="grid grid-cols-2 gap-1.5 w-full pt-0.5">
+<button id="btn-accept-intro" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 active:scale-95 text-slate-950 font-arcade text-[0.5rem] sm:text-[0.6rem] py-1 px-1 rounded border border-lime-300 shadow-[0_0_8px_rgba(132,204,22,0.6)] transition-all flex items-center justify-center gap-0.5">
 ✓ ACCEPT
 </button>
-<button id="btn-decline-intro" onclick="openDeclineModal()" class="bg-[#9333ea] hover:brightness-110 active:scale-95 text-white font-arcade text-[0.45rem] xs:text-[0.55rem] sm:text-[0.6rem] py-1 px-0.5 rounded border border-purple-400 shadow-[0_0_8px_rgba(147,51,234,0.6)] transition-all flex items-center justify-center gap-0.5">
+<button id="btn-decline-intro" onclick="openDeclineModal()" class="bg-[#9333ea] hover:brightness-110 active:scale-95 text-white font-arcade text-[0.5rem] sm:text-[0.6rem] py-1 px-1 rounded border border-purple-400 shadow-[0_0_8px_rgba(147,51,234,0.6)] transition-all flex items-center justify-center gap-0.5">
 ✕ DECLINE
 </button>
 </div>
@@ -492,7 +492,7 @@ SPECIAL QUEST
 </form>
 </div>
 </div>
-<!-- NOTICE MODAL (Restored Full Content) -->
+<!-- NOTICE MODAL -->
 <div id="notice-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
 <div class="relative w-full max-w-lg bg-[#081014] border-2 border-emerald-400 rounded-3xl p-5 space-y-4 max-h-[85vh] overflow-y-auto">
 <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
