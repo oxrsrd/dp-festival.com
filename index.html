@@ -22,6 +22,7 @@ font-family: 'Noto Sans KR', sans-serif;
 background-color: #030708;
 color: #ffffff;
 -webkit-tap-highlight-color: transparent;
+overflow-x: hidden;
 }
 /* Dot Grid Background pattern */
 .bg-dots-pattern {
@@ -29,23 +30,128 @@ background-color: #04080a;
 background-image: radial-gradient(rgba(0, 255, 157, 0.15) 1px, transparent 0);
 background-size: 28px 28px;
 }
-/* Pure Horizontal RGB Shift for Text */
+/* Pure Horizontal RGB Shift & Glitch for Text */
 @keyframes rgb-horizontal-shift {
-0% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; }
-50% { text-shadow: -4px 0 0 #ff0055, 4px 0 0 #00ff9d; }
-100% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; }
+0% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; transform: translate(0, 0); }
+20% { text-shadow: -3px 0 0 #ff0055, 3px 0 0 #00ff9d; transform: translate(-2px, 1px); }
+40% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; transform: translate(2px, -1px); }
+60% { text-shadow: -2px 0 0 #ff0055, 2px 0 0 #00ff9d; transform: translate(0, 0); }
+80% { text-shadow: 3px 0 0 #ff0055, -3px 0 0 #00ff9d; transform: translate(1px, 1px); }
+100% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; transform: translate(0, 0); }
 }
-.rgb-glitch-text { animation: rgb-horizontal-shift 0.15s infinite ease-in-out; }
-/* Arcade Frame Styles for Intro */
-.arcade-outer-frame {
-border: 3px solid #00f0ff;
-border-radius: 24px;
-box-shadow: 0 0 25px rgba(0, 240, 255, 0.6), inset 0 0 15px rgba(0, 240, 255, 0.2);
+.rgb-glitch-text { animation: rgb-horizontal-shift 0.18s infinite ease-in-out; }
+/* Glitch Effect for Intro Quest Box */
+@keyframes glitch-box-flicker {
+0% { clip-path: inset(0 0 0 0); transform: translate(0); }
+5% { clip-path: inset(10% 0 85% 0); transform: translate(-3px, 2px); }
+10% { clip-path: inset(0 0 0 0); transform: translate(0); }
+15% { clip-path: inset(70% 0 5% 0); transform: translate(3px, -1px); }
+20% { clip-path: inset(0 0 0 0); transform: translate(0); }
+100% { clip-path: inset(0 0 0 0); transform: translate(0); }
 }
-.arcade-inner-frame {
-border: 2px solid #00a8ff;
-border-radius: 16px;
-box-shadow: 0 0 15px rgba(0, 168, 255, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.8);
+.glitch-box {
+animation: glitch-box-flicker 2.5s infinite;
+}
+/* 3D Pixel Arcade Cabinet Outer Frame Styling */
+.arcade-cabinet-3d {
+background: linear-gradient(180deg, #121040 0%, #0d1233 40%, #08091a 100%);
+border: 6px solid #2563eb;
+border-radius: 28px;
+box-shadow: 0 0 45px rgba(37, 99, 235, 0.6), inset 0 0 25px rgba(59, 130, 246, 0.4);
+position: relative;
+}
+.arcade-screen-bezel {
+background: #020408;
+border: 8px solid #1e293b;
+border-radius: 20px;
+box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.95), 0 0 20px rgba(37, 99, 235, 0.3);
+position: relative;
+}
+/* Screw / Bolt Accents */
+.cabinet-screw {
+width: 8px;
+height: 8px;
+background: #475569;
+border-radius: 50%;
+box-shadow: inset 1px 1px 2px #94a3b8, inset -1px -1px 2px #0f172a;
+}
+/* Joystick 3D Render Style */
+.joystick-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+.joystick-base {
+width: 52px;
+height: 24px;
+background: radial-gradient(circle, #475569 0%, #0f172a 100%);
+border: 2px solid #64748b;
+border-radius: 50%;
+box-shadow: inset 0 4px 8px rgba(0,0,0,0.9), 0 5px 10px rgba(0,0,0,0.7);
+}
+.joystick-stick {
+width: 10px;
+height: 32px;
+background: linear-gradient(90deg, #94a3b8 0%, #f1f5f9 50%, #64748b 100%);
+border-radius: 5px;
+}
+.joystick-knob {
+width: 34px;
+height: 34px;
+background: radial-gradient(circle at 35% 35%, #ff4d4d 0%, #cc0000 70%, #800000 100%);
+border-radius: 50%;
+box-shadow: 0 0 16px rgba(255, 0, 0, 0.9), inset -3px -3px 8px rgba(0,0,0,0.7);
+}
+/* Arcade Push Buttons */
+.arcade-btn-3d {
+width: 26px;
+height: 26px;
+border-radius: 50%;
+transition: transform 0.1s ease;
+border: 2px solid rgba(255,255,255,0.3);
+}
+.arcade-btn-red { background: radial-gradient(circle at 35% 35%, #ff6b6b 0%, #d90429 70%); box-shadow: 0 0 10px #d90429, inset 0 -3px 4px rgba(0,0,0,0.5); }
+.arcade-btn-yellow { background: radial-gradient(circle at 35% 35%, #ffea00 0%, #ffb703 70%); box-shadow: 0 0 10px #ffb703, inset 0 -3px 4px rgba(0,0,0,0.5); }
+.arcade-btn-blue { background: radial-gradient(circle at 35% 35%, #4cc9f0 0%, #4361ee 70%); box-shadow: 0 0 10px #4361ee, inset 0 -3px 4px rgba(0,0,0,0.5); }
+.arcade-btn-green { background: radial-gradient(circle at 35% 35%, #52b788 0%, #2dc653 70%); box-shadow: 0 0 10px #2dc653, inset 0 -3px 4px rgba(0,0,0,0.5); }
+/* Zoom-In Portal Transition for Arcade Screen */
+@keyframes zoom-portal-out {
+0% {
+transform: scale(1);
+opacity: 1;
+filter: brightness(1) blur(0px);
+}
+50% {
+transform: scale(3.5);
+opacity: 0.8;
+filter: brightness(2.5) blur(3px) drop-shadow(0 0 50px #00ff9d);
+}
+100% {
+transform: scale(12);
+opacity: 0;
+filter: brightness(5) blur(10px);
+}
+}
+.zoom-portal-anim {
+animation: zoom-portal-out 0.8s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
+transform-origin: center center;
+}
+/* Left to Right Fade-In Wipe Transition for Main Content */
+@keyframes wipe-in-left-to-right {
+0% {
+clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+opacity: 0;
+transform: translateX(-20px);
+}
+100% {
+clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+opacity: 1;
+transform: translateX(0);
+}
+}
+.wipe-in-anim {
+animation: wipe-in-left-to-right 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 /* Card Borders & Styling */
 .mint-card-border {
@@ -71,36 +177,21 @@ transform: scale(1.08);
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #04080a; }
 ::-webkit-scrollbar-thumb { background: #00ff9d; border-radius: 4px; }
-/* TV Turn-On Expansion Keyframe Animation */
-@keyframes tv-expand-turnon {
-0% {
-transform: scale(0.001) rotate(-3deg);
-opacity: 0;
-filter: brightness(5) contrast(2) blur(8px) drop-shadow(0 0 50px #00f0ff);
-}
-20% {
-opacity: 1;
-filter: brightness(3.5) contrast(1.8) blur(4px) drop-shadow(0 0 40px #ff0055);
-}
-75% {
-transform: scale(0.95) rotate(0.5deg);
-opacity: 0.95;
-filter: brightness(1.8) contrast(1.2) blur(1px);
-}
-100% {
-transform: scale(1) rotate(0deg);
-opacity: 1;
-filter: brightness(1) contrast(1) blur(0px) drop-shadow(0 0 25px rgba(0,240,255,0.6));
-}
-}
-.tv-expand-anim {
-animation: tv-expand-turnon 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-transform-origin: center center;
-}
 /* Fullscreen Fit for Mobile SVH */
 .full-mobile-screen {
 height: 100vh;
 height: 100svh;
+}
+/* Arcade Tab Active Effects */
+.arcade-tab-btn {
+transition: all 0.2s ease-in-out;
+}
+.arcade-tab-btn.active {
+border-color: #00ff9d !important;
+background-color: rgba(0, 255, 157, 0.2) !important;
+color: #00ff9d !important;
+box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+transform: translateY(-2px);
 }
 </style>
 </head>
@@ -113,63 +204,83 @@ height: 100svh;
 </div>
 </div>
 <!-- ==================== PAGE 1: INTRO ARCADE SCREEN ==================== -->
-<section id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#020405] p-3 md:p-4 transition-opacity duration-700 overflow-hidden full-mobile-screen">
+<section id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#020405] p-3 md:p-4 transition-opacity duration-500 overflow-hidden full-mobile-screen">
 <!-- Canvas 1: Starry Plus Background -->
 <canvas id="starry-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
 <!-- Canvas 2: Static Noise Layer -->
 <canvas id="tv-noise-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-30 transition-opacity duration-1000"></canvas>
 <!-- CRT Scanline Overlay -->
 <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none z-20 opacity-70"></div>
-<!-- Arcade Cabinet Outer Box (Compact Scaled for Mobile/SE3) -->
-<div id="arcade-cabinet" class="relative w-full max-w-md max-h-[92svh] bg-[#050b0e] arcade-outer-frame p-3.5 md:p-5 flex flex-col items-center justify-between z-30 opacity-0 transform scale-0 tv-expand-anim my-auto overflow-y-auto">
-<!-- Cabinet Top Header -->
-<div class="w-full flex items-center justify-between border-b border-cyan-500/40 pb-2 mb-2 px-1">
-<div class="flex items-center gap-1.5">
-<span class="text-yellow-400 text-base animate-pulse">👾</span>
-<span class="font-arcade text-[10px] sm:text-xs text-yellow-400 tracking-wider">FESTIVAL 2026</span>
+<!-- ARCADE CABINET FULL FRAME CONTAINER -->
+<div id="arcade-cabinet" class="relative w-full max-w-sm sm:max-w-md arcade-cabinet-3d p-4 sm:p-5 flex flex-col justify-between z-30 my-auto shadow-[0_0_60px_rgba(37,99,235,0.5)] transition-transform duration-700">
+<!-- 1. Cabinet Marquee Header -->
+<div class="w-full bg-[#0d0926] border-2 border-pink-500 rounded-xl p-2.5 mb-3 text-center shadow-[0_0_20px_rgba(236,72,153,0.5)] flex items-center justify-between">
+<span class="text-yellow-400 text-sm animate-pulse">👾</span>
+<span class="font-arcade text-xs sm:text-sm text-yellow-400 tracking-wider">FESTIVAL 2026</span>
+<span class="font-arcade text-[8px] sm:text-[10px] text-cyan-300 tracking-tight animate-pulse">◄ INSERT COIN ►</span>
 </div>
-<div class="flex items-center gap-1 text-[9px] sm:text-[11px] font-arcade text-cyan-400 tracking-tight">
-<span>◄ INSERT COIN ►</span>
+<!-- 2. CRT Arcade Screen Frame -->
+<div class="w-full arcade-screen-bezel p-3 sm:p-4 text-center flex flex-col items-center relative overflow-hidden">
+<!-- Top Screws -->
+<div class="w-full flex justify-between items-center mb-2 px-1">
+<div class="cabinet-screw"></div>
+<div class="cabinet-screw"></div>
 </div>
-</div>
-<!-- Arcade Screen Interior Box -->
-<div class="w-full bg-black arcade-inner-frame p-3.5 sm:p-5 text-center flex flex-col items-center relative overflow-hidden my-1">
-<!-- Score & Credit Display Row -->
-<div class="w-full flex justify-between items-center text-[9px] sm:text-[10px] font-arcade text-slate-400 border-b border-slate-800 pb-1.5 mb-3">
+<!-- Top Status Row -->
+<div class="w-full flex justify-between items-center text-[8px] sm:text-[10px] font-arcade text-slate-400 border-b border-slate-800 pb-1.5 mb-3">
 <span>SCORE <span class="text-white">000000</span></span>
 <span>CREDIT <span class="text-emerald-400">01</span></span>
 </div>
-<!-- Crown & Quest Badge -->
-<div class="inline-flex items-center gap-1.5 border border-cyan-500/60 bg-cyan-950/40 px-2.5 py-0.5 sm:py-1 rounded-full mb-3 sm:mb-5">
+<!-- Glitch Quest Box Container -->
+<div class="glitch-box w-full flex flex-col items-center">
+<!-- Crown Badge -->
+<div class="inline-flex items-center gap-1.5 border border-cyan-400 bg-cyan-950/80 px-3 py-1 rounded-full mb-3 shadow-[0_0_12px_rgba(0,240,255,0.6)]">
 <i class="fa-solid fa-crown text-yellow-400 text-[10px] sm:text-xs"></i>
 <span class="font-arcade text-[10px] sm:text-xs text-yellow-400 tracking-wider">[ NEW QUEST ]</span>
 </div>
 <!-- Glitch Text Display -->
-<div class="my-2 sm:my-3 py-1 px-3 w-full flex justify-center items-center">
-<span class="font-arcade text-2xl sm:text-4xl text-cyan-400 tracking-widest rgb-glitch-text font-black">QUEST?</span>
+<div class="my-2 py-1 px-3 w-full flex justify-center items-center">
+<span class="font-arcade text-2xl sm:text-4xl text-cyan-400 tracking-widest rgb-glitch-text font-black">????</span>
 </div>
-<p class="text-[11px] sm:text-[12px] text-slate-300 font-medium my-3 sm:my-5 leading-relaxed px-1">
+</div>
+<p class="text-[10px] sm:text-[12px] text-slate-300 font-medium my-3 leading-relaxed px-1">
 수락하면 다음 페이지에서 미션을 확인하실 수 있어요
 </p>
-<!-- Action Buttons -->
+<!-- Screen Action Buttons -->
 <div class="grid grid-cols-2 gap-2.5 w-full mt-1">
-<button id="btn-accept-intro" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 active:scale-95 text-slate-950 font-arcade text-[10px] sm:text-xs py-3 px-2 rounded-xl border-2 border-lime-300 shadow-[0_0_15px_rgba(132,204,22,0.6)] transition-all flex items-center justify-center gap-1">
+<button id="btn-accept-intro" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 active:scale-95 text-slate-950 font-arcade text-[10px] py-2.5 px-2 rounded-xl border-2 border-lime-300 shadow-[0_0_18px_rgba(132,204,22,0.7)] transition-all flex items-center justify-center gap-1">
 ✓ ACCEPT
 </button>
-<button id="btn-decline-intro" onclick="openDeclineModal()" class="bg-[#9333ea] hover:brightness-110 active:scale-95 text-white font-arcade text-[10px] sm:text-xs py-3 px-2 rounded-xl border-2 border-purple-400 shadow-[0_0_15px_rgba(147,51,234,0.6)] transition-all flex items-center justify-center gap-1">
+<button id="btn-decline-intro" onclick="openDeclineModal()" class="bg-[#9333ea] hover:brightness-110 active:scale-95 text-white font-arcade text-[10px] py-2.5 px-2 rounded-xl border-2 border-purple-400 shadow-[0_0_18px_rgba(147,51,234,0.7)] transition-all flex items-center justify-center gap-1">
 ✕ DECLINE
 </button>
 </div>
+<!-- Bottom Screws -->
+<div class="w-full flex justify-between items-center mt-3 px-1">
+<div class="cabinet-screw"></div>
+<div class="cabinet-screw"></div>
 </div>
-<!-- Cabinet Controller Buttons -->
-<div class="w-full mt-2 pt-1 flex justify-between items-center px-2">
-<div class="flex gap-2">
-<div class="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444]"></div>
-<div class="w-3 h-3 rounded-full bg-yellow-400 shadow-[0_0_8px_#facc15]"></div>
-<div class="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></div>
-<div class="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"></div>
 </div>
-<span class="text-[8px] sm:text-[9px] font-arcade text-slate-500 tracking-widest">1P START</span>
+<!-- 3. Arcade Control Deck (3D Render Joystick & Push Buttons) -->
+<div class="w-full bg-[#0a1128] border-2 border-blue-500 rounded-xl p-3 mt-3 flex items-center justify-between shadow-[inset_0_3px_12px_rgba(0,0,0,0.9)]">
+<!-- Joystick Graphics -->
+<div class="joystick-container pl-2">
+<div class="joystick-knob"></div>
+<div class="joystick-stick -mt-1"></div>
+<div class="joystick-base -mt-2"></div>
+</div>
+<!-- Action Push Buttons -->
+<div class="flex flex-col items-end gap-1.5 pr-1">
+<div class="flex gap-2.5">
+<div class="arcade-btn-3d arcade-btn-red"></div>
+<div class="arcade-btn-3d arcade-btn-yellow"></div>
+</div>
+<div class="flex gap-2.5 pr-1">
+<div class="arcade-btn-3d arcade-btn-blue"></div>
+<div class="arcade-btn-3d arcade-btn-green"></div>
+</div>
+</div>
+<span class="font-arcade text-[9px] text-yellow-400 tracking-widest font-bold pr-1">1P START</span>
 </div>
 </div>
 </section>
@@ -194,7 +305,7 @@ height: 100svh;
 </div>
 </div>
 <!-- ==================== PAGE 2: MAIN PAGE ==================== -->
-<div id="main-content" class="min-h-screen flex flex-col bg-dots-pattern">
+<div id="main-content" class="min-h-screen flex flex-col bg-dots-pattern opacity-0 hidden">
 <!-- NAV BAR WITH HAMBURGER MENU -->
 <header class="sticky top-0 z-40 bg-[#04080a]/90 backdrop-blur-md border-b border-emerald-500/20 px-4 md:px-6 py-3.5">
 <div class="max-w-6xl mx-auto flex items-center justify-between">
@@ -206,16 +317,16 @@ height: 100svh;
 <button onclick="openNoticeModal()" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5 text-yellow-400 font-bold">
 <i class="fa-solid fa-bullhorn text-xs"></i> 공지사항
 </button>
-<button onclick="scrollToSection('section-quest')" class="hover:text-emerald-400 transition-colors">행사안내</button>
-<button onclick="scrollToSection('section-schedule')" class="hover:text-emerald-400 transition-colors">행사일정</button>
-<button onclick="scrollToSection('section-register')" class="hover:text-emerald-400 transition-colors">접수하기</button>
+<button onclick="switchArcadeTab('main-quest')" class="hover:text-emerald-400 transition-colors">행사안내</button>
+<button onclick="switchArcadeTab('schedule')" class="hover:text-emerald-400 transition-colors">행사일정</button>
+<button onclick="switchArcadeTab('register')" class="hover:text-emerald-400 transition-colors">접수하기</button>
 </nav>
 <!-- Desktop Action Buttons -->
 <div class="hidden md:flex items-center gap-2">
 <button onclick="openLookupModal()" class="bg-cyan-950/80 border border-cyan-500/60 text-cyan-400 font-bold text-xs md:text-sm px-3 md:px-4 py-2 rounded-full hover:bg-cyan-500 hover:text-black transition-all shadow-[0_0_15px_rgba(0,240,255,0.2)] flex items-center gap-1.5">
 <i class="fa-solid fa-ticket text-xs"></i> 내 티켓 확인
 </button>
-<button onclick="scrollToSection('section-register')" class="bg-emerald-950/80 border border-emerald-500/60 text-emerald-400 font-bold text-xs md:text-sm px-3.5 md:px-5 py-2 rounded-full hover:bg-emerald-500 hover:text-black transition-all shadow-[0_0_15px_rgba(0,255,157,0.2)] flex items-center gap-2">
+<button onclick="switchArcadeTab('register')" class="bg-emerald-950/80 border border-emerald-500/60 text-emerald-400 font-bold text-xs md:text-sm px-3.5 md:px-5 py-2 rounded-full hover:bg-emerald-500 hover:text-black transition-all shadow-[0_0_15px_rgba(0,255,157,0.2)] flex items-center gap-2">
 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 접수하기
 </button>
 </div>
@@ -235,87 +346,113 @@ height: 100svh;
 <i class="fa-solid fa-bullhorn text-xs"></i> 공지사항 (필독)
 </button>
 <div class="grid grid-cols-2 gap-2">
-<button onclick="scrollToSection('section-quest'); toggleMobileMenu();" class="bg-[#081014] border border-slate-800 text-slate-200 font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5">
+<button onclick="switchArcadeTab('main-quest'); toggleMobileMenu();" class="bg-[#081014] border border-slate-800 text-slate-200 font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5">
 <i class="fa-solid fa-book text-emerald-400"></i> 행사안내
 </button>
-<button onclick="scrollToSection('section-schedule'); toggleMobileMenu();" class="bg-[#081014] border border-slate-800 text-slate-200 font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5">
+<button onclick="switchArcadeTab('schedule'); toggleMobileMenu();" class="bg-[#081014] border border-slate-800 text-slate-200 font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5">
 <i class="fa-solid fa-clock text-emerald-400"></i> 행사일정
 </button>
 </div>
-<button onclick="scrollToSection('section-register'); toggleMobileMenu();" class="w-full bg-emerald-400 text-slate-950 font-black text-xs py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,255,157,0.3)]">
+<button onclick="switchArcadeTab('register'); toggleMobileMenu();" class="w-full bg-emerald-400 text-slate-950 font-black text-xs py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,255,157,0.3)]">
 <i class="fa-solid fa-paper-plane"></i> 축제 참가 접수하기
 </button>
 </div>
 </header>
 <!-- MAIN BODY CONTAINER -->
-<main class="max-w-5xl mx-auto px-4 py-6 md:py-10 space-y-10 md:space-y-16 flex-grow w-full">
+<main class="max-w-4xl mx-auto px-3.5 sm:px-4 py-4 md:py-8 space-y-5 flex-grow w-full">
 <!-- MAIN HEADER TITLE -->
-<div class="text-center space-y-2.5 pt-1">
+<div class="text-center space-y-1.5 pt-1">
 <span class="text-emerald-400 text-[10px] sm:text-xs font-arcade tracking-widest block">
 [ 2026 당평교회 중고청 축제 ]
 </span>
-<h1 class="text-2xl sm:text-4xl md:text-6xl font-black font-serif-title tracking-tight text-emerald-400 uppercase">
+<h1 class="text-2xl sm:text-4xl md:text-5xl font-black font-serif-title tracking-tight text-emerald-400 uppercase">
 SPECIAL QUEST
 </h1>
-<div class="inline-flex items-center gap-2 bg-emerald-950/60 border border-emerald-500/40 px-3.5 py-1 rounded-full text-[11px] sm:text-xs text-emerald-400 mt-1">
+<div class="inline-flex items-center gap-2 bg-emerald-950/60 border border-emerald-500/40 px-3 py-0.5 rounded-full text-[10px] sm:text-xs text-emerald-400">
 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 퀘스트 참가 접수 진행 중
 </div>
 </div>
-<!-- SECTION 1: QUEST BOARD -->
-<section id="section-quest" class="space-y-6">
-<div class="grid md:grid-cols-2 gap-5 md:gap-6">
-<!-- MAIN QUEST BOX -->
-<div class="bg-[#081014]/90 mint-card-border rounded-2xl p-5 md:p-8 flex flex-col justify-between space-y-5">
-<div>
-<div class="flex items-center justify-between mb-3">
+<!-- ARCADE CONTROL PANEL (MODE SWITCH TABS) -->
+<div class="bg-[#081014] border border-cyan-500/40 rounded-2xl p-2 md:p-3 shadow-[0_0_20px_rgba(0,240,255,0.15)]">
+<div class="text-center text-[9px] font-arcade text-cyan-400 mb-1.5 tracking-wider hidden sm:block">
+◄ SELECT SCREEN BUTTON ►
+</div>
+<div class="grid grid-cols-5 gap-1.5 text-center">
+<button onclick="switchArcadeTab('main-quest')" id="tab-btn-main-quest" class="arcade-tab-btn active bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
+<i class="fa-solid fa-gamepad text-red-400 text-xs sm:text-sm"></i>
+<span>메인 퀘스트</span>
+</button>
+<button onclick="switchArcadeTab('sub-quest')" id="tab-btn-sub-quest" class="arcade-tab-btn bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
+<i class="fa-solid fa-scroll text-yellow-400 text-xs sm:text-sm"></i>
+<span>서브 퀘스트</span>
+</button>
+<button onclick="switchArcadeTab('final-quest')" id="tab-btn-final-quest" class="arcade-tab-btn bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
+<i class="fa-solid fa-crown text-purple-400 text-xs sm:text-sm"></i>
+<span>파이널</span>
+</button>
+<button onclick="switchArcadeTab('schedule')" id="tab-btn-schedule" class="arcade-tab-btn bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
+<i class="fa-solid fa-clock text-blue-400 text-xs sm:text-sm"></i>
+<span>일정/장소</span>
+</button>
+<button onclick="switchArcadeTab('register')" id="tab-btn-register" class="arcade-tab-btn bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
+<i class="fa-solid fa-paper-plane text-emerald-400 text-xs sm:text-sm"></i>
+<span>접수하기</span>
+</button>
+</div>
+</div>
+<!-- ARCADE MONITOR DISPLAY VIEWPORT -->
+<div class="relative bg-black border-2 border-emerald-500/50 rounded-2xl p-3 sm:p-6 shadow-[0_0_30px_rgba(0,255,157,0.15)] overflow-hidden">
+<!-- SCREEN 1: MAIN QUEST -->
+<div id="tab-screen-main-quest" class="arcade-screen-tab space-y-4">
+<div class="bg-[#081014] mint-card-border rounded-xl p-4 sm:p-6 space-y-4">
+<div class="flex items-center justify-between border-b border-slate-800 pb-2">
 <div class="flex items-center gap-2 text-emerald-400 font-arcade text-xs">
 <i class="fa-solid fa-book"></i> [ MAIN QUEST ]
 </div>
-<span class="text-[9px] sm:text-[10px] text-slate-500 font-tech">CLICK TO COLLECT</span>
+<span class="text-[9px] text-slate-500 font-tech">CLICK TO COLLECT</span>
 </div>
-<div class="space-y-1.5 my-2">
-<h3 class="text-lg md:text-2xl font-black text-white">MISSION!</h3>
+<div class="space-y-1">
+<h3 class="text-xl sm:text-2xl font-black text-white">MISSION!</h3>
 <p class="text-xs sm:text-sm text-slate-300 font-bold">
 지정 부스 <span class="text-emerald-400">5곳</span> 탐험 후 스탬프 획득
 <span id="stamp-counter" class="text-emerald-400 font-arcade text-xs ml-1">[0/5]</span>
 </p>
 </div>
 <!-- Interactive Stamp Preview Slots -->
-<div class="grid grid-cols-5 gap-2 my-4 pt-1">
+<div class="grid grid-cols-5 gap-2 my-3">
 <button type="button" onclick="toggleStamp(0)" class="stamp-slot aspect-square rounded-xl bg-[#0c161c] border border-slate-800 flex items-center justify-center text-slate-600 hover:text-emerald-400 text-base sm:text-lg font-black">1</button>
 <button type="button" onclick="toggleStamp(1)" class="stamp-slot aspect-square rounded-xl bg-[#0c161c] border border-slate-800 flex items-center justify-center text-slate-600 hover:text-emerald-400 text-base sm:text-lg font-black">2</button>
 <button type="button" onclick="toggleStamp(2)" class="stamp-slot aspect-square rounded-xl bg-[#0c161c] border border-slate-800 flex items-center justify-center text-slate-600 hover:text-emerald-400 text-base sm:text-lg font-black">3</button>
 <button type="button" onclick="toggleStamp(3)" class="stamp-slot aspect-square rounded-xl bg-[#0c161c] border border-slate-800 flex items-center justify-center text-slate-600 hover:text-emerald-400 text-base sm:text-lg font-black">4</button>
 <button type="button" onclick="toggleStamp(4)" class="stamp-slot aspect-square rounded-xl bg-[#0c161c] border border-slate-800 flex items-center justify-center text-slate-600 hover:text-emerald-400 text-base sm:text-lg font-black">5</button>
 </div>
-</div>
-<div class="bg-[#0c161c] border border-slate-800 rounded-xl p-3.5 flex items-center gap-3">
-<i class="fa-solid fa-gift text-xl sm:text-2xl text-yellow-400"></i>
+<div class="bg-[#0c161c] border border-slate-800 rounded-xl p-3 flex items-center gap-3">
+<i class="fa-solid fa-gift text-xl text-yellow-400"></i>
 <div>
-<span class="text-[11px] text-slate-400 block font-bold">보상 :</span>
+<span class="text-[10px] text-slate-400 block font-bold">보상 :</span>
 <span class="text-xs sm:text-sm font-bold text-emerald-300">FINAL QUEST 도전 자격 획득!</span>
 </div>
 </div>
 </div>
-<!-- SUB QUEST BOX -->
-<div class="bg-[#081014]/90 mint-card-border rounded-2xl p-5 md:p-8 flex flex-col justify-between space-y-5">
-<div>
-<div class="flex items-center gap-2 mb-3 text-emerald-400 font-arcade text-xs">
+</div>
+<!-- SCREEN 2: SUB QUEST -->
+<div id="tab-screen-sub-quest" class="arcade-screen-tab hidden space-y-4">
+<div class="bg-[#081014] mint-card-border rounded-xl p-4 sm:p-6 space-y-4">
+<div class="flex items-center gap-2 border-b border-slate-800 pb-2 text-emerald-400 font-arcade text-xs">
 <i class="fa-solid fa-scroll"></i> [ SUB QUEST ]
 </div>
-<div class="space-y-2 my-2">
-<div class="flex items-center justify-between bg-[#0c161c] p-2.5 sm:p-3 rounded-xl border border-slate-800/80">
-<span class="text-emerald-400 font-arcade text-[9px] sm:text-[10px]">STAGE 01</span>
+<div class="space-y-2">
+<div class="flex items-center justify-between bg-[#0c161c] p-3 rounded-xl border border-slate-800">
+<span class="text-emerald-400 font-arcade text-[10px]">STAGE 01</span>
 <span class="font-bold text-xs sm:text-sm text-slate-300">Target Zone (사격/양궁)</span>
 </div>
-<div class="flex items-center justify-between bg-[#0c161c] p-2.5 sm:p-3 rounded-xl border border-slate-800/80">
-<span class="text-emerald-400 font-arcade text-[9px] sm:text-[10px]">STAGE 02</span>
+<div class="flex items-center justify-between bg-[#0c161c] p-3 rounded-xl border border-slate-800">
+<span class="text-emerald-400 font-arcade text-[10px]">STAGE 02</span>
 <span class="font-bold text-xs sm:text-sm text-slate-300">Pop & Shot (게임 부스)</span>
 </div>
-<div class="flex items-center justify-between bg-[#0c161c] p-2.5 sm:p-3 rounded-xl border border-slate-800/80">
-<span class="text-emerald-400 font-arcade text-[9px] sm:text-[10px]">STAGE 03</span>
+<div class="flex items-center justify-between bg-[#0c161c] p-3 rounded-xl border border-slate-800">
+<span class="text-emerald-400 font-arcade text-[10px]">STAGE 03</span>
 <span class="font-bold text-xs sm:text-sm text-slate-300">??? & Gacha (뽑기 존)</span>
-</div>
 </div>
 </div>
 <div class="flex items-center justify-between text-xs pt-1">
@@ -328,165 +465,163 @@ SPECIAL QUEST
 </div>
 </div>
 </div>
-<!-- FINAL QUEST BOX (Purple Card) -->
-<div class="purple-card-border rounded-2xl p-5 md:p-8 text-center space-y-5 relative overflow-hidden">
+<!-- SCREEN 3: FINAL QUEST -->
+<div id="tab-screen-final-quest" class="arcade-screen-tab hidden space-y-4">
+<div class="purple-card-border rounded-xl p-4 sm:p-6 text-center space-y-4">
 <div class="inline-flex items-center gap-2 text-purple-300 font-arcade text-[10px] sm:text-xs bg-purple-950/80 px-3.5 py-1 rounded-full border border-purple-500/40">
 <i class="fa-solid fa-crown text-yellow-400"></i> [ FINAL QUEST ]
 </div>
 <div class="max-w-2xl mx-auto space-y-1.5">
-<h3 class="text-base sm:text-xl md:text-2xl font-black text-white leading-snug">
+<h3 class="text-base sm:text-xl font-black text-white leading-snug">
 메인 퀘스트(스탬프 5개) 완료 + <span class="text-emerald-400">11.1(일) AM 10:00</span> 예배 출석 시!
 </h3>
-<p class="text-slate-400 text-[11px] sm:text-xs md:text-sm">
+<p class="text-slate-400 text-[11px] sm:text-xs">
 첫 출석자 중 추첨을 통해 푸짐한 대형 경품 증정!
 </p>
 </div>
-<div class="flex flex-wrap justify-center gap-2.5">
-<div class="bg-[#120824] border border-purple-500/30 px-4 py-2 rounded-full text-xs font-bold text-purple-200 flex items-center gap-1.5">
+<div class="flex flex-wrap justify-center gap-2 pt-2">
+<div class="bg-[#120824] border border-purple-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-purple-200 flex items-center gap-1.5">
 <i class="fa-solid fa-headphones text-cyan-400 text-xs"></i> 에어팟 (1인)
 </div>
-<div class="bg-[#120824] border border-purple-500/30 px-4 py-2 rounded-full text-xs font-bold text-purple-200 flex items-center gap-1.5">
+<div class="bg-[#120824] border border-purple-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-purple-200 flex items-center gap-1.5">
 <i class="fa-solid fa-box-open text-pink-400 text-xs"></i> 다양한 특별 선물 세트
 </div>
 </div>
 </div>
-</section>
-<!-- SECTION 2: SCHEDULE & LOCATION CARDS -->
-<section id="section-schedule" class="space-y-8 pt-2">
-<div class="grid md:grid-cols-2 gap-5 md:gap-6">
-<!-- LEFT CARD: SCHEDULE -->
-<div class="bg-[#081014]/90 mint-card-border rounded-2xl p-5 md:p-8 relative flex flex-col justify-between">
-<div class="space-y-5">
-<div class="flex items-center gap-3">
-<div class="w-9 h-9 rounded-xl bg-emerald-950 border border-emerald-500/50 flex items-center justify-center text-emerald-400 text-base">
+</div>
+<!-- SCREEN 4: SCHEDULE & LOCATION -->
+<div id="tab-screen-schedule" class="arcade-screen-tab hidden space-y-4">
+<div class="grid md:grid-cols-2 gap-4">
+<!-- SCHEDULE -->
+<div class="bg-[#081014] mint-card-border rounded-xl p-4 space-y-3">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-emerald-950 border border-emerald-500/50 flex items-center justify-center text-emerald-400 text-sm">
 <i class="fa-solid fa-clock"></i>
 </div>
 <div>
-<span class="text-[9px] font-tech text-emerald-400 block tracking-widest">SCHEDULE</span>
-<h3 class="text-lg font-bold text-white">행사 일시</h3>
+<span class="text-[8px] font-tech text-emerald-400 block tracking-widest">SCHEDULE</span>
+<h3 class="text-sm font-bold text-white">행사 일시</h3>
 </div>
 </div>
-<div class="bg-[#0c161c] rounded-xl p-4 border border-slate-800/80 space-y-3">
-<div class="flex justify-between items-center text-xs sm:text-sm font-bold border-b border-slate-800 pb-2.5">
+<div class="bg-[#0c161c] rounded-lg p-3 border border-slate-800 space-y-2 text-xs">
+<div class="flex justify-between items-center font-bold border-b border-slate-800 pb-2">
 <span class="text-slate-400">10.31 (토)</span>
 <span class="text-emerald-400 font-tech">AM 11:00 - PM 05:00</span>
 </div>
-<div class="flex justify-between items-center text-xs sm:text-sm font-bold pt-0.5">
+<div class="flex justify-between items-center font-bold pt-0.5">
 <span class="text-slate-400">11.01 (일)</span>
 <span class="text-emerald-400 font-tech">AM 10:00 (예배/추첨)</span>
 </div>
 </div>
 </div>
-</div>
-<!-- RIGHT CARD: LOCATION -->
-<div class="bg-[#081014]/90 mint-card-border rounded-2xl p-5 md:p-8 relative flex flex-col justify-between">
-<div class="space-y-5">
-<div class="flex items-center gap-3">
-<div class="w-9 h-9 rounded-xl bg-emerald-950 border border-emerald-500/50 flex items-center justify-center text-emerald-400 text-base">
+<!-- LOCATION -->
+<div class="bg-[#081014] mint-card-border rounded-xl p-4 space-y-3">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-emerald-950 border border-emerald-500/50 flex items-center justify-center text-emerald-400 text-sm">
 <i class="fa-solid fa-location-dot"></i>
 </div>
 <div>
-<span class="text-[9px] font-tech text-emerald-400 block tracking-widest">LOCATION</span>
-<h3 class="text-lg font-bold text-white">오시는 길</h3>
+<span class="text-[8px] font-tech text-emerald-400 block tracking-widest">LOCATION</span>
+<h3 class="text-sm font-bold text-white">오시는 길</h3>
 </div>
 </div>
-<div class="bg-[#0c161c] rounded-xl p-4 border border-slate-800/80 space-y-1.5">
-<h4 class="text-sm font-bold text-white">당평교회</h4>
-<p class="text-xs text-slate-400">부산 부산진구 당감동 659-1</p>
-<a href="https://map.naver.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs text-emerald-400 font-bold hover:underline pt-1.5">
+<div class="bg-[#0c161c] rounded-lg p-3 border border-slate-800 space-y-1">
+<h4 class="text-xs font-bold text-white">당평교회</h4>
+<p class="text-[11px] text-slate-400">부산 부산진구 당감동 659-1</p>
+<a href="https://map.naver.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] text-emerald-400 font-bold hover:underline pt-1">
 <i class="fa-solid fa-map-location-dot text-xs"></i> 지도 앱에서 열기
 </a>
 </div>
 </div>
 </div>
 </div>
-</section>
-<!-- SECTION 3: APPLICATION FORM / REGISTRATION -->
-<section id="section-register" class="space-y-6 pt-4">
-<div class="bg-[#081014]/90 mint-card-border rounded-2xl p-5 md:p-10 space-y-6 sm:space-y-8">
-<div class="text-center space-y-1.5 border-b border-slate-800 pb-5">
+<!-- SCREEN 5: REGISTRATION FORM -->
+<div id="tab-screen-register" class="arcade-screen-tab hidden space-y-4">
+<div class="bg-[#081014] mint-card-border rounded-xl p-4 sm:p-6 space-y-5">
+<div class="text-center space-y-1 border-b border-slate-800 pb-3">
 <span class="text-[9px] font-tech text-emerald-400 tracking-widest uppercase">REGISTRATION</span>
-<h2 class="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight">축제 참가 접수</h2>
-<p class="text-xs text-slate-400">참가 정보를 입력하고 퀘스트 디지털 티켓을 발급받으세요.</p>
+<h2 class="text-lg sm:text-xl font-black text-white tracking-tight">축제 참가 접수</h2>
+<p class="text-[11px] text-slate-400">참가 정보를 입력하고 퀘스트 디지털 티켓을 발급받으세요.</p>
 </div>
-<form id="quest-form" onsubmit="handleFormSubmit(event)" class="space-y-6 sm:space-y-8">
+<form id="quest-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
 <!-- 1. Basic Info -->
-<div class="space-y-3 sm:space-y-4">
-<h3 class="text-xs sm:text-sm font-bold text-emerald-400 flex items-center gap-1.5">
+<div class="space-y-2.5">
+<h3 class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
 <i class="fa-solid fa-user text-xs"></i> 1. 신청자 정보
 </h3>
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
 <div>
-<label class="block text-[11px] text-slate-400 mb-1 font-bold">이름 *</label>
-<input type="text" id="user-name" required placeholder="성함을 입력해 주세요" class="w-full bg-[#0c161c] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-400 transition-colors">
+<label class="block text-[10px] text-slate-400 mb-1 font-bold">이름 *</label>
+<input type="text" id="user-name" required placeholder="성함을 입력해 주세요" class="w-full bg-[#0c161c] border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
 </div>
 <div>
-<label class="block text-[11px] text-slate-400 mb-1 font-bold">성별 *</label>
-<select id="user-gender" required class="w-full bg-[#0c161c] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-300 focus:outline-none focus:border-emerald-400 transition-colors">
+<label class="block text-[10px] text-slate-400 mb-1 font-bold">성별 *</label>
+<select id="user-gender" required class="w-full bg-[#0c161c] border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-emerald-400">
 <option value="">성별 선택</option>
 <option value="남성">남성</option>
 <option value="여성">여성</option>
 </select>
 </div>
 <div>
-<label class="block text-[11px] text-slate-400 mb-1 font-bold">나이 *</label>
-<input type="number" id="user-age" required min="1" max="100" placeholder="나이" class="w-full bg-[#0c161c] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-400 transition-colors">
+<label class="block text-[10px] text-slate-400 mb-1 font-bold">나이 *</label>
+<input type="number" id="user-age" required min="1" max="100" placeholder="나이" class="w-full bg-[#0c161c] border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
 </div>
 <div>
-<label class="block text-[11px] text-cyan-400 mb-1 font-bold">비밀번호 (숫자 4자리) *</label>
-<input type="password" id="user-password" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" required placeholder="조회용 4자리" class="w-full bg-[#0c161c] border border-cyan-500/40 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors">
+<label class="block text-[10px] text-cyan-400 mb-1 font-bold">비밀번호 (숫자 4자리) *</label>
+<input type="password" id="user-password" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" required placeholder="조회용 4자리" class="w-full bg-[#0c161c] border border-cyan-500/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
 </div>
 </div>
 </div>
 <!-- 2. Time Selection -->
-<div class="space-y-3 sm:space-y-4">
-<h3 class="text-xs sm:text-sm font-bold text-emerald-400 flex items-center gap-1.5">
+<div class="space-y-2.5">
+<h3 class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
 <i class="fa-solid fa-clock text-xs"></i> 2. 방문 희망 시간 선택 (30분 단위) *
 </h3>
 <input type="hidden" id="selected-time" required value="">
-<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2" id="time-grid">
-<button type="button" onclick="selectTime(this, '11:00 AM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all">11:00 AM</button>
-<button type="button" onclick="selectTime(this, '11:30 AM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all">11:30 AM</button>
-<button type="button" onclick="selectTime(this, '12:00 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all">12:00 PM</button>
-<button type="button" onclick="selectTime(this, '12:30 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all">12:30 PM</button>
-<button type="button" onclick="selectTime(this, '01:00 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all">01:00 PM</button>
-<button type="button" onclick="selectTime(this, '01:30 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all">01:30 PM</button>
-<button type="button" onclick="selectTime(this, '02:00 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all">02:00 PM</button>
-<button type="button" onclick="selectTime(this, '02:30 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all">02:30 PM</button>
-<button type="button" onclick="selectTime(this, '03:00 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all">03:00 PM</button>
-<button type="button" onclick="selectTime(this, '03:30 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all">03:30 PM</button>
-<button type="button" onclick="selectTime(this, '04:00 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all">04:00 PM</button>
-<button type="button" onclick="selectTime(this, '04:30 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all">04:30 PM</button>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-1.5" id="time-grid">
+<button type="button" onclick="selectTime(this, '11:00 AM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">11:00 AM</button>
+<button type="button" onclick="selectTime(this, '11:30 AM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">11:30 AM</button>
+<button type="button" onclick="selectTime(this, '12:00 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">12:00 PM</button>
+<button type="button" onclick="selectTime(this, '12:30 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">12:30 PM</button>
+<button type="button" onclick="selectTime(this, '01:00 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">01:00 PM</button>
+<button type="button" onclick="selectTime(this, '01:30 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">01:30 PM</button>
+<button type="button" onclick="selectTime(this, '02:00 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">02:00 PM</button>
+<button type="button" onclick="selectTime(this, '02:30 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">02:30 PM</button>
+<button type="button" onclick="selectTime(this, '03:00 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">03:00 PM</button>
+<button type="button" onclick="selectTime(this, '03:30 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">03:30 PM</button>
+<button type="button" onclick="selectTime(this, '04:00 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">04:00 PM</button>
+<button type="button" onclick="selectTime(this, '04:30 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">04:30 PM</button>
 </div>
 </div>
 <!-- 3. Companion Selection -->
-<div class="space-y-3 sm:space-y-4">
-<h3 class="text-xs sm:text-sm font-bold text-emerald-400 flex items-center gap-1.5">
+<div class="space-y-2.5">
+<h3 class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
 <i class="fa-solid fa-user-plus text-xs"></i> 3. 함께 오시는 동반 친구 수
 </h3>
-<div class="flex flex-wrap gap-2">
-<button type="button" onclick="selectCompanionCount(this, 0)" class="companion-btn bg-emerald-500 text-slate-950 border border-emerald-400 rounded-xl px-4 py-2 text-xs font-bold transition-all">없음 (0명)</button>
-<button type="button" onclick="selectCompanionCount(this, 1)" class="companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-4 py-2 text-xs font-bold transition-all">1명</button>
-<button type="button" onclick="selectCompanionCount(this, 2)" class="companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-4 py-2 text-xs font-bold transition-all">2명</button>
-<button type="button" onclick="selectCompanionCount(this, 3)" class="companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-4 py-2 text-xs font-bold transition-all">3명</button>
-<button type="button" onclick="toggleCustomCompanionInput(this)" class="companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-4 py-2 text-xs font-bold transition-all">직접 입력</button>
+<div class="flex flex-wrap gap-1.5">
+<button type="button" onclick="selectCompanionCount(this, 0)" class="companion-btn bg-emerald-500 text-slate-950 border border-emerald-400 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all">없음 (0명)</button>
+<button type="button" onclick="selectCompanionCount(this, 1)" class="companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all">1명</button>
+<button type="button" onclick="selectCompanionCount(this, 2)" class="companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all">2명</button>
+<button type="button" onclick="selectCompanionCount(this, 3)" class="companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all">3명</button>
+<button type="button" onclick="toggleCustomCompanionInput(this)" class="companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all">직접 입력</button>
 </div>
 <div id="custom-companion-box" class="hidden pt-1">
-<input type="number" id="custom-companion-input" min="1" max="10" placeholder="동행 인원수 입력 (숫자만)" oninput="renderFields(this.value)" class="w-full max-w-xs bg-[#0c161c] border border-emerald-500/50 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none">
+<input type="number" id="custom-companion-input" min="1" max="10" placeholder="동행 인원수 입력 (숫자만)" oninput="renderFields(this.value)" class="w-full max-w-xs bg-[#0c161c] border border-emerald-500/50 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none">
 </div>
 </div>
 <!-- DYNAMIC COMPANIONS INPUT CONTAINER -->
-<div id="companions-container" class="space-y-3 pt-1"></div>
+<div id="companions-container" class="space-y-2 pt-1"></div>
 <!-- Submit Button -->
-<button type="submit" id="submit-btn" class="w-full bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-black py-3.5 rounded-xl text-sm sm:text-base shadow-[0_0_25px_rgba(0,255,157,0.4)] transition-all flex items-center justify-center gap-2">
+<button type="submit" id="submit-btn" class="w-full bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-black py-3 rounded-xl text-xs sm:text-sm shadow-[0_0_20px_rgba(0,255,157,0.4)] transition-all flex items-center justify-center gap-2">
 <i class="fa-solid fa-ticket"></i> 접수 완료 및 티켓 발급
 </button>
 </form>
 </div>
-</section>
+</div>
+</div>
 </main>
 <!-- FOOTER -->
-<footer class="bg-[#020405] border-t border-slate-900 py-6 text-center text-slate-500 text-[11px] space-y-1">
+<footer class="bg-[#020405] border-t border-slate-900 py-4 text-center text-slate-500 text-[10px] space-y-1">
 <p>© 2026 DPCH FESTIVAL. All Rights Reserved.</p>
 <p>본 행사는 순수 비영리 목적의 퀘스트 축제 행사입니다.</p>
 </footer>
@@ -598,6 +733,19 @@ SPECIAL QUEST
 <script>
 // 📌 구글 앱스 스크립트 배포 후 발급받은 웹 앱 URL을 아래 큰따옴표 안에 복사해 넣으세요!
 const GOOGLE_SCRIPT_URL = "";
+// Arcade Screen Switching Function
+function switchArcadeTab(tabId) {
+document.querySelectorAll('.arcade-screen-tab').forEach(screen => {
+screen.classList.add('hidden');
+});
+document.querySelectorAll('.arcade-tab-btn').forEach(btn => {
+btn.classList.remove('active');
+});
+const targetScreen = document.getElementById('tab-screen-' + tabId);
+const targetBtn = document.getElementById('tab-btn-' + tabId);
+if (targetScreen) targetScreen.classList.remove('hidden');
+if (targetBtn) targetBtn.classList.add('active');
+}
 // Custom Toast Notification Function
 function showToast(message, isError = false) {
 const toast = document.getElementById('custom-toast');
@@ -747,27 +895,35 @@ updateStampUI();
 }
 function enableScroll() { document.body.classList.remove('overflow-hidden'); }
 function disableScroll() { document.body.classList.add('overflow-hidden'); }
+// ACCEPT QUEST: Portal Zoom + Left-to-Right Wipe Transition
 function acceptQuest() {
 closeDeclineModal();
+const cabinet = document.getElementById('arcade-cabinet');
 const introScreen = document.getElementById('intro-screen');
+const mainContent = document.getElementById('main-content');
+// Step 1: Add Zoom Portal Animation to Cabinet
+cabinet.classList.add('zoom-portal-anim');
+// Step 2: Fade Out Intro & Wipe In Main Page
+setTimeout(() => {
 introScreen.style.opacity = '0';
+// Show Main Content and Apply Left-to-Right Wipe Animation
+mainContent.classList.remove('hidden');
+mainContent.classList.add('wipe-in-anim');
+mainContent.style.opacity = '1';
 setTimeout(() => {
 introScreen.style.display = 'none';
 enableScroll();
-}, 700);
+}, 500);
+}, 650);
 }
 function openDeclineModal() { document.getElementById('decline-modal').classList.remove('hidden'); }
 function closeDeclineModal() { document.getElementById('decline-modal').classList.add('hidden'); }
-function scrollToSection(id) {
-const el = document.getElementById(id);
-if (el) { el.scrollIntoView({ behavior: 'smooth' }); }
-}
 function openNoticeModal() {
 document.getElementById('notice-modal').classList.remove('hidden');
 disableScroll();
 }
 function closeNoticeModal() {
-document.getElementById('notice-modal').classList.add('hidden');
+document.getElementById('notice-modal').classList.hidden = true;
 const introScreen = document.getElementById('intro-screen');
 if (introScreen.style.display === 'none') { enableScroll(); }
 }
@@ -782,24 +938,24 @@ if (introScreen.style.display === 'none') { enableScroll(); }
 }
 function selectTime(btnElement, timeStr) {
 document.querySelectorAll('.time-btn').forEach(btn => {
-btn.className = 'time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all';
+btn.className = 'time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all';
 });
-btnElement.className = 'time-btn bg-emerald-950/80 border border-emerald-400 text-emerald-400 rounded-xl py-2.5 text-[11px] font-tech font-bold transition-all shadow-[0_0_12px_rgba(0,255,157,0.3)]';
+btnElement.className = 'time-btn bg-emerald-950/80 border border-emerald-400 text-emerald-400 rounded-xl py-2 text-[10px] font-tech font-bold transition-all shadow-[0_0_12px_rgba(0,255,157,0.3)]';
 document.getElementById('selected-time').value = timeStr;
 }
 function selectCompanionCount(btnElement, count) {
 document.querySelectorAll('.companion-btn').forEach(btn => {
-btn.className = 'companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-4 py-2 text-xs font-bold transition-all';
+btn.className = 'companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all';
 });
-btnElement.className = 'companion-btn bg-emerald-500 text-slate-950 border border-emerald-400 rounded-xl px-4 py-2 text-xs font-bold transition-all';
+btnElement.className = 'companion-btn bg-emerald-500 text-slate-950 border border-emerald-400 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all';
 document.getElementById('custom-companion-box').classList.add('hidden');
 renderFields(count);
 }
 function toggleCustomCompanionInput(btnElement) {
 document.querySelectorAll('.companion-btn').forEach(btn => {
-btn.className = 'companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-4 py-2 text-xs font-bold transition-all';
+btn.className = 'companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all';
 });
-btnElement.className = 'companion-btn bg-emerald-500 text-slate-950 border border-emerald-400 rounded-xl px-4 py-2 text-xs font-bold transition-all';
+btnElement.className = 'companion-btn bg-emerald-500 text-slate-950 border border-emerald-400 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all';
 const customBox = document.getElementById('custom-companion-box');
 customBox.classList.remove('hidden');
 document.getElementById('companions-container').innerHTML = '';
@@ -811,14 +967,14 @@ const count = parseInt(countVal, 10);
 if (isNaN(count) || count <= 0) return;
 for (let i = 1; i <= count; i++) {
 const box = document.createElement('div');
-box.className = 'bg-[#0c161c] border border-slate-800 rounded-xl p-3.5 space-y-2.5';
+box.className = 'bg-[#0c161c] border border-slate-800 rounded-xl p-3 space-y-2';
 box.innerHTML = '<h4 class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">' +
 '<i class="fa-solid fa-user-tag text-[10px]"></i> 동행 친구 ' + i + ' 정보</h4>' +
-'<div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">' +
-'<input type="text" required placeholder="친구 ' + i + ' 이름" class="companion-name w-full bg-[#081014] border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">' +
-'<select required class="companion-gender w-full bg-[#081014] border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-emerald-400">' +
+'<div class="grid grid-cols-1 sm:grid-cols-3 gap-2">' +
+'<input type="text" required placeholder="친구 ' + i + ' 이름" class="companion-name w-full bg-[#081014] border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-400">' +
+'<select required class="companion-gender w-full bg-[#081014] border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-emerald-400">' +
 '<option value="">성별 선택</option><option value="남성">남성</option><option value="여성">여성</option></select>' +
-'<input type="number" min="1" max="100" required placeholder="나이" class="companion-age w-full bg-[#081014] border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">' +
+'<input type="number" min="1" max="100" required placeholder="나이" class="companion-age w-full bg-[#081014] border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-400">' +
 '</div>';
 container.appendChild(box);
 }
@@ -954,7 +1110,7 @@ document.getElementById('quest-form').reset();
 document.getElementById('companions-container').innerHTML = '';
 document.getElementById('selected-time').value = '';
 document.querySelectorAll('.time-btn').forEach(btn => {
-btn.className = 'time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2.5 text-[11px] text-slate-300 font-tech font-bold transition-all';
+btn.className = 'time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all';
 });
 }
 window.onload = function() {
