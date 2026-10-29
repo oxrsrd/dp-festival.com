@@ -11,19 +11,6 @@
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>DPCH 2026 FESTIVAL : SPECIAL QUEST</title>
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- FontAwesome Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
 <style>
 /* Custom Fonts */
@@ -43,290 +30,148 @@ background-color: #04080a;
 background-image: radial-gradient(rgba(0, 255, 157, 0.15) 1px, transparent 0);
 background-size: 28px 28px;
 }
-/* Pure Horizontal RGB Shift & Glitch for Text */
-@keyframes rgb-horizontal-shift {
-0% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; transform: translate(0, 0); }
-20% { text-shadow: -3px 0 0 #ff0055, 3px 0 0 #00ff9d; transform: translate(-2px, 1px); }
-40% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; transform: translate(2px, -1px); }
-60% { text-shadow: -2px 0 0 #ff0055, 2px 0 0 #00ff9d; transform: translate(0, 0); }
-80% { text-shadow: 3px 0 0 #ff0055, -3px 0 0 #00ff9d; transform: translate(1px, 1px); }
-100% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; transform: translate(0, 0); }
-}
-.rgb-glitch-text { animation: rgb-horizontal-shift 0.18s infinite ease-in-out; }
-/* CRT Flicker & Static Screen Pop-up Animation inside Monitor */
-@keyframes crt-screen-popup {
-0% { opacity: 0; transform: scale(0.6) translateY(20px); filter: contrast(300%) brightness(2.5) blur(4px); }
-20% { opacity: 0.9; transform: scale(1.05) translateY(-5px); filter: contrast(180%) brightness(1.4); }
-40% { opacity: 0.4; transform: scale(0.98); }
-60% { opacity: 1; transform: scale(1.02); filter: contrast(120%) brightness(1.2); }
-80% { opacity: 0.85; transform: scale(0.99); }
-100% { opacity: 1; transform: scale(1) translateY(0); filter: contrast(100%) brightness(1); }
-}
-.arcade-popup-anim {
-animation: crt-screen-popup 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-/* 3D RETRO ARCADE CABINET BODY DESIGN (3D Perspective Side Panels) */
-.arcade-machine-container {
-perspective: 1000px;
-display: flex;
-justify-content: center;
-align-items: center;
+/* Arcade Cabinet Viewport Container */
+.arcade-frame-wrapper {
+position: relative;
 width: 100%;
-max-width: 420px;
+max-width: 520px;
 margin: 0 auto;
 }
-.arcade-cabinet-3d-body {
-background: linear-gradient(180deg, #4a1314 0%, #2e0b0c 40%, #170506 100%);
-border: 5px solid #851e20;
-border-radius: 28px 28px 20px 20px;
-box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(133, 30, 32, 0.4), inset 0 2px 10px rgba(255, 150, 150, 0.2);
+/* Image Cabinet Aspect Ratio Container /
+.cabinet-aspect-box {
 position: relative;
 width: 100%;
-overflow: hidden;
+padding-top: 110%; / Responsive ratio matching arcade frame */
+background: url('https://raw.githubusercontent.com/orifhdf/dpch-assets/main/arcade_front_frame.png') no-repeat center center;
+background-size: contain;
+filter: drop-shadow(0 0 35px rgba(0, 240, 255, 0.4));
+transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
 }
-/* Arcade Cabinet Marquee Header */
-.cabinet-marquee {
-background: linear-gradient(180deg, #180521 0%, #0d0114 100%);
-border: 3px solid #ff2a8d;
-border-radius: 16px;
-box-shadow: 0 0 20px rgba(255, 42, 141, 0.6), inset 0 0 10px rgba(255, 42, 141, 0.4);
-}
-/* Curved CRT Arcade Monitor Frame with Glass Glare Effect */
-.crt-monitor-bezel {
-background: #060913;
-border: 10px solid #131a2b;
-border-radius: 24px;
-box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.95), 0 0 25px rgba(37, 99, 235, 0.3);
-position: relative;
-overflow: hidden;
-transform: perspective(600px) rotateX(2deg);
-}
-.crt-glass-glare {
+/* Screen Window Overlay (Positioned exactly over image monitor) */
+.arcade-screen-area {
 position: absolute;
-top: 0; left: 0; right: 0; bottom: 0;
-background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 40.1%);
-pointer-events: none;
-z-index: 25;
-}
-/* Control Deck Panel */
-.arcade-control-panel {
-background: linear-gradient(180deg, #1c0a0c 0%, #0a0304 100%);
-border-top: 4px solid #6b1416;
-box-shadow: inset 0 5px 15px rgba(0,0,0,0.9);
-}
-/* Screw / Bolt Accents */
-.cabinet-screw {
-width: 7px;
-height: 7px;
-background: #64748b;
-border-radius: 50%;
-box-shadow: inset 1px 1px 2px #94a3b8, inset -1px -1px 2px #0f172a;
-}
-/* Joystick 3D Render Style */
-.joystick-container {
+top: 31.5%;
+left: 28.5%;
+width: 43%;
+height: 34.5%;
+background-color: #020408;
+border-radius: 12px;
+overflow: hidden;
+box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.95);
 display: flex;
 flex-direction: column;
-align-items: center;
-justify-content: center;
+justify-content: space-between;
 }
-.joystick-base {
-width: 48px;
-height: 20px;
-background: radial-gradient(circle, #475569 0%, #0f172a 100%);
-border: 2px solid #64748b;
-border-radius: 50%;
-box-shadow: inset 0 4px 8px rgba(0,0,0,0.9), 0 5px 10px rgba(0,0,0,0.7);
+/* CRT Glass Scanlines */
+.crt-scanlines {
+position: absolute;
+inset: 0;
+background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.6) 50%);
+background-size: 100% 4px;
+pointer-events: none;
+z-index: 25;
+opacity: 0.8;
 }
-.joystick-stick {
-width: 9px;
-height: 28px;
-background: linear-gradient(90deg, #94a3b8 0%, #f1f5f9 50%, #64748b 100%);
-border-radius: 4px;
+/* Pure RGB Shift Glitch Text */
+@keyframes rgb-horizontal-shift {
+0% { text-shadow: 3px 0 0 #ff0055, -3px 0 0 #00ff9d; }
+20% { text-shadow: -2px 0 0 #ff0055, 2px 0 0 #00ff9d; }
+40% { text-shadow: 3px 0 0 #ff0055, -3px 0 0 #00ff9d; }
+60% { text-shadow: -2px 0 0 #ff0055, 2px 0 0 #00ff9d; }
+80% { text-shadow: 2px 0 0 #ff0055, -2px 0 0 #00ff9d; }
+100% { text-shadow: 3px 0 0 #ff0055, -3px 0 0 #00ff9d; }
 }
-.joystick-knob {
-width: 30px;
-height: 30px;
-background: radial-gradient(circle at 35% 35%, #ff4d4d 0%, #cc0000 70%, #800000 100%);
-border-radius: 50%;
-box-shadow: 0 0 14px rgba(255, 0, 0, 0.9), inset -3px -3px 8px rgba(0,0,0,0.7);
+.rgb-glitch-text { animation: rgb-horizontal-shift 0.2s infinite ease-in-out; }
+/* CRT Flash Effect */
+@keyframes crt-screen-flash {
+0% { filter: brightness(1); }
+25% { filter: brightness(10) blur(1px); }
+50% { filter: brightness(0.2); }
+75% { filter: brightness(8); }
+100% { filter: brightness(1); }
 }
-/* Arcade Push Buttons */
-.arcade-btn-3d {
-width: 24px;
-height: 24px;
-border-radius: 50%;
-transition: transform 0.1s ease;
-border: 2px solid rgba(255,255,255,0.3);
+.crt-flash-anim { animation: crt-screen-flash 0.4s ease-out forwards; }
+/* Camera Deep Zoom into Monitor */
+@keyframes deep-zoom-portal {
+0% { transform: scale(1); opacity: 1; }
+50% { transform: scale(3.5); opacity: 0.9; }
+100% { transform: scale(12); opacity: 0; }
 }
-.arcade-btn-red { background: radial-gradient(circle at 35% 35%, #ff6b6b 0%, #d90429 70%); box-shadow: 0 0 10px #d90429, inset 0 -3px 4px rgba(0,0,0,0.5); }
-.arcade-btn-yellow { background: radial-gradient(circle at 35% 35%, #ffea00 0%, #ffb703 70%); box-shadow: 0 0 10px #ffb703, inset 0 -3px 4px rgba(0,0,0,0.5); }
-.arcade-btn-blue { background: radial-gradient(circle at 35% 35%, #4cc9f0 0%, #4361ee 70%); box-shadow: 0 0 10px #4361ee, inset 0 -3px 4px rgba(0,0,0,0.5); }
-.arcade-btn-green { background: radial-gradient(circle at 35% 35%, #52b788 0%, #2dc653 70%); box-shadow: 0 0 10px #2dc653, inset 0 -3px 4px rgba(0,0,0,0.5); }
-/* ZOOM INTO MONITOR PORTAL TRANSITION (Cabinet remains, Monitor Sucks In) */
-@keyframes zoom-into-monitor {
-0% {
-transform: perspective(600px) rotateX(2deg) scale(1);
-opacity: 1;
-filter: brightness(1) blur(0px);
+.deep-zoom-anim {
+animation: deep-zoom-portal 0.85s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
+transform-origin: 50% 45% !important;
 }
-50% {
-transform: perspective(600px) rotateX(0deg) scale(3.5);
-opacity: 0.9;
-filter: brightness(2.5) blur(2px) drop-shadow(0 0 80px #00ff9d);
+/* Page 2 Wipe In Transition */
+@keyframes wipe-in-left-to-right {
+0% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); opacity: 0; transform: translateX(-20px); }
+100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; transform: translateX(0); }
 }
-100% {
-transform: perspective(600px) rotateX(0deg) scale(12);
-opacity: 0;
-filter: brightness(6) blur(10px);
-}
-}
-.monitor-suck-anim {
-animation: zoom-into-monitor 0.85s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
-transform-origin: center center;
-z-index: 100;
-}
-/* Fade-In Transition for Main Content */
-@keyframes fade-in-smooth {
-0% { opacity: 0; transform: scale(0.96); }
-100% { opacity: 1; transform: scale(1); }
-}
-.fade-in-anim {
-animation: fade-in-smooth 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-/* Card Borders & Styling */
-.mint-card-border {
-border: 1px solid rgba(0, 255, 157, 0.3);
-box-shadow: 0 0 20px rgba(0, 255, 157, 0.05);
-}
-.purple-card-border {
-background: linear-gradient(135deg, #1f0b38 0%, #0d061a 100%);
-border: 1px solid rgba(168, 85, 247, 0.4);
-box-shadow: 0 0 25px rgba(168, 85, 247, 0.15);
-}
-/* Interactive Stamp Slot Animation */
-.stamp-slot {
-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.stamp-slot.active {
-background-color: rgba(0, 255, 157, 0.2);
-border-color: #00ff9d;
-box-shadow: 0 0 18px rgba(0, 255, 157, 0.6);
-transform: scale(1.08);
-}
-/* Custom Scrollbar */
+.wipe-in-anim { animation: wipe-in-left-to-right 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+/* Card Borders */
+.mint-card-border { border: 1px solid rgba(0, 255, 157, 0.3); box-shadow: 0 0 20px rgba(0, 255, 157, 0.05); }
+.purple-card-border { background: linear-gradient(135deg, #1f0b38 0%, #0d061a 100%); border: 1px solid rgba(168, 85, 247, 0.4); box-shadow: 0 0 25px rgba(168, 85, 247, 0.15); }
+.stamp-slot { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.stamp-slot.active { background-color: rgba(0, 255, 157, 0.2); border-color: #00ff9d; box-shadow: 0 0 18px rgba(0, 255, 157, 0.6); transform: scale(1.08); }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #04080a; }
 ::-webkit-scrollbar-thumb { background: #00ff9d; border-radius: 4px; }
-.full-mobile-screen {
-height: 100vh;
-height: 100svh;
-}
-/* Arcade Tab Active Effects */
-.arcade-tab-btn {
-transition: all 0.2s ease-in-out;
-}
-.arcade-tab-btn.active {
-border-color: #00ff9d !important;
-background-color: rgba(0, 255, 157, 0.2) !important;
-color: #00ff9d !important;
-box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
-transform: translateY(-2px);
-}
+.full-mobile-screen { height: 100vh; height: 100svh; }
+.arcade-tab-btn { transition: all 0.2s ease-in-out; }
+.arcade-tab-btn.active { border-color: #00ff9d !important; background-color: rgba(0, 255, 157, 0.2) !important; color: #00ff9d !important; box-shadow: 0 0 15px rgba(0, 255, 157, 0.4); transform: translateY(-2px); }
 </style>
 </head>
 <body class="bg-[#030708] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-emerald-400 selection:text-black overflow-hidden">
-<!-- ==================== CUSTOM TOAST NOTIFICATION ==================== -->
+<!-- Custom Toast -->
 <div id="custom-toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 hidden transition-all duration-300 transform -translate-y-full opacity-0 max-w-sm w-11/12">
 <div class="bg-[#081014] border-2 border-emerald-400 text-emerald-300 px-4 py-3 rounded-2xl shadow-[0_0_25px_rgba(0,255,157,0.4)] flex items-center gap-3">
 <i id="toast-icon" class="fa-solid fa-circle-info text-xl text-emerald-400"></i>
 <span id="toast-message" class="text-xs font-bold leading-snug">알림 메시지</span>
 </div>
 </div>
-<!-- ==================== PAGE 1: INTRO ARCADE SCREEN ==================== -->
-<section id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#020405] p-3 sm:p-4 transition-opacity duration-500 overflow-hidden full-mobile-screen">
-<!-- Canvas 1: Starry Background Particles -->
+<!-- PAGE 1: INTRO ARCADE SCREEN -->
+<section id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#010204] p-3 md:p-4 transition-opacity duration-500 overflow-hidden full-mobile-screen">
 <canvas id="starry-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
-<!-- Canvas 2: Static TV Noise Layer inside background -->
-<canvas id="tv-noise-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-20 transition-opacity duration-1000"></canvas>
-<!-- Scanline Effect Overlay -->
-<div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none z-20 opacity-60"></div>
-<!-- RETRO ARCADE MACHINE CONTAINER (PERFECTLY CENTERED) -->
-<div class="arcade-machine-container z-30 my-auto">
-<div id="arcade-cabinet" class="arcade-cabinet-3d-body p-3.5 sm:p-4 flex flex-col justify-between">
-<!-- 1. Cabinet Header / Marquee Sign -->
-<div class="cabinet-marquee p-2 mb-3 text-center flex items-center justify-between">
-<span class="text-yellow-400 text-xs animate-pulse">👾</span>
-<span class="font-arcade text-xs sm:text-sm text-yellow-400 tracking-wider">FESTIVAL 2026</span>
-<span class="font-arcade text-[8px] sm:text-[9px] text-pink-400 tracking-tight animate-pulse">◄ INSERT COIN ►</span>
-</div>
-<!-- 2. CRT Arcade Monitor Screen (Inner Display Box) -->
-<div id="crt-monitor" class="crt-monitor-bezel p-3 sm:p-4 text-center flex flex-col items-center">
-<div class="crt-glass-glare"></div>
-<!-- Monitor Top Screws -->
-<div class="w-full flex justify-between items-center mb-1.5 px-0.5 z-30">
-<div class="cabinet-screw"></div>
-<div class="cabinet-screw"></div>
-</div>
-<!-- Monitor Screen Top Status -->
-<div class="w-full flex justify-between items-center text-[8px] sm:text-[9px] font-arcade text-slate-400 border-b border-slate-800 pb-1.5 mb-3 z-30">
+<div class="arcade-frame-wrapper z-30 my-auto">
+<!-- FRONT ARCADE FRAME CONTAINER -->
+<div id="arcade-cabinet" class="cabinet-aspect-box">
+<!-- SCREEN WINDOW (FIT EXACTLY INSIDE IMAGE MONITOR) -->
+<div id="crt-screen-area" class="arcade-screen-area p-2 text-center">
+<div class="crt-scanlines"></div>
+<!-- CRT STATIC NOISE CANVAS (INSIDE MONITOR ONLY) -->
+<canvas id="crt-noise-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-100 transition-opacity duration-1000"></canvas>
+<!-- SCREEN CONTENT UI (4s Fade-in) -->
+<div id="crt-ui-content" class="w-full h-full flex flex-col justify-between items-center relative z-30 opacity-0 transition-opacity duration-[3500ms] ease-in-out py-1">
+<!-- Status Line -->
+<div class="w-full flex justify-between items-center text-[7px] sm:text-[9px] font-arcade text-slate-400 border-b border-slate-800 pb-1">
 <span>SCORE <span class="text-white">000000</span></span>
 <span>CREDIT <span class="text-emerald-400">01</span></span>
 </div>
-<!-- POPUP QUEST WINDOW INSIDE MONITOR SCREEN -->
-<div class="arcade-popup-anim z-30 w-full bg-[#08111e]/90 border-2 border-cyan-400/80 rounded-2xl p-3 shadow-[0_0_20px_rgba(0,240,255,0.4)] flex flex-col items-center my-auto">
-<!-- Crown Badge Header -->
-<div class="inline-flex items-center gap-1.5 border border-cyan-400 bg-cyan-950/90 px-3 py-1 rounded-full mb-2 shadow-[0_0_10px_rgba(0,240,255,0.6)]">
-<i class="fa-solid fa-crown text-yellow-400 text-[10px]"></i>
-<span class="font-arcade text-[9px] sm:text-[10px] text-yellow-400 tracking-wider">[ NEW QUEST ]</span>
+<!-- Quest Badge & Glitch Title -->
+<div class="flex flex-col items-center my-auto">
+<div class="inline-flex items-center gap-1 border border-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded-full mb-1">
+<i class="fa-solid fa-crown text-yellow-400 text-[8px]"></i>
+<span class="font-arcade text-[8px] text-yellow-400">[ NEW QUEST ]</span>
 </div>
-<!-- Glitch Quest Title Display -->
-<div class="my-1.5 py-0.5 px-2 w-full flex justify-center items-center">
-<span class="font-arcade text-2xl sm:text-3xl text-cyan-400 tracking-widest rgb-glitch-text font-black">????</span>
-</div>
-<p class="text-[10px] sm:text-[11px] text-slate-200 font-medium my-2 leading-relaxed px-1">
+<span class="font-arcade text-xl sm:text-2xl text-cyan-400 tracking-widest rgb-glitch-text font-black my-1">????</span>
+<p class="text-[8px] sm:text-[10px] text-slate-300 font-medium leading-tight px-1">
 수락하면 다음 페이지에서 미션을 확인하실 수 있어요
 </p>
+</div>
 <!-- Screen Action Buttons -->
-<div class="grid grid-cols-2 gap-2 w-full mt-1">
-<button id="btn-accept-intro" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 active:scale-95 text-slate-950 font-arcade text-[9px] py-2.5 px-1.5 rounded-xl border-2 border-lime-300 shadow-[0_0_15px_rgba(132,204,22,0.7)] transition-all flex items-center justify-center gap-1">
+<div class="grid grid-cols-2 gap-1.5 w-full pt-1">
+<button id="btn-accept-intro" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 active:scale-95 text-slate-950 font-arcade text-[8px] sm:text-[9px] py-1.5 px-1 rounded-lg border border-lime-300 shadow-[0_0_12px_rgba(132,204,22,0.7)] transition-all flex items-center justify-center gap-1">
 ✓ ACCEPT
 </button>
-<button id="btn-decline-intro" onclick="openDeclineModal()" class="bg-[#9333ea] hover:brightness-110 active:scale-95 text-white font-arcade text-[9px] py-2.5 px-1.5 rounded-xl border-2 border-purple-400 shadow-[0_0_15px_rgba(147,51,234,0.7)] transition-all flex items-center justify-center gap-1">
+<button id="btn-decline-intro" onclick="openDeclineModal()" class="bg-[#9333ea] hover:brightness-110 active:scale-95 text-white font-arcade text-[8px] sm:text-[9px] py-1.5 px-1 rounded-lg border border-purple-400 shadow-[0_0_12px_rgba(147,51,234,0.7)] transition-all flex items-center justify-center gap-1">
 ✕ DECLINE
 </button>
 </div>
 </div>
-<!-- Monitor Bottom Screws -->
-<div class="w-full flex justify-between items-center mt-2 px-0.5 z-30">
-<div class="cabinet-screw"></div>
-<div class="cabinet-screw"></div>
-</div>
-</div>
-<!-- 3. Arcade Control Deck Panel -->
-<div class="w-full arcade-control-panel rounded-xl p-2.5 mt-2.5 flex items-center justify-between">
-<!-- Joystick Graphics -->
-<div class="joystick-container pl-1">
-<div class="joystick-knob"></div>
-<div class="joystick-stick -mt-1"></div>
-<div class="joystick-base -mt-2"></div>
-</div>
-<!-- Push Buttons -->
-<div class="flex flex-col items-end gap-1 pr-1">
-<div class="flex gap-2">
-<div class="arcade-btn-3d arcade-btn-red"></div>
-<div class="arcade-btn-3d arcade-btn-yellow"></div>
-</div>
-<div class="flex gap-2 pr-0.5">
-<div class="arcade-btn-3d arcade-btn-blue"></div>
-<div class="arcade-btn-3d arcade-btn-green"></div>
-</div>
-</div>
-<span class="font-arcade text-[8px] text-yellow-400 tracking-wider font-bold pr-1">1P START</span>
 </div>
 </div>
 </div>
 </section>
-<!-- ==================== DECLINE POPUP MODAL ==================== -->
+<!-- DECLINE MODAL -->
 <div id="decline-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity">
 <div class="relative w-full max-w-sm bg-[#120824] border-2 border-purple-500 rounded-3xl p-6 shadow-[0_0_40px_rgba(168,85,247,0.6)] text-center space-y-5">
 <div class="flex justify-center">
@@ -346,15 +191,13 @@ transform: translateY(-2px);
 </div>
 </div>
 </div>
-<!-- ==================== PAGE 2: MAIN PAGE ==================== -->
+<!-- PAGE 2: MAIN PAGE -->
 <div id="main-content" class="min-h-screen flex flex-col bg-dots-pattern opacity-0 hidden">
-<!-- NAV BAR WITH HAMBURGER MENU -->
 <header class="sticky top-0 z-40 bg-[#04080a]/90 backdrop-blur-md border-b border-emerald-500/20 px-4 md:px-6 py-3.5">
 <div class="max-w-6xl mx-auto flex items-center justify-between">
 <a href="#" class="flex items-center gap-1.5 text-emerald-400 font-serif-title font-bold text-base md:text-xl tracking-wider">
 <span class="text-emerald-400 text-base">+</span> DPCH FESTIVAL
 </a>
-<!-- Desktop Navigation Menu -->
 <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
 <button onclick="openNoticeModal()" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5 text-yellow-400 font-bold">
 <i class="fa-solid fa-bullhorn text-xs"></i> 공지사항
@@ -363,7 +206,6 @@ transform: translateY(-2px);
 <button onclick="switchArcadeTab('schedule')" class="hover:text-emerald-400 transition-colors">행사일정</button>
 <button onclick="switchArcadeTab('register')" class="hover:text-emerald-400 transition-colors">접수하기</button>
 </nav>
-<!-- Desktop Action Buttons -->
 <div class="hidden md:flex items-center gap-2">
 <button onclick="openLookupModal()" class="bg-cyan-950/80 border border-cyan-500/60 text-cyan-400 font-bold text-xs md:text-sm px-3 md:px-4 py-2 rounded-full hover:bg-cyan-500 hover:text-black transition-all shadow-[0_0_15px_rgba(0,240,255,0.2)] flex items-center gap-1.5">
 <i class="fa-solid fa-ticket text-xs"></i> 내 티켓 확인
@@ -372,7 +214,6 @@ transform: translateY(-2px);
 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 접수하기
 </button>
 </div>
-<!-- Mobile Hamburger Button -->
 <div class="flex items-center gap-2 md:hidden">
 <button onclick="openLookupModal()" class="bg-cyan-950/80 border border-cyan-500/60 text-cyan-400 font-bold text-[11px] px-2.5 py-1.5 rounded-full hover:bg-cyan-500 hover:text-black transition-all flex items-center gap-1">
 <i class="fa-solid fa-ticket text-[10px]"></i> 티켓확인
@@ -382,7 +223,6 @@ transform: translateY(-2px);
 </button>
 </div>
 </div>
-<!-- Mobile Slide-Down Drawer Menu -->
 <div id="mobile-drawer" class="hidden md:hidden pt-3 pb-2 px-2 border-t border-slate-800/80 mt-3 space-y-2.5 transition-all">
 <button onclick="openNoticeModal(); toggleMobileMenu();" class="w-full text-left bg-yellow-950/30 border border-yellow-500/40 text-yellow-400 font-bold text-xs py-2.5 px-4 rounded-xl flex items-center gap-2">
 <i class="fa-solid fa-bullhorn text-xs"></i> 공지사항 (필독)
@@ -400,9 +240,7 @@ transform: translateY(-2px);
 </button>
 </div>
 </header>
-<!-- MAIN BODY CONTAINER -->
 <main class="max-w-4xl mx-auto px-3.5 sm:px-4 py-4 md:py-8 space-y-5 flex-grow w-full">
-<!-- MAIN HEADER TITLE -->
 <div class="text-center space-y-1.5 pt-1">
 <span class="text-emerald-400 text-[10px] sm:text-xs font-arcade tracking-widest block">
 [ 2026 당평교회 중고청 축제 ]
@@ -414,7 +252,6 @@ SPECIAL QUEST
 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 퀘스트 참가 접수 진행 중
 </div>
 </div>
-<!-- ARCADE CONTROL PANEL (MODE SWITCH TABS) -->
 <div class="bg-[#081014] border border-cyan-500/40 rounded-2xl p-2 md:p-3 shadow-[0_0_20px_rgba(0,240,255,0.15)]">
 <div class="text-center text-[9px] font-arcade text-cyan-400 mb-1.5 tracking-wider hidden sm:block">
 ◄ SELECT SCREEN BUTTON ►
@@ -442,7 +279,6 @@ SPECIAL QUEST
 </button>
 </div>
 </div>
-<!-- ARCADE MONITOR DISPLAY VIEWPORT -->
 <div class="relative bg-black border-2 border-emerald-500/50 rounded-2xl p-3 sm:p-6 shadow-[0_0_30px_rgba(0,255,157,0.15)] overflow-hidden">
 <!-- SCREEN 1: MAIN QUEST -->
 <div id="tab-screen-main-quest" class="arcade-screen-tab space-y-4">
@@ -460,7 +296,6 @@ SPECIAL QUEST
 <span id="stamp-counter" class="text-emerald-400 font-arcade text-xs ml-1">[0/5]</span>
 </p>
 </div>
-<!-- Interactive Stamp Preview Slots -->
 <div class="grid grid-cols-5 gap-2 my-3">
 <button type="button" onclick="toggleStamp(0)" class="stamp-slot aspect-square rounded-xl bg-[#0c161c] border border-slate-800 flex items-center justify-center text-slate-600 hover:text-emerald-400 text-base sm:text-lg font-black">1</button>
 <button type="button" onclick="toggleStamp(1)" class="stamp-slot aspect-square rounded-xl bg-[#0c161c] border border-slate-800 flex items-center justify-center text-slate-600 hover:text-emerald-400 text-base sm:text-lg font-black">2</button>
@@ -534,7 +369,6 @@ SPECIAL QUEST
 <!-- SCREEN 4: SCHEDULE & LOCATION -->
 <div id="tab-screen-schedule" class="arcade-screen-tab hidden space-y-4">
 <div class="grid md:grid-cols-2 gap-4">
-<!-- SCHEDULE -->
 <div class="bg-[#081014] mint-card-border rounded-xl p-4 space-y-3">
 <div class="flex items-center gap-2.5">
 <div class="w-8 h-8 rounded-lg bg-emerald-950 border border-emerald-500/50 flex items-center justify-center text-emerald-400 text-sm">
@@ -556,7 +390,6 @@ SPECIAL QUEST
 </div>
 </div>
 </div>
-<!-- LOCATION -->
 <div class="bg-[#081014] mint-card-border rounded-xl p-4 space-y-3">
 <div class="flex items-center gap-2.5">
 <div class="w-8 h-8 rounded-lg bg-emerald-950 border border-emerald-500/50 flex items-center justify-center text-emerald-400 text-sm">
@@ -586,7 +419,6 @@ SPECIAL QUEST
 <p class="text-[11px] text-slate-400">참가 정보를 입력하고 퀘스트 디지털 티켓을 발급받으세요.</p>
 </div>
 <form id="quest-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
-<!-- 1. Basic Info -->
 <div class="space-y-2.5">
 <h3 class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
 <i class="fa-solid fa-user text-xs"></i> 1. 신청자 정보
@@ -614,7 +446,6 @@ SPECIAL QUEST
 </div>
 </div>
 </div>
-<!-- 2. Time Selection -->
 <div class="space-y-2.5">
 <h3 class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
 <i class="fa-solid fa-clock text-xs"></i> 2. 방문 희망 시간 선택 (30분 단위) *
@@ -635,7 +466,6 @@ SPECIAL QUEST
 <button type="button" onclick="selectTime(this, '04:30 PM')" class="time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all">04:30 PM</button>
 </div>
 </div>
-<!-- 3. Companion Selection -->
 <div class="space-y-2.5">
 <h3 class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
 <i class="fa-solid fa-user-plus text-xs"></i> 3. 함께 오시는 동반 친구 수
@@ -651,9 +481,7 @@ SPECIAL QUEST
 <input type="number" id="custom-companion-input" min="1" max="10" placeholder="동행 인원수 입력 (숫자만)" oninput="renderFields(this.value)" class="w-full max-w-xs bg-[#0c161c] border border-emerald-500/50 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none">
 </div>
 </div>
-<!-- DYNAMIC COMPANIONS INPUT CONTAINER -->
 <div id="companions-container" class="space-y-2 pt-1"></div>
-<!-- Submit Button -->
 <button type="submit" id="submit-btn" class="w-full bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-black py-3 rounded-xl text-xs sm:text-sm shadow-[0_0_20px_rgba(0,255,157,0.4)] transition-all flex items-center justify-center gap-2">
 <i class="fa-solid fa-ticket"></i> 접수 완료 및 티켓 발급
 </button>
@@ -662,13 +490,12 @@ SPECIAL QUEST
 </div>
 </div>
 </main>
-<!-- FOOTER -->
 <footer class="bg-[#020405] border-t border-slate-900 py-4 text-center text-slate-500 text-[10px] space-y-1">
 <p>© 2026 DPCH FESTIVAL. All Rights Reserved.</p>
 <p>본 행사는 순수 비영리 목적의 퀘스트 축제 행사입니다.</p>
 </footer>
 </div>
-<!-- ==================== LOOKUP TICKET MODAL ==================== -->
+<!-- LOOKUP TICKET MODAL -->
 <div id="lookup-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity">
 <div class="relative w-full max-w-sm bg-[#081014] border-2 border-cyan-400 rounded-3xl p-5 sm:p-6 shadow-[0_0_50px_rgba(0,240,255,0.3)] text-left space-y-4">
 <div class="flex items-center justify-between border-b border-cyan-500/30 pb-2.5">
@@ -697,7 +524,7 @@ SPECIAL QUEST
 </form>
 </div>
 </div>
-<!-- ==================== NOTICE MODAL POPUP ==================== -->
+<!-- NOTICE MODAL -->
 <div id="notice-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity">
 <div class="relative w-full max-w-lg bg-[#081014] border-2 border-emerald-400 rounded-3xl p-5 sm:p-7 shadow-[0_0_50px_rgba(0,255,157,0.3)] text-left space-y-4 max-h-[85vh] overflow-y-auto">
 <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2.5">
@@ -747,7 +574,7 @@ SPECIAL QUEST
 </button>
 </div>
 </div>
-<!-- ==================== TICKET RECEIPT MODAL ==================== -->
+<!-- TICKET RECEIPT MODAL -->
 <div id="ticket-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
 <div class="relative w-full max-w-sm bg-[#081014] border-2 border-emerald-400 rounded-3xl p-5 sm:p-6 shadow-[0_0_50px_rgba(0,255,157,0.4)] text-center space-y-4">
 <div class="inline-flex items-center gap-1.5 bg-emerald-950 border border-emerald-500/50 px-3 py-1 rounded-full text-emerald-400 text-[10px] font-arcade">
@@ -771,10 +598,8 @@ SPECIAL QUEST
 </button>
 </div>
 </div>
-<!-- ==================== JAVASCRIPT LOGIC ==================== -->
 <script>
 const GOOGLE_SCRIPT_URL = "";
-// Arcade Screen Switching Function
 function switchArcadeTab(tabId) {
 document.querySelectorAll('.arcade-screen-tab').forEach(screen => {
 screen.classList.add('hidden');
@@ -787,7 +612,6 @@ const targetBtn = document.getElementById('tab-btn-' + tabId);
 if (targetScreen) targetScreen.classList.remove('hidden');
 if (targetBtn) targetBtn.classList.add('active');
 }
-// Custom Toast Notification Function
 function showToast(message, isError = false) {
 const toast = document.getElementById('custom-toast');
 const msgEl = document.getElementById('toast-message');
@@ -801,15 +625,12 @@ toast.firstElementChild.className = 'bg-[#081014] border-2 border-emerald-400 te
 iconEl.className = 'fa-solid fa-circle-info text-xl text-emerald-400';
 }
 toast.classList.remove('hidden');
-setTimeout(() => {
-toast.classList.remove('-translate-y-full', 'opacity-0');
-}, 10);
+setTimeout(() => toast.classList.remove('-translate-y-full', 'opacity-0'), 10);
 setTimeout(() => {
 toast.classList.add('-translate-y-full', 'opacity-0');
 setTimeout(() => toast.classList.add('hidden'), 300);
 }, 3000);
 }
-// Mobile Hamburger Menu Drawer Toggle
 function toggleMobileMenu() {
 const drawer = document.getElementById('mobile-drawer');
 const icon = document.getElementById('hamburger-icon');
@@ -821,7 +642,7 @@ drawer.classList.add('hidden');
 icon.className = 'fa-solid fa-bars';
 }
 }
-// 1. Starry Canvas Particles
+// Starry Outer Particles
 const starryCanvas = document.getElementById('starry-canvas');
 const sCtx = starryCanvas.getContext('2d');
 let particles = [];
@@ -836,68 +657,79 @@ constructor() { this.reset(); }
 reset() {
 this.x = Math.random() * starryCanvas.width;
 this.y = Math.random() * starryCanvas.height;
-this.size = Math.random() * 5 + 2;
+this.size = Math.random() * 3 + 1;
 this.alpha = Math.random() * 0.8 + 0.2;
-this.speedX = (Math.random() - 0.5) * 0.4;
-this.speedY = (Math.random() - 0.5) * 0.4;
-this.flickerSpeed = Math.random() * 0.03 + 0.01;
+this.speedX = (Math.random() - 0.5) * 0.2;
+this.speedY = (Math.random() - 0.5) * 0.2;
 }
 update() {
 this.x += this.speedX;
 this.y += this.speedY;
-this.alpha += Math.sin(Date.now() * this.flickerSpeed) * 0.02;
 if (this.x < 0 || this.x > starryCanvas.width || this.y < 0 || this.y > starryCanvas.height) {
 this.reset();
 }
 }
 draw() {
 sCtx.save();
-sCtx.globalAlpha = Math.max(0.1, Math.min(1, this.alpha));
-sCtx.strokeStyle = '#ffffff';
-sCtx.lineWidth = 1.2;
-const half = this.size / 2;
-sCtx.beginPath();
-sCtx.moveTo(this.x - half, this.y);
-sCtx.lineTo(this.x + half, this.y);
-sCtx.moveTo(this.x, this.y - half);
-sCtx.lineTo(this.x, this.y + half);
-sCtx.stroke();
+sCtx.globalAlpha = this.alpha;
+sCtx.fillStyle = '#ffffff';
+sCtx.fillRect(this.x, this.y, this.size, this.size);
 sCtx.restore();
 }
 }
-for (let i = 0; i < 35; i++) { particles.push(new Particle()); }
+for (let i = 0; i < 30; i++) { particles.push(new Particle()); }
 function animateParticles() {
 sCtx.clearRect(0, 0, starryCanvas.width, starryCanvas.height);
 particles.forEach(p => { p.update(); p.draw(); });
 requestAnimationFrame(animateParticles);
 }
 animateParticles();
-// 2. Static Noise Canvas Layer
-const noiseCanvas = document.getElementById('tv-noise-canvas');
-const nCtx = noiseCanvas.getContext('2d');
-function resizeNoiseCanvas() {
-noiseCanvas.width = Math.floor(window.innerWidth / 3);
-noiseCanvas.height = Math.floor(window.innerHeight / 3);
+// CRT Monitor Inner Noise Canvas
+const crtNoiseCanvas = document.getElementById('crt-noise-canvas');
+const cnCtx = crtNoiseCanvas.getContext('2d');
+let isNoiseActive = true;
+function initNoiseCanvas() {
+const crtArea = document.getElementById('crt-screen-area');
+if (crtArea) {
+crtNoiseCanvas.width = Math.floor(crtArea.clientWidth / 2);
+crtNoiseCanvas.height = Math.floor(crtArea.clientHeight / 2);
 }
-window.addEventListener('resize', resizeNoiseCanvas);
-resizeNoiseCanvas();
-function renderNoise() {
-const w = noiseCanvas.width;
-const h = noiseCanvas.height;
-if (w === 0 || h === 0) return;
-const imgData = nCtx.createImageData(w, h);
+}
+function drawCRTNoise() {
+if (!isNoiseActive) return;
+const w = crtNoiseCanvas.width;
+const h = crtNoiseCanvas.height;
+if (w > 0 && h > 0) {
+const imgData = cnCtx.createImageData(w, h);
 const buffer = new Uint32Array(imgData.data.buffer);
 for (let i = 0; i < buffer.length; i++) {
-if (Math.random() < 0.12) {
-const color = Math.floor(Math.random() * 255);
-buffer[i] = (220 << 24) | (color << 16) | (color << 8) | color;
+if (Math.random() < 0.35) {
+const c = Math.floor(Math.random() * 255);
+buffer[i] = (255 << 24) | (c << 16) | (c << 8) | c;
 }
 }
-nCtx.putImageData(imgData, 0, 0);
-requestAnimationFrame(renderNoise);
+cnCtx.putImageData(imgData, 0, 0);
 }
-renderNoise();
-// Stamps State with LocalStorage Persistence
+requestAnimationFrame(drawCRTNoise);
+}
+document.addEventListener('DOMContentLoaded', () => {
+initNoiseCanvas();
+drawCRTNoise();
+const crtUI = document.getElementById('crt-ui-content');
+setTimeout(() => {
+if(crtUI) {
+crtUI.classList.remove('opacity-0');
+crtUI.classList.add('opacity-100');
+}
+}, 200);
+setTimeout(() => {
+if(crtNoiseCanvas) {
+crtNoiseCanvas.style.opacity = '0.05';
+setTimeout(() => { isNoiseActive = false; }, 1000);
+}
+}, 3800);
+});
+// Stamps Logic
 let collectedStamps = [false, false, false, false, false];
 function loadSavedStamps() {
 try {
@@ -906,9 +738,7 @@ if (saved) {
 collectedStamps = JSON.parse(saved);
 updateStampUI();
 }
-} catch (e) {
-console.error(e);
-}
+} catch (e) {}
 }
 function updateStampUI() {
 const slots = document.querySelectorAll('.stamp-slot');
@@ -926,48 +756,42 @@ document.getElementById('stamp-counter').innerText = '[' + count + '/5]';
 }
 function toggleStamp(index) {
 collectedStamps[index] = !collectedStamps[index];
-try {
-localStorage.setItem('dpch_stamps', JSON.stringify(collectedStamps));
-} catch (e) {}
+try { localStorage.setItem('dpch_stamps', JSON.stringify(collectedStamps)); } catch (e) {}
 updateStampUI();
 }
 function enableScroll() { document.body.classList.remove('overflow-hidden'); }
 function disableScroll() { document.body.classList.add('overflow-hidden'); }
-// ACCEPT QUEST: Monitor Screen Sucks In + 2nd Page Fade In
+// ACCEPT QUEST Animation
 function acceptQuest() {
 closeDeclineModal();
-const monitor = document.getElementById('crt-monitor');
+const crtArea = document.getElementById('crt-screen-area');
+const cabinet = document.getElementById('arcade-cabinet');
 const introScreen = document.getElementById('intro-screen');
 const mainContent = document.getElementById('main-content');
-// Step 1: Trigger Portal Zoom Sucking Animation ONLY on CRT Monitor Screen
-monitor.classList.add('monitor-suck-anim');
-// Step 2: Transition into 2nd Page Fade-In
+crtArea.classList.add('crt-flash-anim');
+setTimeout(() => {
+cabinet.classList.add('deep-zoom-anim');
+}, 180);
 setTimeout(() => {
 introScreen.style.opacity = '0';
 mainContent.classList.remove('hidden');
-mainContent.classList.add('fade-in-anim');
+mainContent.classList.add('wipe-in-anim');
 mainContent.style.opacity = '1';
 setTimeout(() => {
 introScreen.style.display = 'none';
 enableScroll();
-}, 400);
-}, 650);
+}, 500);
+}, 750);
 }
 function openDeclineModal() { document.getElementById('decline-modal').classList.remove('hidden'); }
 function closeDeclineModal() { document.getElementById('decline-modal').classList.add('hidden'); }
-function openNoticeModal() {
-document.getElementById('notice-modal').classList.remove('hidden');
-disableScroll();
-}
+function openNoticeModal() { document.getElementById('notice-modal').classList.remove('hidden'); disableScroll(); }
 function closeNoticeModal() {
 document.getElementById('notice-modal').classList.add('hidden');
 const introScreen = document.getElementById('intro-screen');
 if (introScreen.style.display === 'none') { enableScroll(); }
 }
-function openLookupModal() {
-document.getElementById('lookup-modal').classList.remove('hidden');
-disableScroll();
-}
+function openLookupModal() { document.getElementById('lookup-modal').classList.remove('hidden'); disableScroll(); }
 function closeLookupModal() {
 document.getElementById('lookup-modal').classList.add('hidden');
 const introScreen = document.getElementById('intro-screen');
@@ -1016,22 +840,15 @@ box.innerHTML = '<h4 class="text-xs font-bold text-emerald-400 flex items-center
 container.appendChild(box);
 }
 }
-// Handle Registration Form Submit
 async function handleFormSubmit(e) {
 e.preventDefault();
 const selectedTime = document.getElementById('selected-time').value;
-if (!selectedTime) {
-showToast('방문 희망 시간을 선택해 주세요!', true);
-return;
-}
+if (!selectedTime) { showToast('방문 희망 시간을 선택해 주세요!', true); return; }
 const userName = document.getElementById('user-name').value.trim();
 const userGender = document.getElementById('user-gender').value;
 const userAge = document.getElementById('user-age').value;
 const userPassword = document.getElementById('user-password').value.trim();
-if (userPassword.length !== 4) {
-showToast('비밀번호는 숫자 4자리로 입력해 주세요!', true);
-return;
-}
+if (userPassword.length !== 4) { showToast('비밀번호는 숫자 4자리로 입력해 주세요!', true); return; }
 const companionBoxes = document.getElementById('companions-container').children;
 const companionsData = [];
 for (let box of companionBoxes) {
@@ -1052,9 +869,7 @@ time: selectedTime,
 companionCount: companionsData.length,
 companions: companionsData
 };
-try {
-localStorage.setItem('dpch_user_ticket', JSON.stringify(ticketData));
-} catch(err) {}
+try { localStorage.setItem('dpch_user_ticket', JSON.stringify(ticketData)); } catch(err) {}
 const submitBtn = document.getElementById('submit-btn');
 if (GOOGLE_SCRIPT_URL) {
 submitBtn.disabled = true;
@@ -1064,10 +879,7 @@ await fetch(GOOGLE_SCRIPT_URL, {
 method: 'POST',
 mode: 'no-cors',
 headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({
-action: 'register',
-...ticketData
-})
+body: JSON.stringify({ action: 'register', ...ticketData })
 });
 } catch (err) {
 console.error('Google Sheet error:', err);
@@ -1114,11 +926,7 @@ try {
 const response = await fetch(GOOGLE_SCRIPT_URL, {
 method: 'POST',
 headers: { 'Content-Type': 'text/plain' },
-body: JSON.stringify({
-action: 'lookup',
-name: name,
-password: password
-})
+body: JSON.stringify({ action: 'lookup', name: name, password: password })
 });
 const result = await response.json();
 if (result.result === 'found' && result.data) {
