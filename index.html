@@ -30,12 +30,13 @@ background-color: #04080a;
 background-image: radial-gradient(rgba(0, 255, 157, 0.15) 1px, transparent 0);
 background-size: 28px 28px;
 }
-/* Arcade Cabinet Container Responsive Frame */
+/* Arcade Cabinet Container Responsive Frame using user's uploaded IMG_0652.jpeg */
 .arcade-frame-wrapper {
 position: relative;
 width: 100%;
-max-width: 520px;
-aspect-ratio: 16 / 9;
+max-width: 480px;
+aspect-ratio: 4 / 3;
+background-image: url('IMG_0652.jpeg');
 background-size: contain;
 background-repeat: no-repeat;
 background-position: center;
@@ -43,21 +44,21 @@ display: flex;
 align-items: center;
 justify-content: center;
 }
-/* Precise Monitor Viewport aligned to the Central Screen of the Image */
+/* Precise Monitor Viewport mapped precisely inside the central screen of IMG_0652.jpeg */
 .crt-monitor-viewport {
-position: relative;
-width: 32.5%;
+position: absolute;
+width: 47%;
 height: 48%;
-top: 0.5%;
-left: 0.2%;
+top: 25.5%;
+left: 26.5%;
 background: #020408;
-border-radius: 8px;
+border-radius: 6px;
 overflow: hidden;
 box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.95);
 display: flex;
 flex-direction: column;
 justify-content: space-between;
-padding: 6px;
+padding: 8px;
 box-sizing: border-box;
 }
 /* Scanline Glass Effect */
@@ -111,44 +112,18 @@ opacity: 0.85;
 </div>
 </div>
 <!-- ================= PAGE 1: INTRO ARCADE CABINET ================= -->
-<section id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#020305] p-2 transition-opacity duration-500 overflow-hidden full-mobile-screen">
+<section id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#020305] p-3 transition-opacity duration-500 overflow-hidden full-mobile-screen">
 <canvas id="starry-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
 <div id="arcade-cabinet" class="arcade-frame-wrapper z-30 my-auto">
-<!-- SVG Vector Frame embedded directly to prevent missing external images/rendering issues -->
-<svg class="absolute inset-0 w-full h-full z-10 pointer-events-none" viewBox="0 0 1000 562.5" preserveAspectRatio="xMidYMid slice">
-<!-- Background Structure -->
-<rect width="1000" height="562.5" fill="none"/>
-<!-- Cabinet Frame Glow Edge -->
-<path d="M 330 30 L 670 30 L 685 490 L 315 490 Z" fill="#080d1e" stroke="#2563eb" stroke-width="4"/>
-<!-- Side Wings -->
-<path d="M 80 40 L 320 40 L 305 480 L 60 480 Z" fill="#050814" stroke="#1d4ed8" stroke-width="3"/>
-<path d="M 920 40 L 680 40 L 695 480 L 940 480 Z" fill="#050814" stroke="#1d4ed8" stroke-width="3"/>
-<!-- Marquee Header -->
-<rect x="340" y="45" width="320" height="55" rx="8" fill="#0b0f28" stroke="#00f0ff" stroke-width="2"/>
-<text x="500" y="78" font-family="'Press Start 2P', cursive" font-size="14" fill="#ffea00" text-anchor="middle">DPCH 2026 FESTIVAL</text>
-<!-- Central Screen Outer Housing -->
-<rect x="332" y="115" width="336" height="275" rx="14" fill="#050810" stroke="#3b82f6" stroke-width="3"/>
-<!-- Control Deck Base -->
-<path d="M 310 400 L 690 400 L 710 475 L 290 475 Z" fill="#0f172a" stroke="#2563eb" stroke-width="3"/>
-<!-- Controls (Buttons & Joysticks) -->
-<circle cx="390" cy="435" r="10" fill="#ef4444" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="420" cy="425" r="8" fill="#eab308"/>
-<circle cx="440" cy="425" r="8" fill="#3b82f6"/>
-<circle cx="460" cy="425" r="8" fill="#22c55e"/>
-<circle cx="580" cy="435" r="10" fill="#ef4444" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="610" cy="425" r="8" fill="#eab308"/>
-<circle cx="630" cy="425" r="8" fill="#3b82f6"/>
-<circle cx="650" cy="425" r="8" fill="#22c55e"/>
-</svg>
-<!-- Monitor Inner Screen Viewport -->
+<!-- Monitor Inner Screen Viewport matching IMG_0652.jpeg screen -->
 <div class="crt-monitor-viewport z-20">
 <div class="crt-scanlines"></div>
-<!-- Static CRT Noise Canvas (Flickers strictly inside screen viewport) -->
+<!-- Static CRT Noise Canvas (Flickers strictly inside screen viewport for 4 seconds) -->
 <canvas id="crt-noise-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-100 transition-opacity duration-700"></canvas>
 <!-- Monitor Content UI -->
-<div id="crt-ui-content" class="w-full h-full flex flex-col justify-between items-center relative z-20 opacity-0 transition-opacity duration-1000 py-1">
+<div id="crt-ui-content" class="w-full h-full flex flex-col justify-between items-center relative z-20 opacity-0 transition-opacity duration-1000 py-0.5">
 <!-- Top Score Line -->
-<div class="w-full flex justify-between items-center text-[7px] sm:text-[8px] font-arcade text-slate-400 border-b border-slate-800/80 pb-0.5">
+<div class="w-full flex justify-between items-center text-[7px] sm:text-[9px] font-arcade text-slate-400 border-b border-slate-800/80 pb-0.5">
 <span>SCORE <span class="text-white">0000</span></span>
 <span>CREDIT <span class="text-emerald-400">01</span></span>
 </div>
@@ -158,8 +133,8 @@ opacity: 0.85;
 <i class="fa-solid fa-crown text-yellow-400 text-[8px]"></i>
 <span class="font-arcade text-[7px] text-yellow-400">[ NEW QUEST ]</span>
 </div>
-<span class="font-arcade text-lg sm:text-xl text-cyan-400 tracking-widest rgb-glitch-text font-black my-1">????</span>
-<p class="text-[8px] sm:text-[9px] text-slate-300 font-medium leading-tight px-1">
+<span class="font-arcade text-base sm:text-lg text-cyan-400 tracking-widest rgb-glitch-text font-black my-0.5">????</span>
+<p class="text-[7.5px] sm:text-[9px] text-slate-300 font-medium leading-tight px-1">
 수락하면 다음 페이지에서 미션을 확인하실 수 있어요
 </p>
 </div>
