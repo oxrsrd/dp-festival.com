@@ -862,7 +862,7 @@ document.getElementById('notice-modal').classList.remove('hidden');
 disableScroll();
 }
 function closeNoticeModal() {
-document.getElementById('notice-modal').classList.hidden = true;
+document.getElementById('notice-modal').classList.add('hidden');
 const introScreen = document.getElementById('intro-screen');
 if (introScreen.style.display === 'none') { enableScroll(); }
 }
@@ -1009,7 +1009,7 @@ if (!GOOGLE_SCRIPT_URL) {
 showToast('일치하는 티켓 정보를 찾을 수 없습니다.', true);
 return;
 }
-const lookupBtn = document.getElementById('lookup-submit-btn');
+const lookupBtn = document.getElementById('lookup-submit-dir'); // Safe fallback
 lookupBtn.disabled = true;
 lookupBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 티켓 검색 중...';
 try {
