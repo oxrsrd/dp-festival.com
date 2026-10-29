@@ -164,14 +164,15 @@ transform: translateY(-2px);
 }
 </style>
 </head>
-<body class="bg-[#030708] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-emerald-400 selection:text-black overflow-hidden">
+<body class="bg-[#030708] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-emerald-400 selection:text-black overflow-x-hidden">
 <!-- ==================== CUSTOM TOAST NOTIFICATION ==================== -->
-<div id="custom-toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 hidden transition-all duration-300 transform -translate-y-full opacity-0 max-w-sm w-11/12">
+<div id="custom-toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-[100] hidden transition-all duration-300 transform -translate-y-full opacity-0 max-w-sm w-11/12 pointer-events-none">
 <div class="bg-[#081014] border-2 border-emerald-400 text-emerald-300 px-4 py-3 rounded-2xl shadow-[0_0_25px_rgba(0,255,157,0.4)] flex items-center gap-3">
 <i id="toast-icon" class="fa-solid fa-circle-info text-xl text-emerald-400"></i>
 <span id="toast-message" class="text-xs font-bold leading-snug">알림 메시지</span>
 </div>
 </div>
+
 <!-- ==================== PAGE 1: INTRO ARCADE SCREEN ==================== -->
 <section id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#020405] p-3 md:p-4 transition-opacity duration-500 overflow-hidden full-mobile-screen">
 <!-- Canvas 1: Starry Plus Background -->
@@ -217,10 +218,10 @@ transform: translateY(-2px);
 </p>
 <!-- Screen Action Buttons -->
 <div class="grid grid-cols-2 gap-2.5 w-full mt-1">
-<button id="btn-accept-intro" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 active:scale-95 text-slate-950 font-arcade text-[10px] py-2.5 px-2 rounded-xl border-2 border-lime-300 shadow-[0_0_18px_rgba(132,204,22,0.7)] transition-all flex items-center justify-center gap-1">
+<button id="btn-accept-intro" type="button" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 active:scale-95 text-slate-950 font-arcade text-[10px] py-2.5 px-2 rounded-xl border-2 border-lime-300 shadow-[0_0_18px_rgba(132,204,22,0.7)] transition-all flex items-center justify-center gap-1">
 ✓ ACCEPT
 </button>
-<button id="btn-decline-intro" onclick="openDeclineModal()" class="bg-[#9333ea] hover:brightness-110 active:scale-95 text-white font-arcade text-[10px] py-2.5 px-2 rounded-xl border-2 border-purple-400 shadow-[0_0_18px_rgba(147,51,234,0.7)] transition-all flex items-center justify-center gap-1">
+<button id="btn-decline-intro" type="button" onclick="openDeclineModal()" class="bg-[#9333ea] hover:brightness-110 active:scale-95 text-white font-arcade text-[10px] py-2.5 px-2 rounded-xl border-2 border-purple-400 shadow-[0_0_18px_rgba(147,51,234,0.7)] transition-all flex items-center justify-center gap-1">
 ✕ DECLINE
 </button>
 </div>
@@ -232,8 +233,9 @@ transform: translateY(-2px);
 </div>
 </div>
 </section>
+
 <!-- ==================== DECLINE POPUP MODAL ==================== -->
-<div id="decline-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity">
+<div id="decline-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity overflow-y-auto">
 <div class="relative w-full max-w-sm bg-[#120824] border-2 border-purple-500 rounded-3xl p-6 shadow-[0_0_40px_rgba(168,85,247,0.6)] text-center space-y-5">
 <div class="flex justify-center">
 <span class="text-purple-400 text-4xl animate-bounce">⚠️</span>
@@ -243,15 +245,16 @@ transform: translateY(-2px);
 퀘스트를 거부하시겠습니까?
 </p>
 <div class="grid grid-cols-2 gap-3 pt-2">
-<button onclick="closeDeclineModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs py-3 px-3 rounded-xl border border-slate-600 transition-all">
+<button type="button" onclick="closeDeclineModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs py-3 px-3 rounded-xl border border-slate-600 transition-all">
 다시 생각하기
 </button>
-<button onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 text-slate-950 font-extrabold text-xs py-3 px-3 rounded-xl shadow-[0_0_15px_rgba(132,204,22,0.6)] transition-all">
+<button type="button" onclick="acceptQuest()" class="bg-[#84cc16] hover:brightness-110 text-slate-950 font-extrabold text-xs py-3 px-3 rounded-xl shadow-[0_0_15px_rgba(132,204,22,0.6)] transition-all">
 퀘스트 수락!
 </button>
 </div>
 </div>
 </div>
+
 <!-- ==================== PAGE 2: MAIN PAGE ==================== -->
 <div id="main-content" class="min-h-screen flex flex-col bg-dots-pattern opacity-0 hidden">
 <!-- NAV BAR WITH HAMBURGER MENU -->
@@ -262,46 +265,46 @@ transform: translateY(-2px);
 </a>
 <!-- Desktop Navigation Menu -->
 <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
-<button onclick="openNoticeModal()" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5 text-yellow-400 font-bold">
+<button type="button" onclick="openNoticeModal()" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5 text-yellow-400 font-bold">
 <i class="fa-solid fa-bullhorn text-xs"></i> 공지사항
 </button>
-<button onclick="switchArcadeTab('main-quest')" class="hover:text-emerald-400 transition-colors">행사안내</button>
-<button onclick="switchArcadeTab('schedule')" class="hover:text-emerald-400 transition-colors">행사일정</button>
-<button onclick="switchArcadeTab('register')" class="hover:text-emerald-400 transition-colors">접수하기</button>
+<button type="button" onclick="switchArcadeTab('main-quest')" class="hover:text-emerald-400 transition-colors">행사안내</button>
+<button type="button" onclick="switchArcadeTab('schedule')" class="hover:text-emerald-400 transition-colors">행사일정</button>
+<button type="button" onclick="switchArcadeTab('register')" class="hover:text-emerald-400 transition-colors">접수하기</button>
 </nav>
 <!-- Desktop Action Buttons -->
 <div class="hidden md:flex items-center gap-2">
-<button onclick="openLookupModal()" class="bg-cyan-950/80 border border-cyan-500/60 text-cyan-400 font-bold text-xs md:text-sm px-3 md:px-4 py-2 rounded-full hover:bg-cyan-500 hover:text-black transition-all shadow-[0_0_15px_rgba(0,240,255,0.2)] flex items-center gap-1.5">
+<button type="button" onclick="openLookupModal()" class="bg-cyan-950/80 border border-cyan-500/60 text-cyan-400 font-bold text-xs md:text-sm px-3 md:px-4 py-2 rounded-full hover:bg-cyan-500 hover:text-black transition-all shadow-[0_0_15px_rgba(0,240,255,0.2)] flex items-center gap-1.5">
 <i class="fa-solid fa-ticket text-xs"></i> 내 티켓 확인
 </button>
-<button onclick="switchArcadeTab('register')" class="bg-emerald-950/80 border border-emerald-500/60 text-emerald-400 font-bold text-xs md:text-sm px-3.5 md:px-5 py-2 rounded-full hover:bg-emerald-500 hover:text-black transition-all shadow-[0_0_15px_rgba(0,255,157,0.2)] flex items-center gap-2">
+<button type="button" onclick="switchArcadeTab('register')" class="bg-emerald-950/80 border border-emerald-500/60 text-emerald-400 font-bold text-xs md:text-sm px-3.5 md:px-5 py-2 rounded-full hover:bg-emerald-500 hover:text-black transition-all shadow-[0_0_15px_rgba(0,255,157,0.2)] flex items-center gap-2">
 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 접수하기
 </button>
 </div>
 <!-- Mobile Hamburger Button -->
 <div class="flex items-center gap-2 md:hidden">
-<button onclick="openLookupModal()" class="bg-cyan-950/80 border border-cyan-500/60 text-cyan-400 font-bold text-[11px] px-2.5 py-1.5 rounded-full hover:bg-cyan-500 hover:text-black transition-all flex items-center gap-1">
+<button type="button" onclick="openLookupModal()" class="bg-cyan-950/80 border border-cyan-500/60 text-cyan-400 font-bold text-[11px] px-2.5 py-1.5 rounded-full hover:bg-cyan-500 hover:text-black transition-all flex items-center gap-1">
 <i class="fa-solid fa-ticket text-[10px]"></i> 티켓확인
 </button>
-<button onclick="toggleMobileMenu()" class="text-emerald-400 text-xl p-1.5 rounded-xl border border-emerald-500/30 bg-[#081014] hover:bg-emerald-950/50 active:scale-95 transition-all">
+<button type="button" onclick="toggleMobileMenu()" class="text-emerald-400 text-xl p-1.5 rounded-xl border border-emerald-500/30 bg-[#081014] hover:bg-emerald-950/50 active:scale-95 transition-all">
 <i class="fa-solid fa-bars" id="hamburger-icon"></i>
 </button>
 </div>
 </div>
 <!-- Mobile Slide-Down Drawer Menu -->
 <div id="mobile-drawer" class="hidden md:hidden pt-3 pb-2 px-2 border-t border-slate-800/80 mt-3 space-y-2.5 transition-all">
-<button onclick="openNoticeModal(); toggleMobileMenu();" class="w-full text-left bg-yellow-950/30 border border-yellow-500/40 text-yellow-400 font-bold text-xs py-2.5 px-4 rounded-xl flex items-center gap-2">
+<button type="button" onclick="openNoticeModal(); toggleMobileMenu();" class="w-full text-left bg-yellow-950/30 border border-yellow-500/40 text-yellow-400 font-bold text-xs py-2.5 px-4 rounded-xl flex items-center gap-2">
 <i class="fa-solid fa-bullhorn text-xs"></i> 공지사항 (필독)
 </button>
 <div class="grid grid-cols-2 gap-2">
-<button onclick="switchArcadeTab('main-quest'); toggleMobileMenu();" class="bg-[#081014] border border-slate-800 text-slate-200 font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5">
+<button type="button" onclick="switchArcadeTab('main-quest'); toggleMobileMenu();" class="bg-[#081014] border border-slate-800 text-slate-200 font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5">
 <i class="fa-solid fa-book text-emerald-400"></i> 행사안내
 </button>
-<button onclick="switchArcadeTab('schedule'); toggleMobileMenu();" class="bg-[#081014] border border-slate-800 text-slate-200 font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5">
+<button type="button" onclick="switchArcadeTab('schedule'); toggleMobileMenu();" class="bg-[#081014] border border-slate-800 text-slate-200 font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5">
 <i class="fa-solid fa-clock text-emerald-400"></i> 행사일정
 </button>
 </div>
-<button onclick="switchArcadeTab('register'); toggleMobileMenu();" class="w-full bg-emerald-400 text-slate-950 font-black text-xs py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,255,157,0.3)]">
+<button type="button" onclick="switchArcadeTab('register'); toggleMobileMenu();" class="w-full bg-emerald-400 text-slate-950 font-black text-xs py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,255,157,0.3)]">
 <i class="fa-solid fa-paper-plane"></i> 축제 참가 접수하기
 </button>
 </div>
@@ -326,23 +329,23 @@ SPECIAL QUEST
 ◄ SELECT SCREEN BUTTON ►
 </div>
 <div class="grid grid-cols-5 gap-1.5 text-center">
-<button onclick="switchArcadeTab('main-quest')" id="tab-btn-main-quest" class="arcade-tab-btn active bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
+<button type="button" onclick="switchArcadeTab('main-quest')" id="tab-btn-main-quest" class="arcade-tab-btn active bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
 <i class="fa-solid fa-gamepad text-red-400 text-xs sm:text-sm"></i>
 <span>메인 퀘스트</span>
 </button>
-<button onclick="switchArcadeTab('sub-quest')" id="tab-btn-sub-quest" class="arcade-tab-btn bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
+<button type="button" onclick="switchArcadeTab('sub-quest')" id="tab-btn-sub-quest" class="arcade-tab-btn bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
 <i class="fa-solid fa-scroll text-yellow-400 text-xs sm:text-sm"></i>
 <span>서브 퀘스트</span>
 </button>
-<button onclick="switchArcadeTab('final-quest')" id="tab-btn-final-quest" class="arcade-tab-btn bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
+<button type="button" onclick="switchArcadeTab('final-quest')" id="tab-btn-final-quest" class="arcade-tab-btn bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
 <i class="fa-solid fa-crown text-purple-400 text-xs sm:text-sm"></i>
 <span>Final</span>
 </button>
-<button onclick="switchArcadeTab('schedule')" id="tab-btn-schedule" class="arcade-tab-btn bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
+<button type="button" onclick="switchArcadeTab('schedule')" id="tab-btn-schedule" class="arcade-tab-btn bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
 <i class="fa-solid fa-clock text-blue-400 text-xs sm:text-sm"></i>
 <span>일정/장소</span>
 </button>
-<button onclick="switchArcadeTab('register')" id="tab-btn-register" class="arcade-tab-btn bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
+<button type="button" onclick="switchArcadeTab('register')" id="tab-btn-register" class="arcade-tab-btn bg-[#0c161c] border border-slate-800 text-slate-300 font-bold py-2 px-1 rounded-xl text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1">
 <i class="fa-solid fa-paper-plane text-emerald-400 text-xs sm:text-sm"></i>
 <span>접수하기</span>
 </button>
@@ -574,14 +577,15 @@ SPECIAL QUEST
 <p>본 행사는 순수 비영리 목적의 퀘스트 축제 행사입니다.</p>
 </footer>
 </div>
+
 <!-- ==================== LOOKUP TICKET MODAL ==================== -->
-<div id="lookup-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity">
-<div class="relative w-full max-w-sm bg-[#081014] border-2 border-cyan-400 rounded-3xl p-5 sm:p-6 shadow-[0_0_50px_rgba(0,240,255,0.3)] text-left space-y-4">
+<div id="lookup-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity overflow-y-auto">
+<div class="relative w-full max-w-sm bg-[#081014] border-2 border-cyan-400 rounded-3xl p-5 sm:p-6 shadow-[0_0_50px_rgba(0,240,255,0.3)] text-left space-y-4 my-auto">
 <div class="flex items-center justify-between border-b border-cyan-500/30 pb-2.5">
 <div class="flex items-center gap-1.5 text-cyan-400 font-arcade text-xs">
 <span>🎫 [ TICKET SEARCH ]</span>
 </div>
-<button onclick="closeLookupModal()" class="text-slate-400 hover:text-white text-lg">
+<button type="button" onclick="closeLookupModal()" class="text-slate-400 hover:text-white text-lg">
 <i class="fa-solid fa-xmark"></i>
 </button>
 </div>
@@ -603,14 +607,15 @@ SPECIAL QUEST
 </form>
 </div>
 </div>
+
 <!-- ==================== NOTICE MODAL POPUP ==================== -->
-<div id="notice-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity">
-<div class="relative w-full max-w-lg bg-[#081014] border-2 border-emerald-400 rounded-3xl p-5 sm:p-7 shadow-[0_0_50px_rgba(0,255,157,0.3)] text-left space-y-4 max-h-[85vh] overflow-y-auto">
+<div id="notice-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity overflow-y-auto">
+<div class="relative w-full max-w-lg bg-[#081014] border-2 border-emerald-400 rounded-3xl p-5 sm:p-7 shadow-[0_0_50px_rgba(0,255,157,0.3)] text-left space-y-4 max-h-[85vh] overflow-y-auto my-auto">
 <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2.5">
 <div class="flex items-center gap-1.5 text-emerald-400 font-arcade text-xs">
 <span>🎮 [ QUEST NOTICE ]</span>
 </div>
-<button onclick="closeNoticeModal()" class="text-slate-400 hover:text-white text-lg">
+<button type="button" onclick="closeNoticeModal()" class="text-slate-400 hover:text-white text-lg">
 <i class="fa-solid fa-xmark"></i>
 </button>
 </div>
@@ -652,14 +657,16 @@ SPECIAL QUEST
     </a>
   </div>
 </div>
-<button onclick="closeNoticeModal()" class="w-full bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold py-2.5 rounded-xl transition-all text-xs">
+<button type="button" onclick="closeNoticeModal()" class="w-full bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold py-2.5 rounded-xl transition-all text-xs">
 확인했습니다
 </button>
 </div>
 </div>
+</div>
+
 <!-- ==================== TICKET RECEIPT MODAL ==================== -->
-<div id="ticket-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-<div class="relative w-full max-w-sm bg-[#081014] border-2 border-emerald-400 rounded-3xl p-5 sm:p-6 shadow-[0_0_50px_rgba(0,255,157,0.4)] text-center space-y-4">
+<div id="ticket-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
+<div class="relative w-full max-w-sm bg-[#081014] border-2 border-emerald-400 rounded-3xl p-5 sm:p-6 shadow-[0_0_50px_rgba(0,255,157,0.4)] text-center space-y-4 my-auto">
 <div class="inline-flex items-center gap-1.5 bg-emerald-950 border border-emerald-500/50 px-3 py-1 rounded-full text-emerald-400 text-[10px] font-arcade">
 <i class="fa-solid fa-circle-check"></i> QUEST TICKET ISSUED
 </div>
@@ -673,267 +680,264 @@ SPECIAL QUEST
 </div>
 </div>
 <p class="text-xs text-slate-300">
-🎉 접수가 정상 처리되었습니다!
-현장 안내에서 이 화면이나 성함을 보여주세요.
+🎉 접수가 정상 처리되었습니다!<br>현장 안내에서 이 화면이나 성함을 보여주세요.
 </p>
-<button onclick="closeTicketModal()" class="w-full bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold py-2.5 rounded-xl transition-all text-xs">
+<button type="button" onclick="closeTicketModal()" class="w-full bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold py-2.5 rounded-xl transition-all text-xs">
 확인 완료
 </button>
 </div>
 </div>
+
 <!-- ==================== JAVASCRIPT LOGIC ==================== -->
 <script>
-// 📌 구글 앱스 스크립트 웹 앱 URL 연동 완료
+// 📌 구글 앱스 스크립트 웹 앱 URL 연동
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyi48HOsKkdn7Hqwj2HyhcVSRL8QZxnMBeLIiYlXt2CI-jU8-v_IOadWsBpyn8Qu11l/exec";
 
 // Arcade Screen Switching Function
 function switchArcadeTab(tabId) {
-document.querySelectorAll('.arcade-screen-tab').forEach(screen => {
-screen.classList.add('hidden');
-});
-document.querySelectorAll('.arcade-tab-btn').forEach(btn => {
-btn.classList.remove('active');
-});
-const targetScreen = document.getElementById('tab-screen-' + tabId);
-const targetBtn = document.getElementById('tab-btn-' + tabId);
-if (targetScreen) targetScreen.classList.remove('hidden');
-if (targetBtn) targetBtn.classList.add('active');
+  document.querySelectorAll('.arcade-screen-tab').forEach(screen => {
+    screen.classList.add('hidden');
+  });
+  document.querySelectorAll('.arcade-tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  const targetScreen = document.getElementById('tab-screen-' + tabId);
+  const targetBtn = document.getElementById('tab-btn-' + tabId);
+  if (targetScreen) targetScreen.classList.remove('hidden');
+  if (targetBtn) targetBtn.classList.add('active');
 }
+
 // Custom Toast Notification Function
 function showToast(message, isError = false) {
-const toast = document.getElementById('custom-toast');
-const msgEl = document.getElementById('toast-message');
-const iconEl = document.getElementById('toast-icon');
-msgEl.innerText = message;
-if (isError) {
-toast.firstElementChild.className = 'bg-[#18080c] border-2 border-red-500 text-red-300 px-4 py-3 rounded-2xl shadow-[0_0_25px_rgba(239,68,68,0.4)] flex items-center gap-3';
-iconEl.className = 'fa-solid fa-triangle-exclamation text-xl text-red-500';
-} else {
-toast.firstElementChild.className = 'bg-[#081014] border-2 border-emerald-400 text-emerald-300 px-4 py-3 rounded-2xl shadow-[0_0_25px_rgba(0,255,157,0.4)] flex items-center gap-3';
-iconEl.className = 'fa-solid fa-circle-info text-xl text-emerald-400';
+  const toast = document.getElementById('custom-toast');
+  const msgEl = document.getElementById('toast-message');
+  const iconEl = document.getElementById('toast-icon');
+  msgEl.innerText = message;
+  if (isError) {
+    toast.firstElementChild.className = 'bg-[#18080c] border-2 border-red-500 text-red-300 px-4 py-3 rounded-2xl shadow-[0_0_25px_rgba(239,68,68,0.4)] flex items-center gap-3';
+    iconEl.className = 'fa-solid fa-triangle-exclamation text-xl text-red-500';
+  } else {
+    toast.firstElementChild.className = 'bg-[#081014] border-2 border-emerald-400 text-emerald-300 px-4 py-3 rounded-2xl shadow-[0_0_25px_rgba(0,255,157,0.4)] flex items-center gap-3';
+    iconEl.className = 'fa-solid fa-circle-info text-xl text-emerald-400';
+  }
+  toast.classList.remove('hidden');
+  setTimeout(() => {
+    toast.classList.remove('-translate-y-full', 'opacity-0');
+  }, 10);
+  setTimeout(() => {
+    toast.classList.add('-translate-y-full', 'opacity-0');
+    setTimeout(() => toast.classList.add('hidden'), 300);
+  }, 3000);
 }
-toast.classList.remove('hidden');
-setTimeout(() => {
-toast.classList.remove('-translate-y-full', 'opacity-0');
-}, 10);
-setTimeout(() => {
-toast.classList.add('-translate-y-full', 'opacity-0');
-setTimeout(() => toast.classList.add('hidden'), 300);
-}, 3000);
-}
+
 // Mobile Hamburger Menu Drawer Toggle
 function toggleMobileMenu() {
-const drawer = document.getElementById('mobile-drawer');
-const icon = document.getElementById('hamburger-icon');
-if (drawer.classList.contains('hidden')) {
-drawer.classList.remove('hidden');
-icon.className = 'fa-solid fa-xmark';
-} else {
-drawer.classList.add('hidden');
-icon.className = 'fa-solid fa-bars';
+  const drawer = document.getElementById('mobile-drawer');
+  const icon = document.getElementById('hamburger-icon');
+  if (drawer.classList.contains('hidden')) {
+    drawer.classList.remove('hidden');
+    icon.className = 'fa-solid fa-xmark';
+  } else {
+    drawer.classList.add('hidden');
+    icon.className = 'fa-solid fa-bars';
+  }
 }
-}
+
 // 1. Starry Canvas Particles
 const starryCanvas = document.getElementById('starry-canvas');
 const sCtx = starryCanvas.getContext('2d');
 let particles = [];
 function resizeStarryCanvas() {
-starryCanvas.width = window.innerWidth;
-starryCanvas.height = window.innerHeight;
+  starryCanvas.width = window.innerWidth;
+  starryCanvas.height = window.innerHeight;
 }
 window.addEventListener('resize', resizeStarryCanvas);
 resizeStarryCanvas();
+
 class Particle {
-constructor() { this.reset(); }
-reset() {
-this.x = Math.random() * starryCanvas.width;
-this.y = Math.random() * starryCanvas.height;
-this.size = Math.random() * 5 + 2;
-this.alpha = Math.random() * 0.8 + 0.2;
-this.speedX = (Math.random() - 0.5) * 0.4;
-this.speedY = (Math.random() - 0.5) * 0.4;
-this.flickerSpeed = Math.random() * 0.03 + 0.01;
-}
-update() {
-this.x += this.speedX;
-this.y += this.speedY;
-this.alpha += Math.sin(Date.now() * this.flickerSpeed) * 0.02;
-if (this.x < 0 || this.x > starryCanvas.width || this.y < 0 || this.y > starryCanvas.height) {
-this.reset();
-}
-}
-draw() {
-sCtx.save();
-sCtx.globalAlpha = Math.max(0.1, Math.min(1, this.alpha));
-sCtx.strokeStyle = '#ffffff';
-sCtx.lineWidth = 1.2;
-const half = this.size / 2;
-sCtx.beginPath();
-sCtx.moveTo(this.x - half, this.y);
-sCtx.lineTo(this.x + half, this.y);
-sCtx.moveTo(this.x, this.y - half);
-sCtx.lineTo(this.x, this.y + half);
-sCtx.stroke();
-sCtx.restore();
-}
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * starryCanvas.width;
+    this.y = Math.random() * starryCanvas.height;
+    this.size = Math.random() * 5 + 2;
+    this.alpha = Math.random() * 0.8 + 0.2;
+    this.speedX = (Math.random() - 0.5) * 0.4;
+    this.speedY = (Math.random() - 0.5) * 0.4;
+    this.flickerSpeed = Math.random() * 0.03 + 0.01;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.alpha += Math.sin(Date.now() * this.flickerSpeed) * 0.02;
+    if (this.x < 0 || this.x > starryCanvas.width || this.y < 0 || this.y > starryCanvas.height) {
+      this.reset();
+    }
+  }
+  draw() {
+    sCtx.save();
+    sCtx.globalAlpha = Math.max(0.1, Math.min(1, this.alpha));
+    sCtx.strokeStyle = '#ffffff';
+    sCtx.lineWidth = 1.2;
+    const half = this.size / 2;
+    sCtx.beginPath();
+    sCtx.moveTo(this.x - half, this.y);
+    sCtx.lineTo(this.x + half, this.y);
+    sCtx.moveTo(this.x, this.y - half);
+    sCtx.lineTo(this.x, this.y + half);
+    sCtx.stroke();
+    sCtx.restore();
+  }
 }
 for (let i = 0; i < 35; i++) { particles.push(new Particle()); }
 function animateParticles() {
-sCtx.clearRect(0, 0, starryCanvas.width, starryCanvas.height);
-particles.forEach(p => { p.update(); p.draw(); });
-requestAnimationFrame(animateParticles);
+  sCtx.clearRect(0, 0, starryCanvas.width, starryCanvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
 }
 animateParticles();
+
 // 2. High-Density TV Static Canvas Animation
 const noiseCanvas = document.getElementById('tv-noise-canvas');
 const nCtx = noiseCanvas.getContext('2d');
 function resizeNoiseCanvas() {
-noiseCanvas.width = Math.floor(window.innerWidth / 3);
-noiseCanvas.height = Math.floor(window.innerHeight / 3);
+  noiseCanvas.width = Math.floor(window.innerWidth / 3);
+  noiseCanvas.height = Math.floor(window.innerHeight / 3);
 }
 window.addEventListener('resize', resizeNoiseCanvas);
 resizeNoiseCanvas();
+
 function renderNoise() {
-const w = noiseCanvas.width;
-const h = noiseCanvas.height;
-if (w === 0 || h === 0) return;
-const imgData = nCtx.createImageData(w, h);
-const buffer = new Uint32Array(imgData.data.buffer);
-for (let i = 0; i < buffer.length; i++) {
-if (Math.random() < 0.12) {
-const color = Math.floor(Math.random() * 255);
-buffer[i] = (220 << 24) | (color << 16) | (color << 8) | color;
-}
-}
-nCtx.putImageData(imgData, 0, 0);
-requestAnimationFrame(renderNoise);
+  const w = noiseCanvas.width;
+  const h = noiseCanvas.height;
+  if (w === 0 || h === 0) return;
+  const imgData = nCtx.createImageData(w, h);
+  const buffer = new Uint32Array(imgData.data.buffer);
+  for (let i = 0; i < buffer.length; i++) {
+    if (Math.random() < 0.12) {
+      const color = Math.floor(Math.random() * 255);
+      buffer[i] = (220 << 24) | (color << 16) | (color << 8) | color;
+    }
+  }
+  nCtx.putImageData(imgData, 0, 0);
+  requestAnimationFrame(renderNoise);
 }
 renderNoise();
 setTimeout(() => {
-if (noiseCanvas) noiseCanvas.style.opacity = '0.08';
+  if (noiseCanvas) noiseCanvas.style.opacity = '0.08';
 }, 2500);
+
 // Stamps State with LocalStorage Persistence
 let collectedStamps = [false, false, false, false, false];
 function loadSavedStamps() {
-try {
-const saved = localStorage.getItem('dpch_stamps');
-if (saved) {
-collectedStamps = JSON.parse(saved);
-updateStampUI();
+  try {
+    const saved = localStorage.getItem('dpch_stamps');
+    if (saved) {
+      collectedStamps = JSON.parse(saved);
+      updateStampUI();
+    }
+  } catch (e) {
+    console.error(e);
+  }
 }
-} catch (e) {
-console.error(e);
-}
-}
+
 function updateStampUI() {
-const slots = document.querySelectorAll('.stamp-slot');
-slots.forEach((slot, index) => {
-if (collectedStamps[index]) {
-slot.classList.add('active');
-slot.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i>';
-} else {
-slot.classList.remove('active');
-slot.innerHTML = (index + 1).toString();
+  const slots = document.querySelectorAll('.stamp-slot');
+  slots.forEach((slot, index) => {
+    if (collectedStamps[index]) {
+      slot.classList.add('active');
+      slot.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i>';
+    } else {
+      slot.classList.remove('active');
+      slot.innerHTML = (index + 1).toString();
+    }
+  });
+  const count = collectedStamps.filter(Boolean).length;
+  document.getElementById('stamp-counter').innerText = '[' + count + '/5]';
 }
-});
-const count = collectedStamps.filter(Boolean).length;
-document.getElementById('stamp-counter').innerText = '[' + count + '/5]';
-}
+
 function toggleStamp(index) {
-collectedStamps[index] = !collectedStamps[index];
-try {
-localStorage.setItem('dpch_stamps', JSON.stringify(collectedStamps));
-} catch (e) {}
-updateStampUI();
+  collectedStamps[index] = !collectedStamps[index];
+  try {
+    localStorage.setItem('dpch_stamps', JSON.stringify(collectedStamps));
+  } catch (e) {}
+  updateStampUI();
 }
-function enableScroll() { document.body.classList.remove('overflow-hidden'); }
-function disableScroll() { document.body.classList.add('overflow-hidden'); }
+
 // ACCEPT QUEST: Portal Zoom + Left-to-Right Wipe Transition
 function acceptQuest() {
-closeDeclineModal();
-const cabinet = document.getElementById('arcade-cabinet');
-const introScreen = document.getElementById('intro-screen');
-const mainContent = document.getElementById('main-content');
-// Step 1: Add Zoom Portal Animation to Cabinet
-cabinet.classList.add('zoom-portal-anim');
-// Step 2: Fade Out Intro & Wipe In Main Page
-setTimeout(() => {
-introScreen.style.opacity = '0';
-// Show Main Content and Apply Left-to-Right Wipe Animation
-mainContent.classList.remove('hidden');
-mainContent.classList.add('wipe-in-anim');
-mainContent.style.opacity = '1';
-setTimeout(() => {
-introScreen.style.display = 'none';
-enableScroll();
-}, 500);
-}, 650);
+  closeDeclineModal();
+  const cabinet = document.getElementById('arcade-cabinet');
+  const introScreen = document.getElementById('intro-screen');
+  const mainContent = document.getElementById('main-content');
+  
+  cabinet.classList.add('zoom-portal-anim');
+  setTimeout(() => {
+    introScreen.style.opacity = '0';
+    mainContent.classList.remove('hidden');
+    mainContent.classList.add('wipe-in-anim');
+    mainContent.style.opacity = '1';
+    setTimeout(() => {
+      introScreen.style.display = 'none';
+    }, 500);
+  }, 650);
 }
+
 function openDeclineModal() { document.getElementById('decline-modal').classList.remove('hidden'); }
 function closeDeclineModal() { document.getElementById('decline-modal').classList.add('hidden'); }
-function openNoticeModal() {
-document.getElementById('notice-modal').classList.remove('hidden');
-disableScroll();
-}
-function closeNoticeModal() {
-document.getElementById('notice-modal').classList.add('hidden');
-const introScreen = document.getElementById('intro-screen');
-if (introScreen.style.display === 'none') { enableScroll(); }
-}
-function openLookupModal() {
-document.getElementById('lookup-modal').classList.remove('hidden');
-disableScroll();
-}
-function closeLookupModal() {
-document.getElementById('lookup-modal').classList.add('hidden');
-const introScreen = document.getElementById('intro-screen');
-if (introScreen.style.display === 'none') { enableScroll(); }
-}
+function openNoticeModal() { document.getElementById('notice-modal').classList.remove('hidden'); }
+function closeNoticeModal() { document.getElementById('notice-modal').classList.add('hidden'); }
+function openLookupModal() { document.getElementById('lookup-modal').classList.remove('hidden'); }
+function closeLookupModal() { document.getElementById('lookup-modal').classList.add('hidden'); }
+
 function selectTime(btnElement, timeStr) {
-document.querySelectorAll('.time-btn').forEach(btn => {
-btn.className = 'time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all';
-});
-btnElement.className = 'time-btn bg-emerald-950/80 border border-emerald-400 text-emerald-400 rounded-xl py-2 text-[10px] font-tech font-bold transition-all shadow-[0_0_12px_rgba(0,255,157,0.3)]';
-document.getElementById('selected-time').value = timeStr;
+  document.querySelectorAll('.time-btn').forEach(btn => {
+    btn.className = 'time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all';
+  });
+  btnElement.className = 'time-btn bg-emerald-950/80 border border-emerald-400 text-emerald-400 rounded-xl py-2 text-[10px] font-tech font-bold transition-all shadow-[0_0_12px_rgba(0,255,157,0.3)]';
+  document.getElementById('selected-time').value = timeStr;
 }
+
 function selectCompanionCount(btnElement, count) {
-document.querySelectorAll('.companion-btn').forEach(btn => {
-btn.className = 'companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all';
-});
-btnElement.className = 'companion-btn bg-emerald-500 text-slate-950 border border-emerald-400 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all';
-document.getElementById('custom-companion-box').classList.add('hidden');
-renderFields(count);
+  document.querySelectorAll('.companion-btn').forEach(btn => {
+    btn.className = 'companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all';
+  });
+  btnElement.className = 'companion-btn bg-emerald-500 text-slate-950 border border-emerald-400 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all';
+  document.getElementById('custom-companion-box').classList.add('hidden');
+  renderFields(count);
 }
+
 function toggleCustomCompanionInput(btnElement) {
-document.querySelectorAll('.companion-btn').forEach(btn => {
-btn.className = 'companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all';
-});
-btnElement.className = 'companion-btn bg-emerald-500 text-slate-950 border border-emerald-400 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all';
-const customBox = document.getElementById('custom-companion-box');
-customBox.classList.remove('hidden');
-document.getElementById('companions-container').innerHTML = '';
+  document.querySelectorAll('.companion-btn').forEach(btn => {
+    btn.className = 'companion-btn bg-[#0c161c] border border-slate-800 text-slate-300 hover:border-emerald-500/50 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all';
+  });
+  btnElement.className = 'companion-btn bg-emerald-500 text-slate-950 border border-emerald-400 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all';
+  const customBox = document.getElementById('custom-companion-box');
+  customBox.classList.remove('hidden');
+  document.getElementById('companions-container').innerHTML = '';
 }
+
 function renderFields(countVal) {
-const container = document.getElementById('companions-container');
-container.innerHTML = '';
-const count = parseInt(countVal, 10);
-if (isNaN(count) || count <= 0) return;
-for (let i = 1; i <= count; i++) {
-const box = document.createElement('div');
-box.className = 'bg-[#0c161c] border border-slate-800 rounded-xl p-3 space-y-2';
-box.innerHTML = '<h4 class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">' +
-'<i class="fa-solid fa-user-tag text-[10px]"></i> 동행 친구 ' + i + ' 정보</h4>' +
-'<div class="grid grid-cols-1 sm:grid-cols-3 gap-2">' +
-'<input type="text" required placeholder="친구 ' + i + ' 이름" class="companion-name w-full bg-[#081014] border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-400">' +
-'<select required class="companion-gender w-full bg-[#081014] border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-emerald-400">' +
-'<option value="">성별 선택</option><option value="남성">남성</option><option value="여성">여성</option></select>' +
-'<input type="number" min="1" max="100" required placeholder="나이" class="companion-age w-full bg-[#081014] border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-400">' +
-'</div>';
-container.appendChild(box);
+  const container = document.getElementById('companions-container');
+  container.innerHTML = '';
+  const count = parseInt(countVal, 10);
+  if (isNaN(count) || count <= 0) return;
+  for (let i = 1; i <= count; i++) {
+    const box = document.createElement('div');
+    box.className = 'bg-[#0c161c] border border-slate-800 rounded-xl p-3 space-y-2';
+    box.innerHTML = '<h4 class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">' +
+    '<i class="fa-solid fa-user-tag text-[10px]"></i> 동행 친구 ' + i + ' 정보</h4>' +
+    '<div class="grid grid-cols-1 sm:grid-cols-3 gap-2">' +
+    '<input type="text" required placeholder="친구 ' + i + ' 이름" class="companion-name w-full bg-[#081014] border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-400">' +
+    '<select required class="companion-gender w-full bg-[#081014] border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-emerald-400">' +
+    '<option value="">성별 선택</option><option value="남성">남성</option><option value="여성">여성</option></select>' +
+    '<input type="number" min="1" max="100" required placeholder="나이" class="companion-age w-full bg-[#081014] border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-400">' +
+    '</div>';
+    container.appendChild(box);
+  }
 }
-}
+
 // Handle Registration Form Submit
-async function handleFormSubmit(e) {
+function handleFormSubmit(e) {
   e.preventDefault();
   const selectedTime = document.getElementById('selected-time').value;
   if (!selectedTime) {
@@ -948,6 +952,7 @@ async function handleFormSubmit(e) {
     showToast('비밀번호는 숫자 4자리로 입력해 주세요!', true);
     return;
   }
+  
   const companionBoxes = document.getElementById('companions-container').children;
   const companionsData = [];
   for (let box of companionBoxes) {
@@ -957,6 +962,7 @@ async function handleFormSubmit(e) {
       age: box.querySelector('.companion-age').value
     });
   }
+  
   let ticketId = '#DPCH-' + Math.floor(1000 + Math.random() * 9000);
   const ticketData = {
     ticketId: ticketId,
@@ -968,10 +974,13 @@ async function handleFormSubmit(e) {
     companionCount: companionsData.length,
     companions: companionsData
   };
+
   const submitBtn = document.getElementById('submit-btn');
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 접수 등록 중...';
+
+  // 비동기 전송 (결과를 기다리지 않고 바로 티켓 표시하여 UI 멈춤 방지)
   if (GOOGLE_SCRIPT_URL) {
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 접수 등록 중...';
     try {
       fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
@@ -981,29 +990,31 @@ async function handleFormSubmit(e) {
           action: 'register',
           ...ticketData
         })
-      });
+      }).catch(err => console.error('Fetch error:', err));
     } catch (err) {
       console.error('Google Sheet error:', err);
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i class="fa-solid fa-ticket"></i> 접수 완료 및 티켓 발급';
     }
   }
 
+  // 로컬 데이터 저장
   try {
     localStorage.setItem('dpch_user_ticket', JSON.stringify(ticketData));
   } catch(err) {}
 
-  document.getElementById('ticket-id').innerText = ticketId;
-  document.getElementById('ticket-name').innerText = userName;
-  document.getElementById('ticket-time').innerText = selectedTime;
-  document.getElementById('ticket-companions').innerText = companionsData.length + '명';
-  document.getElementById('ticket-modal').classList.remove('hidden');
-  disableScroll();
+  setTimeout(() => {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<i class="fa-solid fa-ticket"></i> 접수 완료 및 티켓 발급';
+
+    document.getElementById('ticket-id').innerText = ticketId;
+    document.getElementById('ticket-name').innerText = userName;
+    document.getElementById('ticket-time').innerText = selectedTime;
+    document.getElementById('ticket-companions').innerText = companionsData.length + '명';
+    document.getElementById('ticket-modal').classList.remove('hidden');
+  }, 300);
 }
 
 // Handle Ticket Lookup Submit
-async function handleLookupSubmit(e) {
+function handleLookupSubmit(e) {
   e.preventDefault();
   const name = document.getElementById('lookup-name').value.trim();
   const password = document.getElementById('lookup-password').value.trim();
@@ -1019,27 +1030,26 @@ async function handleLookupSubmit(e) {
         document.getElementById('ticket-time').innerText = data.time;
         document.getElementById('ticket-companions').innerText = (data.companionCount || 0) + '명';
         document.getElementById('ticket-modal').classList.remove('hidden');
-        disableScroll();
         return;
       }
     }
   } catch (err) {}
 
-  showToast('입력하신 정보와 일치하는 티켓이 이 기기에 없습니다.', true);
+  showToast('일치하는 티켓이 없거나 다른 기기에서 작성되었습니다.', true);
 }
 
 function closeTicketModal() {
-document.getElementById('ticket-modal').classList.add('hidden');
-enableScroll();
-document.getElementById('quest-form').reset();
-document.getElementById('companions-container').innerHTML = '';
-document.getElementById('selected-time').value = '';
-document.querySelectorAll('.time-btn').forEach(btn => {
-btn.className = 'time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all';
-});
+  document.getElementById('ticket-modal').classList.add('hidden');
+  document.getElementById('quest-form').reset();
+  document.getElementById('companions-container').innerHTML = '';
+  document.getElementById('selected-time').value = '';
+  document.querySelectorAll('.time-btn').forEach(btn => {
+    btn.className = 'time-btn bg-[#0c161c] border border-slate-800 hover:border-emerald-500/50 rounded-xl py-2 text-[10px] text-slate-300 font-tech font-bold transition-all';
+  });
 }
+
 window.onload = function() {
-loadSavedStamps();
+  loadSavedStamps();
 };
 </script>
 </body>
