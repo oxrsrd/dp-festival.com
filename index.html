@@ -932,77 +932,74 @@ box.innerHTML = '<h4 class="text-xs font-bold text-emerald-400 flex items-center
 container.appendChild(box);
 }
 }
-// Handle Registration Form Submit
+  // Handle Registration Form Submit
 async function handleFormSubmit(e) {
-e.preventDefault();
-const selectedTime = document.getElementById('selected-time').value;
-if (!selectedTime) {
-showToast('방문 희망 시간을 선택해 주세요!', true);
-return;
-}
-const userName = document.getElementById('user-name').value.trim();
-const userGender = document.getElementById('user-gender').value;
-const userAge = document.getElementById('user-age').value;
-const userPassword = document.getElementById('user-password').value.trim();
-if (userPassword.length !== 4) {
-showToast('비밀번호는 숫자 4자리로 입력해 주세요!', true);
-return;
-}
-const companionBoxes = document.getElementById('companions-container').children;
-const companionsData = [];
-for (let box of companionBoxes) {
-companionsData.push({
-name: box.querySelector('.companion-name').value,
-gender: box.querySelector('.companion-gender').value,
-age: box.querySelector('.companion-age').value
-});
-}
-let ticketId = '#DPCH-0011';
-const ticketData = {
-ticketId: ticketId,
-name: userName,
-gender: userGender,
-age: userAge,
-password: userPassword,
-time: selectedTime,
-companionCount: companionsData.length,
-companions: companionsData
-};
-const submitBtn = document.getElementById('submit-btn');
-if (GOOGLE_SCRIPT_URL) {
-submitBtn.disabled = true;
-submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 접수 등록 중...';
-try {
-const response = await fetch(GOOGLE_SCRIPT_URL, {
-method: 'POST',
-headers: { 'Content-Type': 'text/plain' },
-body: JSON.stringify({
-action: 'register',
-...ticketData
-})
-});
-const result = await response.json();
-if (result.result === 'success' && result.ticketId) {
-ticketId = result.ticketId;
-}
-} catch (err) {
-console.error('Google Sheet error:', err);
-} finally {
-submitBtn.disabled = false;
-submitBtn.innerHTML = '<i class="fa-solid fa-ticket"></i> 접수 완료 및 티켓 발급';
-}
-}
-ticketData.ticketId = ticketId;
-try {
-localStorage.setItem('dpch_user_ticket', JSON.stringify(ticketData));
-} catch(err) {}
+  e.preventDefault();
+  const selectedTime = document.getElementById('selected-time').value;
+  if (!selectedTime) {
+    showToast('방문 희망 시간을 선택해 주세요!', true);
+    return;
+  }
+  const userName = document.getElementById('user-name').value.trim();
+  const userGender = document.getElementById('user-gender').value;
+  const userAge = document.getElementById('user-age').value;
+  const userPassword = document.getElementById('user-password').value.trim();
+  if (userPassword.length !== 4) {
+    showToast('비밀번호는 숫자 4자리로 입력해 주세요!', true);
+    return;
+  }
+  const companionBoxes = document.getElementById('companions-container').children;
+  const companionsData = [];
+  for (let box of companionBoxes) {
+    companionsData.push({
+      name: box.querySelector('.companion-name').value,
+      gender: box.querySelector('.companion-gender').value,
+      age: box.querySelector('.companion-age').value
+    });
+  }
+  let ticketId = '#DPCH-' + Math.floor(1000 + Math.random() * 9000);
+  const ticketData = {
+    ticketId: ticketId,
+    name: userName,
+    gender: userGender,
+    age: userAge,
+    password: userPassword,
+    time: selectedTime,
+    companionCount: companionsData.length,
+    companions: companionsData
+  };
+  const submitBtn = document.getElementById('submit-btn');
+  if (GOOGLE_SCRIPT_URL) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 접수 등록 중...';
+    try {
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          action: 'register',
+          ...ticketData
+        })
+      });
+    } catch (err) {
+      console.error('Google Sheet error:', err);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fa-solid fa-ticket"></i> 접수 완료 및 티켓 발급';
+    }
+  }
 
-document.getElementById('ticket-id').innerText = ticketId;
-document.getElementById('ticket-name').innerText = userName;
-document.getElementById('ticket-time').innerText = selectedTime;
-document.getElementById('ticket-companions').innerText = companionsData.length + '명';
-document.getElementById('ticket-modal').classList.remove('hidden');
-disableScroll();
+  try {
+    localStorage.setItem('dpch_user_ticket', JSON.stringify(ticketData));
+  } catch(err) {}
+
+  document.getElementById('ticket-id').innerText = ticketId;
+  document.getElementById('ticket-name').innerText = userName;
+  document.getElementById('ticket-time').innerText = selectedTime;
+  document.getElementById('ticket-companions').innerText = companionsData.length + '명';
+  document.getElementById('ticket-modal').classList.remove('hidden');
+  disableScroll();
 }
 async function handleLookupSubmit(e) {
 e.preventDefault();
