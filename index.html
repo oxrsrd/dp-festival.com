@@ -52,7 +52,7 @@ background-size: 28px 28px;
 .glitch-box {
 animation: glitch-box-flicker 2.5s infinite;
 }
-/* 3D Pixel Arcade Cabinet Outer Frame Styling */
+/* 3D Pixel Arcade Cabinet Outer Frame Styling (조이스틱 영역 제거에 맞춰 깔끔하게 조정) */
 .arcade-cabinet-3d {
 background: linear-gradient(180deg, #121040 0%, #0d1233 40%, #08091a 100%);
 border: 6px solid #2563eb;
@@ -75,46 +75,6 @@ background: #475569;
 border-radius: 50%;
 box-shadow: inset 1px 1px 2px #94a3b8, inset -1px -1px 2px #0f172a;
 }
-/* Joystick 3D Render Style */
-.joystick-container {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-}
-.joystick-base {
-width: 52px;
-height: 24px;
-background: radial-gradient(circle, #475569 0%, #0f172a 100%);
-border: 2px solid #64748b;
-border-radius: 50%;
-box-shadow: inset 0 4px 8px rgba(0,0,0,0.9), 0 5px 10px rgba(0,0,0,0.7);
-}
-.joystick-stick {
-width: 10px;
-height: 32px;
-background: linear-gradient(90deg, #94a3b8 0%, #f1f5f9 50%, #64748b 100%);
-border-radius: 5px;
-}
-.joystick-knob {
-width: 34px;
-height: 34px;
-background: radial-gradient(circle at 35% 35%, #ff4d4d 0%, #cc0000 70%, #800000 100%);
-border-radius: 50%;
-box-shadow: 0 0 16px rgba(255, 0, 0, 0.9), inset -3px -3px 8px rgba(0,0,0,0.7);
-}
-/* Arcade Push Buttons */
-.arcade-btn-3d {
-width: 26px;
-height: 26px;
-border-radius: 50%;
-transition: transform 0.1s ease;
-border: 2px solid rgba(255,255,255,0.3);
-}
-.arcade-btn-red { background: radial-gradient(circle at 35% 35%, #ff6b6b 0%, #d90429 70%); box-shadow: 0 0 10px #d90429, inset 0 -3px 4px rgba(0,0,0,0.5); }
-.arcade-btn-yellow { background: radial-gradient(circle at 35% 35%, #ffea00 0%, #ffb703 70%); box-shadow: 0 0 10px #ffb703, inset 0 -3px 4px rgba(0,0,0,0.5); }
-.arcade-btn-blue { background: radial-gradient(circle at 35% 35%, #4cc9f0 0%, #4361ee 70%); box-shadow: 0 0 10px #4361ee, inset 0 -3px 4px rgba(0,0,0,0.5); }
-.arcade-btn-green { background: radial-gradient(circle at 35% 35%, #52b788 0%, #2dc653 70%); box-shadow: 0 0 10px #2dc653, inset 0 -3px 4px rgba(0,0,0,0.5); }
 /* Zoom-In Portal Transition for Arcade Screen */
 @keyframes zoom-portal-out {
 0% {
@@ -211,7 +171,7 @@ transform: translateY(-2px);
 <canvas id="tv-noise-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-30 transition-opacity duration-1000"></canvas>
 <!-- CRT Scanline Overlay -->
 <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none z-20 opacity-70"></div>
-<!-- ARCADE CABINET FULL FRAME CONTAINER -->
+<!-- ARCADE CABINET FULL FRAME CONTAINER (하단 조이스틱 및 아이콘 영역 제거 완료) -->
 <div id="arcade-cabinet" class="relative w-full max-w-sm sm:max-w-md arcade-cabinet-3d p-4 sm:p-5 flex flex-col justify-between z-30 my-auto shadow-[0_0_60px_rgba(37,99,235,0.5)] transition-transform duration-700">
 <!-- 1. Cabinet Marquee Header -->
 <div class="w-full bg-[#0d0926] border-2 border-pink-500 rounded-xl p-2.5 mb-3 text-center shadow-[0_0_20px_rgba(236,72,153,0.5)] flex items-center justify-between">
@@ -260,27 +220,6 @@ transform: translateY(-2px);
 <div class="cabinet-screw"></div>
 <div class="cabinet-screw"></div>
 </div>
-</div>
-<!-- 3. Arcade Control Deck (3D Render Joystick & Push Buttons) -->
-<div class="w-full bg-[#0a1128] border-2 border-blue-500 rounded-xl p-3 mt-3 flex items-center justify-between shadow-[inset_0_3px_12px_rgba(0,0,0,0.9)]">
-<!-- Joystick Graphics -->
-<div class="joystick-container pl-2">
-<div class="joystick-knob"></div>
-<div class="joystick-stick -mt-1"></div>
-<div class="joystick-base -mt-2"></div>
-</div>
-<!-- Action Push Buttons -->
-<div class="flex flex-col items-end gap-1.5 pr-1">
-<div class="flex gap-2.5">
-<div class="arcade-btn-3d arcade-btn-red"></div>
-<div class="arcade-btn-3d arcade-btn-yellow"></div>
-</div>
-<div class="flex gap-2.5 pr-1">
-<div class="arcade-btn-3d arcade-btn-blue"></div>
-<div class="arcade-btn-3d arcade-btn-green"></div>
-</div>
-</div>
-<span class="font-arcade text-[9px] text-yellow-400 tracking-widest font-bold pr-1">1P START</span>
 </div>
 </div>
 </section>
