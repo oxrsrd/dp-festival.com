@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
 <style>
-/* Custom Fonts /
+/* Custom Fonts */
 .font-arcade { font-family: 'Press Start 2P', cursive; }
 .font-tech { font-family: 'Orbitron', sans-serif; }
 .font-serif-title { font-family: 'Cinzel', serif; }
@@ -24,13 +24,13 @@ color: #ffffff;
 -webkit-tap-highlight-color: transparent;
 overflow-x: hidden;
 }
-/ Dot Grid Background pattern /
+/* Dot Grid Background pattern */
 .bg-dots-pattern {
 background-color: #04080a;
 background-image: radial-gradient(rgba(0, 255, 157, 0.15) 1px, transparent 0);
 background-size: 28px 28px;
 }
-/ Pure Horizontal RGB Shift & Glitch for Text /
+/* Pure Horizontal RGB Shift & Glitch for Text */
 @keyframes rgb-horizontal-shift {
 0% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; transform: translate(0, 0); }
 20% { text-shadow: -3px 0 0 #ff0055, 3px 0 0 #00ff9d; transform: translate(-2px, 1px); }
@@ -40,7 +40,7 @@ background-size: 28px 28px;
 100% { text-shadow: 4px 0 0 #ff0055, -4px 0 0 #00ff9d; transform: translate(0, 0); }
 }
 .rgb-glitch-text { animation: rgb-horizontal-shift 0.18s infinite ease-in-out; }
-/ Glitch Effect for Intro Quest Box /
+/* Glitch Effect for Intro Quest Box */
 @keyframes glitch-box-flicker {
 0% { clip-path: inset(0 0 0 0); transform: translate(0); }
 5% { clip-path: inset(10% 0 85% 0); transform: translate(-3px, 2px); }
@@ -52,7 +52,7 @@ background-size: 28px 28px;
 .glitch-box {
 animation: glitch-box-flicker 2.5s infinite;
 }
-/ 3D Pixel Arcade Cabinet Outer Frame Styling (조이스틱 영역 제거에 맞춰 깔끔하게 조정) /
+/* 3D Pixel Arcade Cabinet Outer Frame Styling */
 .arcade-cabinet-3d {
 background: linear-gradient(180deg, #121040 0%, #0d1233 40%, #08091a 100%);
 border: 6px solid #2563eb;
@@ -67,7 +67,7 @@ border-radius: 20px;
 box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.95), 0 0 20px rgba(37, 99, 235, 0.3);
 position: relative;
 }
-/ Screw / Bolt Accents /
+/* Screw / Bolt Accents */
 .cabinet-screw {
 width: 8px;
 height: 8px;
@@ -75,7 +75,7 @@ background: #475569;
 border-radius: 50%;
 box-shadow: inset 1px 1px 2px #94a3b8, inset -1px -1px 2px #0f172a;
 }
-/ Zoom-In Portal Transition for Arcade Screen /
+/* Zoom-In Portal Transition for Arcade Screen */
 @keyframes zoom-portal-out {
 0% {
 transform: scale(1);
@@ -97,7 +97,7 @@ filter: brightness(5) blur(10px);
 animation: zoom-portal-out 0.8s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
 transform-origin: center center;
 }
-/ Left to Right Fade-In Wipe Transition for Main Content /
+/* Left to Right Fade-In Wipe Transition for Main Content */
 @keyframes wipe-in-left-to-right {
 0% {
 clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
@@ -113,7 +113,7 @@ transform: translateX(0);
 .wipe-in-anim {
 animation: wipe-in-left-to-right 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-/ Card Borders & Styling /
+/* Card Borders & Styling */
 .mint-card-border {
 border: 1px solid rgba(0, 255, 157, 0.3);
 box-shadow: 0 0 20px rgba(0, 255, 157, 0.05);
@@ -123,7 +123,7 @@ background: linear-gradient(135deg, #1f0b38 0%, #0d061a 100%);
 border: 1px solid rgba(168, 85, 247, 0.4);
 box-shadow: 0 0 25px rgba(168, 85, 247, 0.15);
 }
-/ Interactive Stamp Slot Animation /
+/* Interactive Stamp Slot Animation */
 .stamp-slot {
 transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -133,16 +133,16 @@ border-color: #00ff9d;
 box-shadow: 0 0 18px rgba(0, 255, 157, 0.6);
 transform: scale(1.08);
 }
-/ Custom Scrollbar /
+/* Custom Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #04080a; }
 ::-webkit-scrollbar-thumb { background: #00ff9d; border-radius: 4px; }
-/ Fullscreen Fit for Mobile SVH /
+/* Fullscreen Fit for Mobile SVH */
 .full-mobile-screen {
 height: 100vh;
 height: 100svh;
 }
-/ Arcade Tab Active Effects */
+/* Arcade Tab Active Effects */
 .arcade-tab-btn {
 transition: all 0.2s ease-in-out;
 }
@@ -171,7 +171,7 @@ transform: translateY(-2px);
 <canvas id="tv-noise-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-30 transition-opacity duration-1000"></canvas>
 <!-- CRT Scanline Overlay -->
 <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none z-20 opacity-70"></div>
-<!-- ARCADE CABINET FULL FRAME CONTAINER (하단 조이스틱 및 아이콘 영역 제거 완료) -->
+<!-- ARCADE CABINET FULL FRAME CONTAINER -->
 <div id="arcade-cabinet" class="relative w-full max-w-sm sm:max-w-md arcade-cabinet-3d p-4 sm:p-5 flex flex-col justify-between z-30 my-auto shadow-[0_0_60px_rgba(37,99,235,0.5)] transition-transform duration-700">
 <!-- 1. Cabinet Marquee Header -->
 <div class="w-full bg-[#0d0926] border-2 border-pink-500 rounded-xl p-2.5 mb-3 text-center shadow-[0_0_20px_rgba(236,72,153,0.5)] flex items-center justify-between">
@@ -672,6 +672,7 @@ SPECIAL QUEST
 <script>
 // 📌 구글 앱스 스크립트 웹 앱 URL 연동 완료
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_HhJjQ6DkMeM1e2TM0hauT8bytXihl0nRJdPxdeltnYYnppVA-dVSPPwHK-gdarYP/exec";
+
 // Arcade Screen Switching Function
 function switchArcadeTab(tabId) {
 document.querySelectorAll('.arcade-screen-tab').forEach(screen => {
@@ -982,6 +983,7 @@ ticketData.ticketId = ticketId;
 try {
 localStorage.setItem('dpch_user_ticket', JSON.stringify(ticketData));
 } catch(err) {}
+
 document.getElementById('ticket-id').innerText = ticketId;
 document.getElementById('ticket-name').innerText = userName;
 document.getElementById('ticket-time').innerText = selectedTime;
